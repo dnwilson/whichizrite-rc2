@@ -1,0 +1,14 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <div class="span3">
+
+    <span class="profile-details">
+      <h3>About</h3>
+      <li>Sex: <p><%= @user.sex.to_s %></p></li>
+      <li>Location: <p><%= @user.location %></p></li>
+      <li>Bio: <p><%= @user.bio %></p></li>            
+    </span> 
+  </div>
+  
+  <div class="span3"></div>
+</div>

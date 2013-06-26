@@ -1,0 +1,9 @@
+<div id="postModal" class="post-form modal hide fade" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4><%= link_to image_tag("wir_title.png", alt: "title"), root_path, id: "title" %></h4>
+	</div>
+	<div class="myPost">
+		<%= render "shared/postform" %>
+	</div>
+</div>

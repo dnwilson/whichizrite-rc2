@@ -1,0 +1,12 @@
+<span class="comments-list">
+	<% @story.comments.each do |comment| %>
+		<span class="comment-<%= comment.id %>">
+			<%= comment.comment %></a>
+
+			<% if current_user.correct_user? %> |
+			 	<%= link_to 'delete', comment, method: :delete %><br>
+			<% end %> 
+		</span>
+	<% end %>
+	<%= render 'shared/comment_form' %>
+</span>

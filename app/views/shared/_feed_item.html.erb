@@ -1,0 +1,37 @@
+<li id="<%= feed_item.id %>" class="post-item row">
+	<div class="post-pic span2">	
+		<% if feed_item.p_image.exists? %>
+			<%= link_to image_tag(feed_item.p_image.url(:thumb)), post_path(feed_item) %>
+		<% end %>
+	</div>
+	<div class="post-content span5">
+		<div class="post-title-bar row">
+			<span class="post-title span4">
+				<h3><%= link_to feed_item.p_title, post_path(feed_item) %></h3>
+				<span class="post-cat"><%= link_to Category.find(feed_item.cat_id).cat_name %></span>
+			</span>
+			<span class="post-delete span1">
+				<% if current_user == feed_item.user %>
+					<%= link_to feed_item, method: :delete,
+										data: {confirm: "You sure?"},
+										title: feed_item.p_title do %>
+						<i class="icon-trash"></i>
+					<% end %>
+				<% end %>
+			</span>
+		</div>
+		<span class="post-info">by: <span class="post-user"><%= link_to feed_item.user.name, feed_item.user %> on <%= feed_item.created_at.strftime("%b #{feed_item.created_at.day.ordinalize} %Y, %I:%M %p") %></span></span>
+		<p><%= the_excerpt(feed_item) %></p>
+		<span class="post-fb">
+			<%= link_to post_path(feed_item)  do %>
+				<i class="icon-comment"></i><% if feed_item.comments.count > 0 %><span style="margin-left:5px;"><%= feed_item.comments.count %></span><% end %><span style="margin-left:5px;"><%= "comment".pluralize(feed_item.comments.count) %></span>
+			<% end %>
+		</span>
+	</div>
+	
+	<div class="post-vote span1">
+		<div class="myvote-<%= feed_item.id %>">
+			<%= render :partial => "shared/vote", locals: {feed_item: feed_item} %>
+		</div>
+	</div>						
+</li>

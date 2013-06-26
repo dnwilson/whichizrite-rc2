@@ -1,0 +1,36 @@
+<li id="<%= comment.id %>">
+	<span class="comment-item row">
+		<span class="comment-user span1">
+	    	<%= link_to avatar_for(comment.user, 'small'), comment.user %>
+	    </span> 
+		<span class="comment-content span7">
+			<span class="comment-info">
+				<%= link_to comment.user.name, user_path(comment.user) %><span class="bullet"><i class="icon-circle"></i></span>
+				<span class="comment-timestamp">
+					<%= time_ago_in_words(comment.created_at) %> ago
+				</span>					
+			</span>
+			
+			<span class="comment-entry">
+				<%= comment.comment %>						
+			</span>
+
+			<span class="comment-fb">
+				<span class="comment-edit">
+					<span class="comment-delete">
+						<% if user_signed_in? && (current_user == (@post.user) || current_user == comment.user) %>				
+							 	<%= link_to comment, method: :delete do %>
+								delete
+							<% end %>
+						<% end %>
+					</span> | edit							
+				</span>
+				<span class="comment-vote">
+					<%= render :partial => "shared/commentvote", locals: {feed_item: @post}  %>
+				</span>
+			</span><!-- End Feedback -->	
+
+		</span>
+		
+	</span>		
+</li>

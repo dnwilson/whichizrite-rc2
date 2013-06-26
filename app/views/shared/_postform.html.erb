@@ -1,0 +1,19 @@
+<%= simple_form_for(@post, :validate => true, :html => { :class => "post-form inline-form", :multipart => true } ) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.text_field :p_title, placeholder: "Title" %>
+    
+    <%= f.file_field :p_image %>
+
+    <% if current_user.admin? %>
+    	<%= f.collection_select :cat_id, Category.all, :id, :cat_name  %>
+    <% else %>
+    	<%= f.collection_select :cat_id, Category.where("id IS NOT 1"), :id, :cat_name  %>
+    <% end %>
+
+    <%= f.text_field :tag_list, placeholder: "Tags (separated by commas)" %>
+
+    <%= f.text_area :p_body, placeholder: "What do you want to say..." %>
+
+    <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>

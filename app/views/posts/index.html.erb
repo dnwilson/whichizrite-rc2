@@ -1,0 +1,21 @@
+<div class="main row">
+	<!-- Main Post -->
+	<div class="span8">
+		<div class="posts">
+			<%= render "shared/feed" %>
+		</div>
+	</div>
+
+	<!-- Side Bar -->
+	<div class="span4">
+		<% if signed_in? %>
+			<%= current_user.name %>
+			<%= current_user.email %><br>
+			<a href="#postModal" role="button" class="btn btn-primary" data-toggle="modal">Create a new post</a>
+			<%= render "shared/post" %>
+		<% else %>
+			<a href="#loginModal" role="button" class="btn" data-toggle="modal">Login | Sign up</a>
+			<%= render "shared/login" %>
+		<% end %>
+	</div>
+</div>

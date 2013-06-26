@@ -1,0 +1,7 @@
+<% if feed_item.votes_for == feed_item.votes_against %>
+<span class="votecount" style="color: #666666; display:block;" >score</span>
+<% elsif feed_item.votes_for < feed_item.votes_against %>
+<span class="votecount" style= "color: white; background-color:#ca0000;  display:block; font-weight: bold;"><%= feed_item.votes_against - feed_item.votes_for %></span>
+<% else %>
+<span class="votecount" style= "color: white; background-color:#46a546;  display:block; font-weight: bold;"><%= feed_item.votes_for - feed_item.votes_against %></span>
+<% end %>

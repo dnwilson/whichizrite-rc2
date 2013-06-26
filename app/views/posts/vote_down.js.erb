@@ -1,0 +1,1 @@
+$(".myvote-<%= @post.id %>").html("<%= escape_javascript(render partial: 'shared/vote', locals: {feed_item: @post}) %>");

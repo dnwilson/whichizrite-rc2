@@ -1,0 +1,11 @@
+<%= simple_form_for(@comment, remote: true, :validate => true ) do |f| %>
+ <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.text_area :comment, placeholder: "write a comment..." %>
+  </div>
+  <div class="submit">
+    <%= f.submit "Comment", class: "btn btn-large btn-primary pull-right"  %>
+  </div>
+<% end %>
+

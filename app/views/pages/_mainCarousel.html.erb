@@ -1,0 +1,41 @@
+<% if @featured_posts.exists? %>			
+	<!-- Carousel items -->
+	<div class="carousel-inner">
+		<% @featured_posts.each_with_index do |post, i| %>
+			<% if i == 0 %>						
+				<div class="active item row">		
+					<div class="item-img span7">
+						<%= image_tag post.p_image.url(:main) %>
+					</div>
+					<div class="item-desc span5 text-center">
+						<h2><%= post.p_title %></h2>
+					</div>
+				</div>				
+			<% else %>
+				<div class="item row">		
+					<div class="item-img span7">
+						<%= image_tag post.p_image.url(:main) %>
+					</div>
+					<div class="item-desc span5">
+						<h2><%= post.p_title %></h2>
+					</div>
+				</div>
+			<% end %>					
+		<% end %>
+	</div>	
+
+	<!-- Carousel nav -->
+	<a class="carousel-control left" href="#featuredCarousel" data-slide="prev">&lsaquo;</a>
+	<a class="carousel-control right" href="#featuredCarousel" data-slide="next">&rsaquo;</a>
+
+
+	<ol class="carousel-indicators">
+		<% @featured_posts.each_with_index do |post, i| %>	
+			<% if i == 0 %>
+				<li data-target="#featuredCarousel" data-slide-to="<%= i %>" class="active"></li>
+			<% else %>	
+				<li data-target="#featuredCarousel" data-slide-to="<%= i %>"></li>
+			<% end %>
+		<% end %>
+	</ol>			
+<% end %>

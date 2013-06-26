@@ -1,0 +1,15 @@
+<%= simple_form_for(@post, :html => { :class => "post-form", :multipart => true } ) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.input :p_title, placeholder: "Title" %>
+
+    <%= f.file_field :p_image %>
+
+    <%= f.collection_select :cat_id, Category.all, :id, :cat_name  %>
+
+    <%= f.input :tag_list, placeholder: "Tags (separated by commas)" %>
+
+    <%= f.input :p_body, placeholder: "What do you want to say..." %>
+
+    <%= f.submit "Post", class: "btn btn-primary" %>
+<% end %>

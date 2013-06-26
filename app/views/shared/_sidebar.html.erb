@@ -1,0 +1,18 @@
+<span class="sidebar">
+	<ol class="sidebar-list">
+		<li class="sidebar-item-1">
+			<% if signed_in? %>
+				<%= link_to "Create a new post", new_post_path %>
+				<!-- <a href="#postModal" role="button" class="btn btn-primary" data-toggle="modal">Create a new post</a>
+				<%= render "shared/postmodal" %> -->
+			<% else %>
+				<a href="#loginModal" role="button" class="btn" data-toggle="modal">Login | Sign up</a>
+				<%= render "shared/login" %>
+			<% end %>
+		</li>
+		<li class="sidebar-item-2">
+			<img src="http://www.blogcdn.com/www.joystiq.com/media/2013/04/megamanpillow.jpg">
+		</li>
+		<li class="sidebar-item-3"></li>
+	</ol>
+</span>

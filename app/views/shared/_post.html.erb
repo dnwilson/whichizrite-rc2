@@ -1,0 +1,27 @@
+<div id="postModal" class="post-form modal hide fade" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4><%= link_to image_tag("wir_title.png", alt: "title"), root_path, id: "title" %></h4>
+	</div>
+	<div class="myPost">
+		<%= simple_form_for(@post, :html => { :class => "post-form", :multipart => true } ) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+
+		    <%= f.text_field :p_title, placeholder: "Title" %>
+
+		    <%= f.file_field :p_image %>
+
+		    <% if current_user.admin? %>
+		    	<%= f.collection_select :cat_id, Category.all, :id, :cat_name  %>
+		    <% else %>
+		    	<%= f.collection_select :cat_id, Category.where("id IS NOT 7"), :id, :cat_name  %>
+		    <% end %>
+
+		    <%= f.text_field :tag_list, placeholder: "Tags (separated by commas)" %>
+
+		    <%= f.text_area :p_body, placeholder: "What do you want to say..." %>
+
+		    <%= f.submit "Post", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+</div>
