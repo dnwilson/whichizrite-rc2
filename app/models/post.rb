@@ -14,6 +14,12 @@
 #
 
 class Post < ActiveRecord::Base
+
+  include AutoHtml
+  include PgSearch
+
+  multisearchable :against => [:p_title, :p_body]
+
   attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, :cat_id, :user_id, :tag_list
 
   has_attached_file :p_image, styles: {main: "250x250>", large: "600x600>", thumb: "125x125#"},

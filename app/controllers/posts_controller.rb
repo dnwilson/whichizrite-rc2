@@ -4,11 +4,22 @@ class PostsController < ApplicationController
 	def show
 		@post = Post.find(params[:id])
         @comment = Comment.new
+        @categories = Category.all
 		respond_to do |format|
             format.html # show.html.erb
             format.json {render json: @post}
         end  
 	end
+
+    def index
+        if params[:tag]
+            @posts = Post.tagged_with(params[:tag])
+        else
+            @pg_search_documents = PgSearch.multisearch(params[:query])
+            @query = params[:query]
+            @posts = Post.all 
+        end       
+    end
 
     def new
         if current_or_guest_user.name == "Guest"
@@ -44,14 +55,6 @@ class PostsController < ApplicationController
         	end
         end
 	end
-
-    def index
-        if params[:tag]
-            @posts = Post.tagged_with(params[:tag])
-        else
-            @posts = Post.all
-        end
-    end
 
     def edit
         if current_or_guest_user.name == "Guest"

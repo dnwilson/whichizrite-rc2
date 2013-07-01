@@ -1,21 +1,23 @@
 <div class="main row">
 	<!-- Main Post -->
 	<div class="span8">
+		Search results for "<%= @query %>"
 		<div class="posts">
-			<%= render "shared/feed" %>
+			<% if @pg_search_documents.any? %>
+				<ol class="posts-list">
+					<% @pg_search_documents.each do |search_item|
+						post = Post.find(search_item.searchable_id) %>
+						<%= render :partial => "post", locals: {post: post}  %>
+					<% end %>
+				</ol>
+			<% else %>
+				Could not find anything matching what you searched for.
+			<% end %>
 		</div>
 	</div>
 
 	<!-- Side Bar -->
 	<div class="span4">
-		<% if signed_in? %>
-			<%= current_user.name %>
-			<%= current_user.email %><br>
-			<a href="#postModal" role="button" class="btn btn-primary" data-toggle="modal">Create a new post</a>
-			<%= render "shared/post" %>
-		<% else %>
-			<a href="#loginModal" role="button" class="btn" data-toggle="modal">Login | Sign up</a>
-			<%= render "shared/login" %>
-		<% end %>
+		<%= render "shared/sidebar" %>
 	</div>
 </div>

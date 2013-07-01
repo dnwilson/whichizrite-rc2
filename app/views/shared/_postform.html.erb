@@ -8,7 +8,7 @@
     <% if current_user.admin? %>
     	<%= f.collection_select :cat_id, Category.all, :id, :cat_name  %>
     <% else %>
-    	<%= f.collection_select :cat_id, Category.where("id IS NOT 1"), :id, :cat_name  %>
+    	<%= f.collection_select :cat_id, Category.where("id != 1"), :id, :cat_name  %>
     <% end %>
 
     <%= f.text_field :tag_list, placeholder: "Tags (separated by commas)" %>

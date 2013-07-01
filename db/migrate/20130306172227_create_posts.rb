@@ -6,7 +6,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text :p_body
       t.integer :user_id
       t.boolean :anonymous_post, :default => false
-      t.string :cat_id
+      t.integer :cat_id
 
       t.timestamps
     end
