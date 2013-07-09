@@ -126,6 +126,13 @@ nav{
 	}
 }
 
+.navbar .nav li.dropdown.open > .dropdown-toggle, 
+.navbar .nav li.dropdown.active > .dropdown-toggle, 
+.navbar .nav li.dropdown.open.active > .dropdown-toggle {
+	background-color: transparent;
+	color: white;
+}
+
 .dropdown-menu {
 	position: absolute;
 	top: 100%;
@@ -140,9 +147,9 @@ nav{
 	background-color: #fff;
 	border: 0px solid #cccccc;
 	border: 0px solid rgba(0, 0, 0, 0.2);
-	-webkit-border-radius: none; //6px;
-	-moz-border-radius: none; //6px;
-	border-radius: none; //6px;
+	-webkit-border-radius: 0px; //6px;
+	-moz-border-radius: 0px; //6px;
+	border-radius: 0px; //6px;
 	-webkit-box-shadow: none; //0 5px 10px rgba(0, 0, 0, 0.2);
 	-moz-box-shadow: none; //0 5px 10px rgba(0, 0, 0, 0.2);
 	box-shadow: none; //0 5px 10px rgba(0, 0, 0, 0.2);
@@ -387,9 +394,14 @@ input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   height: 40px;
   //padding: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 12.5px;
   @include box_sizing;
 }
+
+.control-group.string.optional, .control-group.text.optional {
+	margin-bottom: 0px;
+}
+
 
 input[type="button"], input[type="reset"], input[type="submit"] {
 width: 100px;
@@ -1023,6 +1035,11 @@ ol.carousel-pills{
 	
 }
 
+/* Index Page */
+
+
+/* End Index Page */
+
 /* Comments list */
 .comments-list{
 	list-style: none;
@@ -1325,37 +1342,6 @@ ol.carousel-pills{
     }
 }
 
-
-//Notifications
-
-.dropdown-menu{
-	border: 1px solid $gray;
-	padding: 0px 0;
-	-webkit-border-radius: 0px;
-	-moz-border-radius: 0px;
-	border-radius: 0px;
-	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
-	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
-	-webkit-background-clip: padding-box;
-	-moz-background-clip: padding;
-	background-clip: padding-box;
-	li a:hover{
-		background-color: $mainGreen;
-		color: white;
-	}
-}
-
-li.dropdown-links.notifications{
-	font-size: 12px;
-	display: inline-block;
-	width: 200px;
-	text-align: center;
-	a{
-		padding: 5px;
-	}
-}
-
 //Users list pages
 ul.users{
 	list-style: none;
@@ -1391,3 +1377,29 @@ ul.users{
 		}
 	}
 }
+/* End User Edit Page */
+
+
+
+/* New Post Page */
+.pf-container{
+	background-color: white;
+	.pf-header{
+		border-bottom: 1px solid $gray;
+		h3{
+		  color: $green;
+		  margin: 0 0 0 20px;
+		  padding-bottom: 0px;
+		  text-align: left;
+		  font-weight: bold;
+		}
+		p{
+			margin: 0 20px 10px 20px;
+		}
+	}
+	.post-form{
+		margin: 20px;
+		padding-bottom: 20px;
+	}
+}
+/* End New Post Page */

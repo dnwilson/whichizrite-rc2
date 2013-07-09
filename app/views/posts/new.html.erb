@@ -1,15 +1,17 @@
-<%= simple_form_for(@post, :html => { :class => "post-form", :multipart => true } ) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<div class="main row">
+	<!-- Main Post -->
+	<div class="span8">
+		<div class="pf-container">
+			<div class="pf-header">
+				<h3>Create a new story</h3>
+				<p>Feel free to express yourself. You can use the anonymous checkbox to keep your identity a secret.</p>
+		    </div>
+			<%= render "post_form" %>
+		</div>
+	</div>
 
-    <%= f.input :p_title, placeholder: "Title" %>
-
-    <%= f.file_field :p_image %>
-
-    <%= f.collection_select :cat_id, Category.all, :id, :cat_name  %>
-
-    <%= f.input :tag_list, placeholder: "Tags (separated by commas)" %>
-
-    <%= f.input :p_body, placeholder: "What do you want to say..." %>
-
-    <%= f.submit "Post", class: "btn btn-primary" %>
-<% end %>
+	<!-- Side Bar -->
+	<div class="span4">
+		<%= render "shared/sidebar" %>
+	</div>
+</div>

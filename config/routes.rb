@@ -10,6 +10,8 @@ Whichizrite::Application.routes.draw do
     get "logout",   :to => "users/sessions#destroy"
     get "register", :to => "users/registrations#new"
     get "delete",   :to => "users/registrations#destroy"
+    get "settings", :to => "users/registrations#edit"
+    get "settings/password", :to => "users/registrations#password"
   end 
 
   # The priority is based upon order of creation:

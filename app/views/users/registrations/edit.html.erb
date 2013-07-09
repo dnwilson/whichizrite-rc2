@@ -1,27 +1,61 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<% provide(:title, 'Profile Settings') %>
+<div class="row">
+  <div class="user-edit-nav span4">
+    <ul class="nav nav-pills nav-stacked">
+      <li class="<%= 'active' if current_page?(settings_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Account'.html_safe, settings_path %>
+      </li>
+      <li class="<%= 'active' if current_page?(settings_password_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Password'.html_safe, settings_password_path %>
+      </li>
+    </ul>
+  </div>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= f.error_notification %>
+  <div class="user-edit span8">
+    <div class="edit-header">
+      <h2>Profile</h2>
+      <p>Keep this information accurate and up to date</p>
+    </div>
 
-  <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal", :multipart => true, :method => :put }) do |f| %>
+      <%= f.error_notification %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      <div class="img-polaroid center">
+        <% if @user.avatar.nil? %>
+          <img src="/fallback/default.png">
+          <%= f.file_field :avatar, title:"Upload" %>
+        <% else %>
+          <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="fileupload-preview thumbnail" style="width:100px; height:100px;"><img src="<%= @user.avatar.url("small") %>" /></div>
+            <div class="fileupload-controls">
+              <span class="btn btn-file">
+                <span class="fileupload-new">Select Image</span><span class="fileupload-exists">Change</span><input id="user_avatar" name="user[avatar]" title="Upload" type="file" />
+              </span>
+              <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+            </div>            
+          </div> 
+        <% end %>
+      </div><br />
+
+      <%= f.input :name %>
+      <%= f.input :username %>
+      <%= f.input :email %>
+      <%= f.input :dob, input_html: {:value => Date.today.strftime('%m/%d/%Y'), id: 'datepicker'} %>
+
+      <%= f.label :sex %>
+      <span class="sex-btn">
+        <%= f.collection_radio_buttons(:sex, [['Male', 'male',], ['Female', 'female']], :first, :last).html_safe do |b| b.label {b.text + b.radio_button } end %>
+      </span>
+      
+      <%= f.input :about_me %>
+
+      <div class="center">
+        <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+
+        <h3>Cancel my account</h3>
+
+        <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+      </div>
     <% end %>
-
-    <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
-    <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+</div>
