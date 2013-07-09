@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627205421) do
+ActiveRecord::Schema.define(:version => 20130709191034) do
 
   create_table "assets", :force => true do |t|
     t.integer  "post_id"
@@ -48,9 +48,11 @@ ActiveRecord::Schema.define(:version => 20130627205421) do
     t.integer  "user_id"
     t.integer  "post_id"
     t.string   "comment"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.string   "comment_html"
+    t.integer  "upcount",      :default => 0
+    t.integer  "downcount",    :default => 0
   end
 
   add_index "comments", ["post_id", "user_id", "id"], :name => "index_comments_on_post_id_and_user_id_and_id"

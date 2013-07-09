@@ -26,7 +26,9 @@
 					</span> | edit							
 				</span>
 				<span class="comment-vote">
-					<%= render :partial => "shared/commentvote", locals: {feed_item: @post}  %>
+					<div class="comment-vote-<%= comment.id %>">
+						<%= render :partial => "shared/commentvote", locals: {comment: comment}  %>
+					</div>	
 				</span>
 			</span><!-- End Feedback -->	
 

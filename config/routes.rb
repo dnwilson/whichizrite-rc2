@@ -30,7 +30,13 @@ Whichizrite::Application.routes.draw do
     end
   end
 
-  resources :comments
+  resources :comments do
+    member do
+      get :vote_up
+      get :vote_down
+      get :unvote
+    end
+  end
   resources :votes
 
   get 'tags/:tag', to: 'posts#index', as: :tag
