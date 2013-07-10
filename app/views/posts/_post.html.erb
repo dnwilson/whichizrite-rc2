@@ -8,7 +8,7 @@
 		<div class="post-title-bar row">
 			<span class="post-title span4">
 				<h3><%= link_to post.p_title, post_path(post) %></h3>
-				<span class="post-cat"><%= link_to Category.find(post.cat_id).cat_name %></span>
+				<span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span>
 			</span>
 			<span class="post-delete span1">
 				<% if current_user == post.user %>

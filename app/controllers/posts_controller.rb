@@ -14,10 +14,12 @@ class PostsController < ApplicationController
     def index
         if params[:tag]
             @posts = Post.tagged_with(params[:tag])
-        else
+        elsif params[:search]
             @pg_search_documents = PgSearch.multisearch(params[:query])
             @query = params[:query]
             @posts = Post.all 
+        else
+            @posts = Post.cat_list(params[:category])
         end       
     end
 

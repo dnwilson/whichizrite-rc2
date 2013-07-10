@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
 
   multisearchable :against => [:p_title, :p_body]
 
-  attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, :cat_id, :user_id, :tag_list
+  attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, :category_id, :user_id, :tag_list
 
   has_attached_file :p_image, styles: {main: "250x250>", large: "600x600>", thumb: "125x125#"},
   							  url: "/assets/images/:id/:style/:basename.:extension",
@@ -52,6 +52,11 @@ class Post < ActiveRecord::Base
     else
        self.votes_against - self.votes_for
     end 
+  end
+
+  def self.cat_list(name)
+    cat = Category.find_by_cat_name(name)
+    where("category_id = #{cat.id}")
   end
 
   def self.tagged_with(name)

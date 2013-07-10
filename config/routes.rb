@@ -39,6 +39,8 @@ Whichizrite::Application.routes.draw do
   end
   resources :votes
 
+  get 'categories/:category', to: 'posts#index', as: :category
+
   get 'tags/:tag', to: 'posts#index', as: :tag
 
   root :to => 'pages#home'

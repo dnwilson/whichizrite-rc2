@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(:version => 20130709191034) do
     t.text     "p_body"
     t.integer  "user_id"
     t.boolean  "anonymous_post",       :default => false
-    t.integer  "cat_id"
+    t.integer  "category_id"
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
     t.string   "p_image_file_name"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20130709191034) do
     t.string   "p_body_html"
   end
 
-  add_index "posts", ["id", "cat_id"], :name => "index_posts_on_id_and_cat_id"
+  add_index "posts", ["id", "category_id"], :name => "index_posts_on_id_and_category_id"
   add_index "posts", ["user_id", "id"], :name => "index_posts_on_user_id_and_id"
 
   create_table "taggings", :force => true do |t|

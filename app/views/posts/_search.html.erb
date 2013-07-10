@@ -1,0 +1,13 @@
+Search results for "<%= @query %>"
+<div class="posts">
+	<% if @pg_search_documents.any? %>
+		<ol class="posts-list">
+			<% @pg_search_documents.each do |search_item|
+				post = Post.find(search_item.searchable_id) %>
+				<%= render :partial => "post", locals: {post: post}  %>
+			<% end %>
+		</ol>
+	<% else %>
+		Could not find anything matching what you searched for.
+	<% end %>
+</div>

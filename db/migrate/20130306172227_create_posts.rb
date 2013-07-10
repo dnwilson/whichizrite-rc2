@@ -6,12 +6,12 @@ class CreatePosts < ActiveRecord::Migration
       t.text :p_body
       t.integer :user_id
       t.boolean :anonymous_post, :default => false
-      t.integer :cat_id
+      t.integer :category_id
 
       t.timestamps
     end
 
     add_index :posts, [:user_id, :id]
-    add_index :posts, [:id, :cat_id]
+    add_index :posts, [:id, :category_id]
   end
 end

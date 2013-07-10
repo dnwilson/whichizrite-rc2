@@ -1,0 +1,8 @@
+<div class="channels">
+  <ul class="nav nav-pills channel-list">
+    <li class="<%= 'active' if current_page?(:controller => 'pages', :action => 'home') %>"><%= link_to "Latest", root_path %></li>
+    <% Category.all.each do |category| %>
+        <li class="<%= 'active' if current_page?(:controller => 'posts', :action => 'index', :category => category.cat_name ) %>"><%= link_to category.cat_name, category_path(category.cat_name), :category => category.id %></li>
+    <% end %>
+  </ul>
+</div>

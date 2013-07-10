@@ -88,6 +88,7 @@ $lightestRed: lighten($red, 70%);
 
 	background-image: none;
 	background-repeat: no-repeat;
+	height: 46px;
 	filter: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
@@ -131,6 +132,35 @@ nav{
 .navbar .nav li.dropdown.open.active > .dropdown-toggle {
 	background-color: transparent;
 	color: white;
+}
+
+.channels{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	ul.nav.nav-pills{
+		margin-bottom: 10px;
+		overflow: hidden;
+		.active a{
+			background-color: white;
+			color: $mainGreen;
+		}
+		li {
+			margin-left: auto;
+			margin-right: auto;
+			a{
+				padding: 4px 6px;
+				line-height: 20px;
+				border-right: 2px solid $lightestGreen;
+				color: $grayDarker;
+				&:hover{
+					background-color: $grayMediumLight;
+					color: white;
+				}
+			}
+			
+		}
+	}
 }
 
 .dropdown-menu {
@@ -218,7 +248,7 @@ html {
 
 body {
 	padding-top: 45px;
-	margin-top: 20px;
+	margin-top: 10px;
 	position: relative;
   	font-family: questrialregular;
   	background-color: $lightestGreen;
@@ -692,7 +722,7 @@ ol.carousel-pills{
 				width: 401px;
 				padding: 5px 5px 5px 10px;
 				height: 130px;
-				border-right: 1px solid $grayMediumLight;
+				//border-right: 1px solid $grayMediumLight;
 				.post-info{
 					font-size: 12px;
 					margin: 0px 10px 10px 0px;
@@ -835,8 +865,9 @@ ol.carousel-pills{
 				display: inline-block;
 				float: right;
 				text-align: center;
-				height: 127px;
+				height: 140px;
 				font-size: 14px;
+				border-left: 1px solid $grayMediumLight;
 			}
 		}
 		.divider{
@@ -858,7 +889,7 @@ ol.carousel-pills{
 .post-item{
 	background-color: white;
 	.post-header{
-		margin: 10px 20px 0px 20px;
+		margin: 0px 20px 0px 20px;
 		.post-title{
 			margin-left: 0px;
 			width: 510px;

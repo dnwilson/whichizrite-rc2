@@ -5,7 +5,7 @@
 			<div class="post-header row">
 				<span class="post-title span7">
 					<h2><%= @post.p_title %></h2>
-					<span class="post-cat"><%= link_to Category.find(@post.cat_id).cat_name %></span>
+					<span class="post-cat"><%= link_to Category.find(@post.category_id).cat_name %></span>
 				</span>
 				<span class="delete-post span1">
 					<li id="fat-menu" class="dropdown">

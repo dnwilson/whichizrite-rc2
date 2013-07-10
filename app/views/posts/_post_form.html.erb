@@ -5,7 +5,7 @@
 
     <%= f.file_field :p_image %>
 
-    <%= f.collection_select :cat_id, Category.all, :id, :cat_name  %>
+    <%= f.collection_select :category_id, Category.all, :id, :cat_name  %>
 
     <%= f.input :tag_list, placeholder: "Tags (separated by commas)" %>
 

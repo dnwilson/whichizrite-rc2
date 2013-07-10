@@ -1,9 +1,7 @@
-<div id="featuredCarousel" class="carousel">
-</div>
-
 <div class="main row">
 	<!-- Main Feed -->
 	<div class="span8">
+		<%= render partial: "shared/channel_nav", locals: {category: "Latest"} %>
 		<div class="posts">
 			<%= render "shared/feed" %>
 		</div>
