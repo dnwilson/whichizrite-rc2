@@ -1,0 +1,19 @@
+<div class="profile-info row">
+	<div class="profile-pic span2">
+		<%= link_to avatar_for(@user, 'med'), @user %>
+		<%= render "follow_form" %>
+	</div>
+	<div class="profile-dets span6">
+		<div class="about-user">
+			<p><%= @user.name %></p>
+			<i class="icon-home" style="padding-right: 3px"></i><%= @user.location %><span class="bullet"><i class="icon-circle"></i></span><% if @user.sex == "Male" %><i class="icon-male" style="padding-right: 3px"></i>Male<% elsif @user.sex == "Female" %><i class="icon-female" style="padding-right: 3px"></i>Female<% end %><br>
+				
+			<%= @user.about_me %>
+		</div>
+		<div class="subscribers row">
+			<div class="followers span3">Followers</div>
+			<div class="following span3">Following</div>
+		</div>
+
+	</div>
+</div>

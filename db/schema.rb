@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709191034) do
+ActiveRecord::Schema.define(:version => 20130711212032) do
 
   create_table "assets", :force => true do |t|
     t.integer  "post_id"
@@ -56,6 +56,19 @@ ActiveRecord::Schema.define(:version => 20130709191034) do
   end
 
   add_index "comments", ["post_id", "user_id", "id"], :name => "index_comments_on_post_id_and_user_id_and_id"
+
+  create_table "follows", :force => true do |t|
+    t.integer  "followable_id",                      :null => false
+    t.string   "followable_type",                    :null => false
+    t.integer  "follower_id",                        :null => false
+    t.string   "follower_type",                      :null => false
+    t.boolean  "blocked",         :default => false, :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "follows", ["followable_id", "followable_type"], :name => "fk_followables"
+  add_index "follows", ["follower_id", "follower_type"], :name => "fk_follows"
 
   create_table "pg_search_documents", :force => true do |t|
     t.text     "content"
@@ -125,6 +138,11 @@ ActiveRecord::Schema.define(:version => 20130709191034) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "country_name"
+    t.string   "location"
+    t.string   "provider"
+    t.string   "uid"
+    t.boolean  "private_followable",     :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :name, :password, :password_confirmation, :remember_me, :login
+  attr_accessible :username, :email, :name, :password, :password_confirmation, :remember_me, :login,
+                  :about_me, :dob, :avatar, :location, :country_name, :sex
   
   attr_accessor :login
 
@@ -39,6 +40,9 @@ class User < ActiveRecord::Base
   has_many :comments
 
   acts_as_voter
+
+  acts_as_follower
+  acts_as_followable_plus
 
   has_attached_file :avatar, styles: {thumb: "30x30#", small: "100x100#", 
                                     med:"350x350#", large:"500x500>"},

@@ -40,14 +40,18 @@
       <%= f.input :name %>
       <%= f.input :username %>
       <%= f.input :email %>
-      <%= f.input :dob, input_html: {:value => Date.today.strftime('%m/%d/%Y'), id: 'datepicker'} %>
+      <%= f.input :dob, input_html: { id: 'datepicker'} %>
 
       <%= f.label :sex %>
       <span class="sex-btn">
         <%= f.collection_radio_buttons(:sex, [['Male', 'male',], ['Female', 'female']], :first, :last).html_safe do |b| b.label {b.text + b.radio_button } end %>
       </span>
       
-      <%= f.input :about_me %>
+      <%= f.input :location %>
+      <%= f.label :country_name %>
+      <%= f.country_select :country_name %>
+
+      <%= f.input :about_me, as: :text %>
 
       <div class="center">
         <%= f.submit "Update", class: "btn btn-large btn-primary" %>
