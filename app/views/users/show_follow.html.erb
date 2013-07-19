@@ -1,32 +1,40 @@
-<% provide(:title, @title) %>
-
-<div class="row">
-	<aside class="span4">
-		<section>
-			<%= gravatar_for @user %>
-			<h1><%= @user.name %></h1>
-			<span><%= link_to "view my profile", @user %></span>
-			<span><b>Microposts:</b><%= @user.microposts.count %></span>
-		</section>
-		<section>
-			<%= render 'shared/stats' %>
-			<% if @users.any? %>
-				<div class="user_avatars">
-					<% @users.each do |user| %>
-						<%= link_to gravatar_for(user, size:30), user %>
-					<% end %>
-				</div>
-			<% end %>
-		</section>
-	</aside>
-
+<% provide(:title, @user.name) %>
+<div class="main row">
 	<div class="span8">
-		<h3><%= @title %></h3>
-		<% if @users.any? %>
-				<ul class="users">
-					<%= render @users %>
+		<%= render "profile" %>
+		<div class="profile-chan">
+			<h3>Following</h3>
+			<% if @users.any? %>
+				<ul class="users" >					
+					<% @users.each do |user| %>
+						<li id="<%= user.id %>">
+							<div class="user row">
+								<div class="pic span1">
+									<%= link_to image_tag(user.avatar.url("med")), user_path(user) %>
+								</div>
+								<div class="info span6">
+									<%= link_to user.name, user_path(user) %><br>
+									<%= user.sex %> | <%= user.location %>
+								</div>
+
+								<div class="follow span1">
+									<% if current_user.following?(user) %>
+										<%= link_to "Unfollow", unfollow_user_path(user), :class => "btn btn-large" %>
+									<% else %>
+										<%= link_to "Follow", follow_user_path(user), :class => "btn btn-large btn-primary" %>
+									<% end %>
+								</div>
+							</div>							
+						</li>
+					<% end %>
 				</ul>
-				<%= will_paginate %>
-		<% end %>
+				<%= will_paginate @users %>
+			<% end %>
+		</div>
+	</div>
+
+	<!-- Side Bar -->
+	<div class="span4">
+		<%= render "shared/sidebar" %>
 	</div>
 </div>

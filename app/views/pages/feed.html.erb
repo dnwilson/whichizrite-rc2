@@ -1,0 +1,15 @@
+<% provide(:title, 'My Feed') %>
+<div class="main row">
+	<!-- Main Feed -->
+	<div class="span8">
+		<%= render partial: "shared/channel_nav", locals: {category: "Latest"} %>
+		<div class="posts">
+			<%= render "shared/myfeed" %>
+		</div>
+	</div>
+
+	<!-- Side Bar -->
+	<div class="span4">
+		<%= render "shared/sidebar" %>
+	</div>
+</div>

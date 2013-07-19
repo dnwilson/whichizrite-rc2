@@ -4,7 +4,7 @@
 			<!-- If signed in and voted for -->
 			<span class="vote-items">
 				<div class="like">
-					<%= link_to vote_up_post_path(feed_item), class: "wir", style: "color: #46a546;  font-size: 16px;", remote: true do %>
+					<%= link_to unvote_post_path(feed_item), class: "wir", style: "color: #46a546;  font-size: 16px;", remote: true do %>
 						<i class="icon-thumbs-up"></i>
 					<% end %>
 				</div><div class="stats"><%= render :partial => "shared/votecount", locals: {feed_item: feed_item}  %>

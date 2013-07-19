@@ -21,6 +21,15 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  avatar_file_name       :string(255)
+#  avatar_content_type    :string(255)
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
+#  country_name           :string(255)
+#  location               :string(255)
+#  provider               :string(255)
+#  uid                    :string(255)
+#  private_followable     :boolean          default(FALSE)
 #
 
 require 'test_helper'

@@ -14,6 +14,8 @@ Whichizrite::Application.routes.draw do
     get "settings/password", :to => "users/registrations#password"
   end 
 
+  match 'feed', to: 'pages#feed'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -21,6 +23,8 @@ Whichizrite::Application.routes.draw do
     member do
       get :follow
       get :unfollow
+      get :followers
+      get :following
     end
   end
   

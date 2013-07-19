@@ -21,6 +21,15 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  avatar_file_name       :string(255)
+#  avatar_content_type    :string(255)
+#  avatar_file_size       :integer
+#  avatar_updated_at      :datetime
+#  country_name           :string(255)
+#  location               :string(255)
+#  provider               :string(255)
+#  uid                    :string(255)
+#  private_followable     :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
@@ -41,12 +50,12 @@ class User < ActiveRecord::Base
 
   acts_as_voter
 
-  acts_as_follower
+  acts_as_follower_plus
   acts_as_followable_plus
 
   has_attached_file :avatar, styles: {thumb: "30x30#", small: "100x100#", 
                                     med:"350x350#", large:"500x500>"},
-                  default_url: "/assets/no-image.png",
+                  default_url: "/assets/default/:style/no-image.png",
                   url:  "/assets/images/users/:id/album/:style/:basename.:extension",
                   path: ":rails_root/public/assets/images/users/:id/album/:style/:basename.:extension"
 
@@ -56,9 +65,8 @@ class User < ActiveRecord::Base
 
 
   def feed
-    Post.all
+    Post.from_users_followed_by(self)
   end
-
   
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

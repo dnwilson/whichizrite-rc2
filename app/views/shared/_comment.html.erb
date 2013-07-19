@@ -16,20 +16,20 @@
 			</span>
 
 			<span class="comment-fb">
-				<span class="comment-edit">
-					<span class="comment-delete">
-						<% if user_signed_in? && (current_user == (@post.user) || current_user == comment.user) %>				
-							 	<%= link_to comment, method: :delete do %>
-								delete
-							<% end %>
-						<% end %>
-					</span> | edit							
-				</span>
 				<span class="comment-vote">
 					<div class="comment-vote-<%= comment.id %>">
 						<%= render :partial => "shared/commentvote", locals: {comment: comment}  %>
 					</div>	
 				</span>
+				<% if user_signed_in? && (current_user == (@post.user) || current_user == comment.user) %>	
+					<span class="comment-edit">
+						<span class="comment-delete">										
+							<%= link_to comment, method: :delete do %>
+								delete
+							<% end %>
+						</span> | edit							
+					</span>
+				<% end %>				
 			</span><!-- End Feedback -->	
 
 		</span>

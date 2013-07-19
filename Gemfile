@@ -49,6 +49,7 @@ group :development, :test do
 	gem 'spork'
 	gem 'factory_girl_rails'
 	gem 'forgery'
+	gem 'faker'
 end
 
 #Test gem on windows

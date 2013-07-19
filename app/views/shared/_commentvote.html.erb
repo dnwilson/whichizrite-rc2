@@ -3,8 +3,8 @@
 		<% if current_user.voted_for?(comment) %>
 			<!-- If signed in and voted for -->
 			<span class="vote-items">
-				<div class="like" style="border: 1px solid #46a546;">
-					<%= link_to vote_up_comment_path(comment), class: "wir", style: "color: #46a546;  font-size: 16px;", remote: true do %>
+				<div class="like">
+					<%= link_to unvote_comment_path(comment), class: "wir", style: "color: #46a546;  font-size: 12px;", remote: true do %>
 						<i class="icon-thumbs-up" style="padding:2px;"></i>
 					<% end %>
 				</div>
@@ -29,9 +29,9 @@
 				<div class="stats">
 					<%= render :partial => "shared/commentvotecount", locals: {comment: comment}  %>
 				</div>
-				<div class="dislike" style=" border: 1px solid #9d261d;">
-					<%= link_to unvote_post_path(comment), class: "wiw", style: "color: #9d261d;", remote: true do %>
-						<i class="icon-thumbs-down" style="padding:2px; font-size: 16px;"></i>
+				<div class="dislike">
+					<%= link_to unvote_comment_path(comment), class: "wiw", style: "color: #9d261d;", remote: true do %>
+						<i class="icon-thumbs-down" style="padding:2px; font-size: 12px;"></i>
 					<% end %>
 				</div>
 			</span>
@@ -41,7 +41,7 @@
 		<!-- If signed in but hasn't voted yet -->
 		<span class="vote-items">
 			<div class="like">
-				<%= link_to vote_up_comment_path(comment) do %>
+				<%= link_to vote_up_comment_path(comment), remote: true do %>
 					<i class="icon-thumbs-up" style="padding:2px;"></i>
 				<% end %>
 			</div>
@@ -49,7 +49,7 @@
 				<%= render :partial => "shared/commentvotecount", locals: {comment: comment}  %>
 			</div>
 			<div class="dislike">
-				<%= link_to vote_down_comment_path(comment) do %>
+				<%= link_to vote_down_comment_path(comment), remote: true do %>
 					<i class="icon-thumbs-down" style="padding:2px;"></i>
 				<% end %>
 			</div>

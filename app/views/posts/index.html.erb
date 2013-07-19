@@ -2,7 +2,7 @@
 	<!-- Main Post -->
 	<div class="span8">
 		<%= render "shared/channel_nav" %>
-		<% if params[:search] %>
+		<% if params[:query] %>
 			<%= render "search" %>
 		<% elsif params[:tag] %>
 			<%= render "tag" %>

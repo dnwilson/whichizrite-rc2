@@ -2,15 +2,22 @@
 #
 # Table name: posts
 #
-#  id             :integer          not null, primary key
-#  p_type         :string(255)
-#  p_title        :string(255)
-#  p_body         :text
-#  user_id        :integer
-#  anonymous_post :boolean          default(FALSE)
-#  p_category     :string(255)
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  id                   :integer          not null, primary key
+#  p_type               :string(255)
+#  p_title              :string(255)
+#  p_body               :text
+#  user_id              :integer
+#  anonymous_post       :boolean          default(FALSE)
+#  category_id          :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  p_image_file_name    :string(255)
+#  p_image_content_type :string(255)
+#  p_image_file_size    :integer
+#  p_image_updated_at   :datetime
+#  upcount              :integer          default(0)
+#  downcount            :integer          default(0)
+#  p_body_html          :string(255)
 #
 
 class Post < ActiveRecord::Base
@@ -36,6 +43,11 @@ class Post < ActiveRecord::Base
   acts_as_voteable
 
   default_scope order: 'posts.created_at DESC'
+
+  validates :user_id, presence: true
+  validates :p_title, presence: true, length: {maximum: 30}
+  validates :category_id, presence: true
+  validates :tag_list, presence: true
 
   def generate_token
     self.token = loop do
@@ -80,5 +92,16 @@ class Post < ActiveRecord::Base
 
   def self.featured_posts
     where("cat_id = 1")
+  end
+
+  def self.from_users_followed_by(user)
+    followed_user_ids="SELECT followable_id FROM follows
+                      WHERE follower_id = :user_id"
+    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
+      user_id: user.id)    
+  end
+
+  def self.posts_from_me(user)
+    where("user_id = user_id")    
   end
 end

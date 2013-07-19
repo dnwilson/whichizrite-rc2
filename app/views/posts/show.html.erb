@@ -3,29 +3,31 @@
 	<div class="span8">
 		<div class="post-item">
 			<div class="post-header row">
-				<span class="post-title span7">
+				<span class="main-title span7">
 					<h2><%= @post.p_title %></h2>
 					<span class="post-cat"><%= link_to Category.find(@post.category_id).cat_name %></span>
 				</span>
-				<span class="delete-post span1">
-					<li id="fat-menu" class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                <i class="icon-reorder"></i>
-		              </a>
-		              <ul class="dropdown-menu">
-		              	<li><%= link_to "edit", edit_post_path(@post) %></li>
-		                <li>
-		                	<% if current_user == @post.user %>
-								<%= link_to @post, method: :delete,
-													data: {confirm: "You user?"},
-													title: @post.p_title do %>
-									delete
+				<% if user_signed_in? %>
+					<span class="delete-post span1">
+						<li id="fat-menu" class="dropdown">
+			              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			                <i class="icon-reorder"></i>
+			              </a>
+			              <ul class="dropdown-menu">
+			              	<li><%= link_to "edit", edit_post_path(@post) %></li>
+			                <li>
+			                	<% if current_user == @post.user %>
+									<%= link_to @post, method: :delete,
+														data: {confirm: "You user?"},
+														title: @post.p_title do %>
+										delete
+									<% end %>
 								<% end %>
-							<% end %>
-		                </li>
-		              </ul>
-		            </li>
-				</span>				
+			                </li>
+			              </ul>
+			            </li>
+					</span>	
+				<% end %>			
 			</div>
 
 			<span class="post-info">by: <span class="post-user"><%= link_to @post.user.name, @post.user %> on <%= @post.created_at.strftime("%b #{@post.created_at.day.ordinalize} %Y, %I:%M %p") %></span></span>

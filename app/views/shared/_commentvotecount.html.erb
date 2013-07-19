@@ -1,7 +1,7 @@
 <% if comment.votes_for == comment.votes_against %>
-    <span class="votecount">-</span>
+    <span class="votecount" style= "line-height: 22px; padding: 0px 5px;">score</span>
 <% elsif comment.votes_for < comment.votes_against %>
-    <span class="votecount" style= "line-height: 25px; color: white; background-color:#ca0000; border: 1px solid #ca0000; display:block; font-weight: bold;"><%= comment.votes_against - comment.votes_for %></span>
+    <span class="votecount" style= "line-height: 22px; color: white; background-color:#ca0000; display:block; font-weight: bold;"><%= comment.votes_against - comment.votes_for %></span>
 <% else %>
-	<span class="votecount" style= "line-height: 25px; color: white; background-color:#46a546; border: 1px solid #46a546; display:block; font-weight: bold;"><%= comment.votes_for - comment.votes_against %></span>
+	<span class="votecount" style= "line-height: 22px; color: white; background-color:#46a546; display:block; font-weight: bold;"><%= comment.votes_for - comment.votes_against %></span>
 <% end %>

@@ -24,15 +24,15 @@ class UsersController < ApplicationController
 	def following
 	    @title = "Following"
 	    @user = User.find(params[:id])
-	    @users = @user.all_following.paginate(page: params[:page])
+	    @users = @user.following_users.paginate(page: params[:page], per_page: 10)
 	    render 'show_follow'
 	end
 
 	def followers
 	    @title = "Followers"
 	    @user = User.find(params[:id])
-	    @users = @user.followers.paginate(page: params[:page])
-	    render 'show_follow'
+	    @users = @user.followers.paginate(page: params[:page], per_page: 10)
+	    render 'show_followers'
 	end
 
 	def follow
@@ -44,8 +44,8 @@ class UsersController < ApplicationController
             current_user.follow(@user)
 			# RecommenderMailer.new_follower(@user).deliver if @user.notify_new_follower
 			redirect_to :back
-			flash[:success] = "You are now following #{@user.username}."
-			current_user.notify_follow(@user)
+			flash[:notice] = "You are now following #{@user.username}."
+			# current_user.notify_follow(@user)
         end		
 	end
 
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
             current_user.stop_following(@user)
 			redirect_to :back
 			flash[:success] = "You are no longer following #{@user.username}."
-			current_user.notify_unfollow(@user)
+			# current_user.notify_unfollow(@user)
         end	
 	end
 

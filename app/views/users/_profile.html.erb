@@ -11,8 +11,26 @@
 			<%= @user.about_me %>
 		</div>
 		<div class="subscribers row">
-			<div class="followers span3">Followers</div>
-			<div class="following span3">Following</div>
+			<div class="followers span3"><a href="<%= followers_user_path(@user) %>">Followers (<%= @user.followers_count %>)</a><br>
+				<% if @user.followers.any? %>
+					<div class="user_avatars">
+						<% @user.followers.first(7).each do |user_id| %>
+							<% user = User.find(user_id) %>
+							<%= link_to (image_tag user.avatar.url(:thumb)), user_path(user) %>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+			<div class="following span3"><a href="<%= following_user_path(@user) %>">Following (<%= @user.following_users_count %>)</a><br>
+				<% if @user.following_users.any? %>
+					<div class="user_avatars">
+						<% @user.following_users.first(7).each do |user_id| %>
+							<% user = User.find(user_id) %>
+							<%= link_to (image_tag user.avatar.url(:thumb)), user_path(user) %>
+						<% end %>
+					</div>
+				<% end %>
+			</div>
 		</div>
 
 	</div>
