@@ -16,7 +16,7 @@
 			              <ul class="dropdown-menu">
 			              	<li><%= link_to "edit", edit_post_path(@post) %></li>
 			                <li>
-			                	<% if current_user == @post.user %>
+			                	<% if current_user.id == @post.origin_user_id %>
 									<%= link_to @post, method: :delete,
 														data: {confirm: "You user?"},
 														title: @post.p_title do %>

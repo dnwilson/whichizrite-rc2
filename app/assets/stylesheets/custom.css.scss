@@ -6084,7 +6084,7 @@ h6 {
   margin-top: 5px;
   margin-bottom: 5px;
   padding-bottom: 10px;
-  text-transform: lowercase;
+  text-transform: none;
 }
 h1 {
   font-size: 56px;
@@ -6195,7 +6195,7 @@ li {
 .navbar .nav > li {
   font-family: "Segoe UI Light", "Helvetica Neue", "Segoe UI", "Segoe WP", sans-serif;
   font-weight: 100;
-  text-transform: lowercase;
+  text-transform: none;
   font-size: 25px;
 }
 .navbar .nav > li > a {

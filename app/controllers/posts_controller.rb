@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
 	before_filter :authenticate_user!, only: [:create, :destroy, :vote_up, :vote_down]
+    before_filter :correct_user, only: :destroy
     skip_before_filter :verify_authenticity_token, :only => [:vote_up, :vote_down, :unvote]    
 	def show
 		@post = Post.find(params[:id])
@@ -44,6 +45,12 @@ class PostsController < ApplicationController
 	def create
 		@post = current_user.posts.build(params[:post])
         @categories = Category.all
+        if @post.anonymous_post? 
+            @post.user_id = User.find(2).id
+            @post.origin_user_id = current_user.id
+        else
+            @post.origin_user_id = current_user.id
+        end
 		respond_to do |format|
         	if @post.save                
                 format.html {redirect_to root_path, :notice => "Post created!"}
@@ -139,5 +146,10 @@ class PostsController < ApplicationController
         end
     end
 
+    private
+        def correct_user
+            @post = current_user.id == Story.find_by(params[:id]).origin_user_id
+            redirect_to root_url if @story.nil?            
+        end
 
 end

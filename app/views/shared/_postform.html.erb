@@ -15,5 +15,9 @@
 
     <%= f.text_area :p_body, placeholder: "What do you want to say..." %>
 
+    <label class="checkbox">
+        <input id="post_anonymous" label="Post anonymously?" name="post[anonymous_post]" type="checkbox" value"1"> post anonymously?
+    </label>
+    
     <%= f.submit "Post", class: "btn btn-primary" %>
 <% end %>

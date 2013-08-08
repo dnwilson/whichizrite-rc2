@@ -5,6 +5,12 @@
 
     <%= f.file_field :p_image %>
 
+    <div class="post-checkbox">
+    	<label class="checkbox">
+	        <input id="post_anonymous" label="Post anonymously?" name="post[anonymous_post]" type="checkbox" value"1"> post anonymously?
+	    </label>
+    </div>
+
     <%= f.collection_select :category_id, Category.all, :id, :cat_name  %>
 
     <%= f.input :tag_list, placeholder: "Tags (separated by commas)" %>

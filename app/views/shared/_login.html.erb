@@ -5,28 +5,7 @@
 	</div>
 	<div class="row">
 		<div class="myLogin">
-			<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-
-				<%= f.text_field :login, placeholder: "username/email address" %>
-				
-				<%= f.password_field :password, placeholder: "password" %>
-
-				<label class="checkbox">
-			      <input id="user_remember_me" label="remember me?" name="user[remember_me]" type="checkbox" value="1">&nbsp;Remember me
-			    </label>
-
-			    <div class="forgotLink">
-			    	<%= link_to "I forgot my password", new_password_path('user') %>
-			    </div>
-
-				<%= f.submit 'Sign in', :class => "btn btn-primary" %>
-
-			<% end %>
-			
-			<div class="otherLinks">
-				<p>New user? <%= link_to "Sign up now!", register_path %></p>
-			</div>
-			
+			<%= render "shared/loginForm" %>		
 		</div>
 	</div>
 </div>

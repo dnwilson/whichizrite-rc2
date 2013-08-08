@@ -1,0 +1,5 @@
+<div class="otherLinks">
+	<%= link_to user_omniauth_authorize_path(:facebook,:display=>"popup"), :class => "fb-button", :"data-width" => 600, :"data-height" => 400  do %>
+		<i class="icon-facebook-sign"></i>Login with Facebook
+	<% end %> or <%= link_to "Sign up now!", register_path, :class => "signup-btn"  %>
+</div>

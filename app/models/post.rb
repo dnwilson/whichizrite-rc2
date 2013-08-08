@@ -97,11 +97,11 @@ class Post < ActiveRecord::Base
   def self.from_users_followed_by(user)
     followed_user_ids="SELECT followable_id FROM follows
                       WHERE follower_id = :user_id"
-    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id",
+    where("user_id IN (#{followed_user_ids}) OR origin_user_id = :user_id",
       user_id: user.id)    
   end
 
   def self.posts_from_me(user)
-    where("user_id = user_id")    
+    where("origin_user_id = :user_id", user_id: user.id)    
   end
 end

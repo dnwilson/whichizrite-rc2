@@ -1,18 +1,29 @@
-<h2>Sign up</h2>
+<% provide(:title, 'Sign up') %>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :username, :required => true %>
-    <%= f.input :password, :required => true %>
-    <%= f.input :password_confirmation, :required => true %>
+<div class="signup-page">
+  <div class="signup-header">
+    <h2>Sign Up</h2>
+    <p>Go ahead. It's free!</p>
   </div>
+  <div class="mySignup">
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal", :multipart => true }) do |f| %>
+      <%= f.error_notification %>
+      
+      <%= f.text_field :name, placeholder: "Full Name", :required => true, :autofocus => true %>
+      <%= f.text_field :username, placeholder: "Username", :required => true %>
+      <%= f.text_field :email, placeholder: "Your Email", :required => true %>
+      <%= f.password_field :password, placeholder: "Password", :required => true %>
+      <%= f.password_field :password_confirmation, placeholder: "Re-enter Password", :required => true %>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
+      <%= f.input :dob, label: false,  placeholder: "Date of Birth", input_html: { id: 'datepicker'} %>
+
+      <%= f.collection_radio_buttons(:sex, [['Male', 'Male',], ['Female', 'Female']], :first, :last).html_safe do |b| b.label {b.text + b.radio_button } end %> 
+
+      <p>By clicking Sign Up, you agree to our Terms and Conditions.</p>    
+
+      <%= f.button :submit, "Sign up", class: "btn btn-large btn-primary" %>
+    <% end %>
+
+    <%= render "shared/links" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

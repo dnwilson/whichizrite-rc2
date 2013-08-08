@@ -19,12 +19,12 @@
                   <%= link_to "Edit Profile", settings_path %>
                 </li>
                 <li>
-                  <%= link_to "Sign out", logout_path, method: "delete" %>
+                  <%= link_to "log out", logout_path, method: "delete" %>
                 </li>
               </ul>
             </li>
           <% else %>
-            <li><%= link_to "Sign in", login_path %></li>
+            <li><%= link_to "login", login_path %></li>
           <% end %>
         </ul>
       </nav>

@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails'
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
 gem 'will_paginate'

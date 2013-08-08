@@ -37,11 +37,12 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, 
+         :omniauthable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :name, :password, :password_confirmation, :remember_me, :login,
-                  :about_me, :dob, :avatar, :location, :country_name, :sex
+                  :about_me, :dob, :avatar, :location, :country_name, :sex, :uid, :provider, :profilepic
   
   attr_accessor :login
 
@@ -64,8 +65,44 @@ class User < ActiveRecord::Base
                                 size: {less_than: 5.megabytes}
 
 
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
+  end
+
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      user = User.create(name:auth.info.name,
+                           provider:auth.provider,
+                           uid:auth.uid,
+                           username: auth.info.nickname,
+                           email:auth.info.email,
+                           sex: auth.extra.raw_info.gender,
+                           password:Devise.friendly_token[0,20]
+                           )
+    end
+    user
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
   def feed
     Post.from_users_followed_by(self)
+  end
+
+  def myfeed
+    Post.posts_from_me(self)
   end
   
   def self.find_first_by_auth_conditions(warden_conditions)

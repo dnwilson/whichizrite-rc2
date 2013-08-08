@@ -3,8 +3,8 @@
 		<li class="sidebar-item-1">
 			<%= form_tag posts_path, method: :get, :class => "post-search" do %>
 				<%= text_field_tag :query, params[:query], :placeholder => "search", :value => '', :class => "search-query" %>
-				<div class="icon-search"></div>
 			<% end %>
+
 			<% if signed_in? %>
 				<%= link_to "Create a new post", new_post_path, :class=> "btn" %>
 			<% else %>

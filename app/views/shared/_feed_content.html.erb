@@ -1,0 +1,25 @@
+<div class="post-title-bar row">
+	<% if current_user == feed_item.user %>
+		<span class="post-title span4">
+			<h3><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h3>					
+		</span>
+		<span class="post-delete span1">				
+			<%= link_to feed_item, method: :delete,
+								data: {confirm: "You sure?"},
+								title: feed_item.p_title do %>
+				<i class="icon-trash"></i>
+			<% end %>
+		</span>
+	<% else %>
+		<span class="post-title span5">
+			<h3><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h3>					
+		</span>
+	<% end %>
+</div>
+<span class="post-info">by: <span class="post-user"><%= link_to feed_item.user.name, feed_item.user %> on <%= feed_item.created_at.strftime("%b #{feed_item.created_at.day.ordinalize} %Y, %I:%M %p") %></span></span>
+<p><%= the_excerpt(feed_item) %></p>
+<span class="post-fb">
+	<%= link_to post_path(feed_item)  do %>
+		<i class="icon-comment"></i><% if feed_item.comments.count > 0 %><span style="margin-left:5px;"><%= feed_item.comments.count %></span><% end %><span style="margin-left:5px;"><%= "comment".pluralize(feed_item.comments.count) %></span>
+	<% end %>
+</span>

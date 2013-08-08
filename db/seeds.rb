@@ -15,18 +15,18 @@ Category.create!(cat_name:"Videos")
 Category.create!(cat_name:"Events")
 Category.create!(cat_name:"Opinions")
 
-user6= User.create!(name: 'Fiyah Damage', 
-					about_me: 'CEO of Damage Control & whichizrite', 
-					username: 'fireras', 
-					avatar: File.open(File.join(Rails.root, 'sampleimages/', 'fiyah.jpg')), 
-					sex: 'male',
+user6= User.create!(name: 'Random Girl', 
+					about_me: 'Some random girl', 
+					username: 'randomgirl', 
+					avatar: File.open(File.join(Rails.root, 'sampleimages/', 'randomgirl.jpg')), 
+					sex: 'female',
 					location: 'Brooklyn, NY', 
-					email: 'fireras@gmail.com', 
-					password: 'm0nalisa', 
-					password_confirmation: 'm0nalisa'
+					email: 'randomgirl@test.com', 
+					password: 'foobar12', 
+					password_confirmation: 'foobar12'
 )
 
-user6.posts.create!(
+user6.posts.create(
 	p_title: 'Stop Watch',
 	p_body: 'This is a post about a stop watch that I am wearing on my hand. It is from casio',
 	category_id: 3,
@@ -34,7 +34,7 @@ user6.posts.create!(
 	p_image: File.open(File.join(Rails.root, 'sampleimages', 'watch.jpg'))					
 )
 
-user6.posts.create!(
+user6.posts.create(
 	p_title: 'Weed of the Nation',
 	p_body: 'This is a post about a weed tree I took a picture of. How nice!',
 	category_id: 1,
@@ -43,7 +43,7 @@ user6.posts.create!(
 					
 )
 
-user6.posts.create!(
+user6.posts.create(
 	p_title: 'Fat P***y Model Bitch',
 	p_body: 'Check out this sexy model that I got a picture of.',
 	category_id: 2,
@@ -52,6 +52,14 @@ user6.posts.create!(
 					
 )
 
+user7 = User.create!(name: 'anonymous', 
+					username: 'anonymous',
+					email: 'anonymous@whichizrite.com',
+					password: '1@mDamage', 
+					password_confirmation: '1@mDamage',
+					location: 'Unknown',
+					about_me: 'Unknown'
+					)
 
 user1 = User.create!(name: 'whichizrite', 
 					username: 'whichizrite',
@@ -63,16 +71,15 @@ user1 = User.create!(name: 'whichizrite',
 					about_me: 'This is whichizrite. Be heard'
 					)
 
-user1.posts.create!(
+user1.posts.create(
 	p_title: 'I Love The Reggae Boyz',
 	p_body: 'The Jamaica National Football Team',
 	category_id: 5,
 	tag_list: 'football, jamaica, reggaeboyz',
-	p_image: File.open(File.join(Rails.root, 'sampleimages', 'reggaeboyz.jpg'))
-					
+	p_image: File.open(File.join(Rails.root, 'sampleimages', 'reggaeboyz.jpg'))				
 )
 
-user1.posts.create!(
+user1.posts.create(
 	p_title: 'Foam Party',
 	p_body: 'An image from Damage Control Foam Party in 2011',
 	category_id: 3,
@@ -92,14 +99,14 @@ user2 = User.create!(name: 'Razor Damage',
 					avatar: File.open(File.join(Rails.root, 'sampleimages', 'razor.jpg'))
 					)
 
-user2.posts.create!(
+user2.posts.create(
 	p_title: 'Random Post',
 	p_body: 'This post is so damn random it could be anything',
 	category_id: 1,
 	tag_list: 'random, stuff',					
 )
 
-user2.posts.create!(
+user2.posts.create(
 	p_title: 'Me @ International Swagg',
 	p_body: 'Me looking oh so swagged out at International Swagg in March 2013',
 	category_id: 2,
@@ -119,7 +126,7 @@ user3 = User.create!(name: 'Browning',
 					avatar: File.open(File.join(Rails.root, 'sampleimages', 'browning.jpg'))
 					)
 
-user3.posts.create!(
+user3.posts.create(
 	p_title: 'I Love Me Some Food',
 	p_body: 'A pic of some food I had while at coalstove in Jamaica',
 	category_id: 6,
@@ -127,7 +134,7 @@ user3.posts.create!(
 	p_image: File.open(File.join(Rails.root, 'sampleimages', 'food.jpg'))
 )
 
-user3.posts.create!(
+user3.posts.create(
 	p_title: 'The Big Clock',
 	p_body: 'The very famous clocktower in H.W.T, St. Andrew',
 	category_id: 7,
@@ -146,7 +153,7 @@ user5 = User.create!(name: 'Fal Gal',
 					avatar: File.open(File.join(Rails.root, 'sampleimages', 'fatgal.jpg'))
 					)
 
-user5.posts.create!(
+user5.posts.create(
 	p_title: 'Half Way Tree',
 	p_body: 'I dont even know if this is Half Way Tree but the pic is nice',
 	category_id: 4,
@@ -154,7 +161,7 @@ user5.posts.create!(
 	p_image: File.open(File.join(Rails.root, 'sampleimages', 'hwt.jpg'))
 )
 
-user5.posts.create!(
+user5.posts.create(
 	p_title: 'Test Post No Pic',
 	p_body: 'This is a test post that has no images',
 	category_id: 2,
