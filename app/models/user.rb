@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :name, :password, :password_confirmation, :remember_me, :login,
-                  :about_me, :dob, :avatar, :location, :country_name, :sex, :uid, :provider, :profilepic
+                  :about_me, :dob, :avatar, :location, :country_name, :sex, :uid, :provider, :profilepic, :auth_token
   
   attr_accessor :login
 
@@ -83,7 +83,8 @@ class User < ActiveRecord::Base
                            username: auth.info.nickname,
                            email:auth.info.email,
                            sex: auth.extra.raw_info.gender,
-                           password:Devise.friendly_token[0,20]
+                           password:Devise.friendly_token[0,20],
+                           auth_token: auth.credentials.token
                            )
     end
     user
@@ -95,6 +96,26 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def facebook
+    @fb_user ||= FbGraph::User.me(self.auth_token)
+  end
+
+  def fbconnect    
+    app = FbGraph::Application.new(413231458748257)
+    me = FbGraph::User.me(self.auth_token)
+
+    ## Custom Action (you need to configure them in your app setting)
+
+    # Fetch activities
+    actions = me.og_actions app.og_action(:connect)
+
+    # Publish an activity
+    action = me.og_action!(
+      app.og_action(:connect), # or simply "APP_NAMESPACE:ACTION" as String
+      :object => 'http://www.joystiq.com'
+    )
   end
 
   def feed

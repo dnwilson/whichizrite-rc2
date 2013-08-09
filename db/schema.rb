@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806213924) do
+ActiveRecord::Schema.define(:version => 20130808182422) do
 
   create_table "assets", :force => true do |t|
     t.integer  "post_id"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(:version => 20130806213924) do
     t.string   "uid"
     t.boolean  "private_followable",     :default => false
     t.string   "profilepic"
+    t.string   "auth_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

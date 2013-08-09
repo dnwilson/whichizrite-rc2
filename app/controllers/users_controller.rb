@@ -5,6 +5,11 @@ class UsersController < ApplicationController
 
 	def show
 		@user = User.find(params[:id])
+		if current_user == @user
+			@feed_items = @user.myfeed.paginate(page: params[:page])
+		else
+			@feed_items = @user.posts.paginate(page: params[:page])
+		end
 	end
 
 	def index
@@ -62,28 +67,28 @@ class UsersController < ApplicationController
         end	
 	end
 
-	# def unpend
-	# 	@user = User.find(params[:id])
-	# 	current_user.unpend(@user)
-	# 	redirect_to :back
-	# 	flash[:success] = "You are no longer following #{@user.username}."
-	# 	current_user.notify_pending(@user)
-	# end
+	def unpend
+		@user = User.find(params[:id])
+		current_user.unpend(@user)
+		redirect_to :back
+		flash[:success] = "You are no longer following #{@user.username}."
+		# current_user.notify_pending(@user)
+	end
 
 
-	# def make_private
-	# 	@user = User.find(params[:id])
-	# 	current_user.enable_privacy
-	# 	redirect_to :back
-	# 	flash[:notice] = "Your profile is now private"
-	# end
+	def make_private
+		@user = User.find(params[:id])
+		current_user.enable_privacy
+		redirect_to :back
+		flash[:notice] = "Your profile is now private"
+	end
 
-	# def make_public
-	# 	@user = User.find(params[:id])
-	# 	current_user.disable_privacy
-	# 	redirect_to :back
-	# 	flash[:notice] = "Your profile is now public"
-	# end
+	def make_public
+		@user = User.find(params[:id])
+		current_user.disable_privacy
+		redirect_to :back
+		flash[:notice] = "Your profile is now public"
+	end
 
 	private
 

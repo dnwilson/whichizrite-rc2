@@ -8,6 +8,9 @@
       <li class="<%= 'active' if current_page?(settings_password_path) %>">
         <%= link_to '<i class="icon-chevron-right"></i> Password'.html_safe, settings_password_path %>
       </li>
+      <li class="<%= 'active' if current_page?(settings_privacy_path) %>">
+        <%= link_to '<i class="icon-chevron-right"></i> Privacy'.html_safe, settings_privacy_path %>
+      </li>
     </ul>
   </div>
 

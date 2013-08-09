@@ -79,71 +79,86 @@ class PostsController < ApplicationController
 
     def vote_up
         @post = Post.find(params[:id])
-        if @post.user == current_user #|| @post.user.private_followable == false || current_user.following?(@post.user)
-            if current_user.voted_against?(@post)
-                @post.update_attribute("downcount", @post.downcount - 1)
-                @post.update_attribute("upcount", @post.upcount + 1)
-                @post.save
-            else
-                @post.update_attribute("upcount", @post.upcount + 1)
-                @post.save
-            end
-            # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
-            current_user.vote_exclusively_for(@post)            
-            # current_user.notify_vote(@post)
-            respond_to do |format|
-                format.html { redirect_to @post }
-                format.js
-            end
+        if current_or_guest_user == "Guest"
+            flash[:notice] = "You do not have permission to carry out this function."
+            redirect_to root_path
         else
-            flash[:notice] = "You need to follow user in order to carry out this function"
-            redirect_to user_path(@post.user)
+            if @post.user == current_user || @post.user.private_followable == false || current_user.following?(@post.user)
+                if current_user.voted_against?(@post)
+                    @post.update_attribute("downcount", @post.downcount - 1)
+                    @post.update_attribute("upcount", @post.upcount + 1)
+                    @post.save
+                else
+                    @post.update_attribute("upcount", @post.upcount + 1)
+                    @post.save
+                end
+                # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
+                current_user.vote_exclusively_for(@post)            
+                # current_user.notify_vote(@post)
+                respond_to do |format|
+                    format.html { redirect_to @post }
+                    format.js
+                end
+            else
+                flash[:notice] = "You need to follow user in order to carry out this function"
+                redirect_to user_path(@post.user)
+            end
         end
     end
 
     def vote_down
         @post = Post.find(params[:id])
-        if @post.user == current_user #|| @post.user.private_followable == false || current_user.following?(@post.user)
-            if current_user.voted_for?(@post)
-                @post.update_attribute("upcount", @post.upcount - 1)
-                @post.update_attribute("downcount", @post.downcount + 1)
-                @post.save
-            else
-                @post.update_attribute("downcount", @post.downcount + 1)
-                @post.save
-            end 
-            # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
-            current_user.vote_exclusively_against(@post)
-            # current_user.notify_vote(@post)
-            respond_to do |format|
-                format.html { redirect_to @post}
-                format.js
-            end
+        if current_or_guest_user == "Guest"
+            flash[:notice] = "You do not have permission to carry out this function."
+            redirect_to root_path
         else
-            flash[:notice] = "You need to follow user in order to carry out this function"
-            redirect_to user_path(@post.user)
+            if @post.user == current_user || @post.user.private_followable == false || current_user.following?(@post.user)
+                if current_user.voted_for?(@post)
+                    @post.update_attribute("upcount", @post.upcount - 1)
+                    @post.update_attribute("downcount", @post.downcount + 1)
+                    @post.save
+                else
+                    @post.update_attribute("downcount", @post.downcount + 1)
+                    @post.save
+                end 
+                # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
+                current_user.vote_exclusively_against(@post)
+                # current_user.notify_vote(@post)
+                respond_to do |format|
+                    format.html { redirect_to @post}
+                    format.js
+                end
+            else
+                flash[:notice] = "You need to follow user in order to carry out this function"
+                redirect_to user_path(@post.user)
+            end
         end
     end
 
     def unvote
         @post = Post.find(params[:id])
-        if @post.user == current_user #|| @post.user.private_followable == false || current_user.following?(@post.user)
-            if current_user.voted_for?(@post)
-                @post.update_attribute("upcount", @post.upcount - 1)
-                @post.save
-            else
-                @post.update_attribute("downcount", @post.downcount - 1)
-                @post.save
-            end
-            current_user.unvote_for(@post)
-            respond_to do |format|
-                format.html { redirect_to @post}
-                format.js
-            end
-        else
+        if current_or_guest_user == "Guest"
             flash[:notice] = "You do not have permission to carry out this function."
             redirect_to root_path
-        end
+        else
+            if @post.user == current_user || @post.user.private_followable == false || current_user.following?(@post.user)
+                if current_user.voted_for?(@post)
+                    @post.update_attribute("upcount", @post.upcount - 1)
+                    @post.save
+                else
+                    @post.update_attribute("downcount", @post.downcount - 1)
+                    @post.save
+                end
+                current_user.unvote_for(@post)
+                respond_to do |format|
+                    format.html { redirect_to @post}
+                    format.js
+                end
+            else
+                flash[:notice] = "You do not have permission to carry out this function."
+                redirect_to root_path
+            end
+        end        
     end
 
     private

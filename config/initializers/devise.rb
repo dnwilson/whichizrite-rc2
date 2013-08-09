@@ -243,6 +243,6 @@ Devise.setup do |config|
 
   require "omniauth-facebook"
   config.omniauth :facebook, "413231458748257", "4953a3e1fbecbfa69589a8c0fe38f2ab", 
-  :scope => 'email,read_friendlists,publish_action,user_birthday', :authorize_params => { :display => 'popup' }, 
+  :scope => 'email,read_friendlists,publish_actions,user_birthday,offline_access', :authorize_params => { :display => 'popup' }, 
   :client_options => {:ssl => {:ca_file => "#{Rails.root}/config/ca-bundle.crt"}}
 end

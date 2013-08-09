@@ -13,6 +13,7 @@ Whichizrite::Application.routes.draw do
     get "delete",   :to => "users/registrations#destroy"
     get "settings", :to => "users/registrations#edit"
     get "settings/password", :to => "users/registrations#password"
+    get "settings/privacy", :to => "users/registrations#privacy"
   end 
 
   match 'feed', to: 'pages#feed'
@@ -26,6 +27,9 @@ Whichizrite::Application.routes.draw do
       get :unfollow
       get :followers
       get :following
+      get :make_private
+      get :make_public
+      get :unpend
     end
   end
   
