@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
   end
 
   def fbconnect    
-    app = FbGraph::Application.new(413231458748257)
+    app = FbGraph::Application.new("FACEBOOK_CONFIG['app_id']")
     me = FbGraph::User.me(self.auth_token)
 
     ## Custom Action (you need to configure them in your app setting)
@@ -122,8 +122,11 @@ class User < ActiveRecord::Base
 
     # Publish an activity
     action = me.og_action!(
-      app.og_action(:connect), # or simply "APP_NAMESPACE:ACTION" as String
-      :object => 'http://www.joystiq.com'
+      app.og_action(:connect),
+      :object => 'http://www.whichizrite.com',
+      :title => 'whichizrite',
+      :description => 'I just signed up for whichizrite.com', 
+      :url => 'http://www.whichizrite.com'
     )
   end
 

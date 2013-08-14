@@ -13,10 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	        sign_up(resource_name, resource)
 	        respond_with resource, :location => after_sign_up_path_for(resource)
 	        if resource.provider == "facebook"	        	
-	        	resource.facebook.feed!(:message => 'via whichizrite', 
-	        							:name => 'whichizrite',
-	        							:description => 'I just signed up for whichizrite.com',
-	        							:link => 'http://www.whichizrite.com')
+	        	resource.facebook.fbconnect
 	        end
 	      else
 	        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
