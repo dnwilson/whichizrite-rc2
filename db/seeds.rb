@@ -61,9 +61,9 @@ user7 = User.create!(name: 'anonymous',
 					about_me: 'Unknown'
 					)
 
-user1 = User.create!(name: 'whichizrite', 
-					username: 'whichizrite',
-					email: 'info@whichizrite.com',
+user1 = User.create!(name: 'Information', 
+					username: 'Information',
+					email: 'tester@whichizrite.com',
 					password: '1@mDamage', 
 					password_confirmation: '1@mDamage',
 					sex: 'male',

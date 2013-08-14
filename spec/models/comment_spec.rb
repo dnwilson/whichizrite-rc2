@@ -16,5 +16,22 @@
 require 'spec_helper'
 
 describe Comment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user) { FactoryGirl.create(:user) }
+  let(:post) { FactoryGirl.create(:post) }
+
+  before do 
+  	@comment = user.comments.create(comment: "Lorem ipsum", post_id: post.id )
+  end
+
+  subject{@comment}
+
+  it{should respond_to(:comment)}
+  it{should respond_to(:comment_html)}
+  it{should respond_to(:post)}
+  it{should respond_to(:user)}
+  it{should respond_to(:votes)}
+  it{should respond_to(:post_id)}
+  its(:user){should == user}
+
+  it{should be_valid}
 end

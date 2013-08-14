@@ -18,6 +18,7 @@
 #  upcount              :integer          default(0)
 #  downcount            :integer          default(0)
 #  p_body_html          :string(255)
+#  origin_user_id       :integer
 #
 
 class Post < ActiveRecord::Base
@@ -27,7 +28,7 @@ class Post < ActiveRecord::Base
 
   multisearchable :against => [:p_title, :p_body]
 
-  attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, :category_id, :user_id, :tag_list
+  attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, :category_id, :tag_list
 
   has_attached_file :p_image, styles: {main: "250x250>", large: "600x600>", thumb: "125x125#"},
   							  url: "/assets/images/:id/:style/:basename.:extension",
@@ -46,8 +47,13 @@ class Post < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :p_title, presence: true, length: {maximum: 30}
+  validates :p_body, presence: true, :if => :has_attached_image?
   validates :category_id, presence: true
   validates :tag_list, presence: true
+
+  def has_attached_image?
+    self.p_image != nil
+  end
 
   def generate_token
     self.token = loop do

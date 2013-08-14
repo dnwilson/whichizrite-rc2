@@ -10,14 +10,14 @@
       <%= f.error_notification %>
       
       <%= f.text_field :name, placeholder: "Full Name", :required => true, :autofocus => true %>
-      <%= f.text_field :username, placeholder: "Username", :required => true %>
+      
       <%= f.text_field :email, placeholder: "Your Email", :required => true %>
       <%= f.password_field :password, placeholder: "Password", :required => true %>
       <%= f.password_field :password_confirmation, placeholder: "Re-enter Password", :required => true %>
 
-      <%= f.input :dob, label: false,  placeholder: "Date of Birth", input_html: { id: 'datepicker'} %>
+      <%= f.input :dob, label: false, placeholder: "Date of Birth", input_html: { id: 'datepicker', :required => true} %>
 
-      <%= f.collection_radio_buttons(:sex, [['Male', 'Male',], ['Female', 'Female']], :first, :last).html_safe do |b| b.label {b.text + b.radio_button } end %> 
+      <%= f.collection_radio_buttons(:sex, [['Male', 'Male',], ['Female', 'Female']], :first, :last, :required => true).html_safe do |b| b.label {b.text + b.radio_button } end %> 
 
       <p>By clicking Sign Up, you agree to our Terms and Conditions.</p>    
 

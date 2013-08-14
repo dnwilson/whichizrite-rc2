@@ -13,8 +13,9 @@ FactoryGirl.define do
 	factory :post do
 		sequence(:p_title) {|n| "Title #{n}" }
 		p_body {Forgery::LoremIpsum.paragraphs(3)}
-		p_category {Forgery::LoremIpsum.words(1)}
+		category_id {[1, 2, 3, 4, 5, 6, 7, 8].sample}
 		anonymous_post {Forgery::Basic.boolean}
+		tag_list {Forgery::LoremIpsum.words(3)}
 		user
 	end
 end

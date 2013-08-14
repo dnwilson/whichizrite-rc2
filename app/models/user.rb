@@ -30,15 +30,25 @@
 #  provider               :string(255)
 #  uid                    :string(255)
 #  private_followable     :boolean          default(FALSE)
+#  profilepic             :string(255)
+#  auth_token             :string(255)
 #
 
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+
+  include PgSearch
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable
+
+  before_create :set_username
+
+  multisearchable :against => [:name, :username, :email]
+
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :name, :password, :password_confirmation, :remember_me, :login,
@@ -63,7 +73,6 @@ class User < ActiveRecord::Base
   validates_attachment :avatar, content_type: {content_type: ["image/jpeg", "image/png", 
                                                         "image/bmp", "image/jpg"]},
                                 size: {less_than: 5.megabytes}
-
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -134,4 +143,14 @@ class User < ActiveRecord::Base
       where(conditions).first
     end
   end
+
+  private 
+    def set_username
+      username = self.email[/^[^@]+/]
+      if User.find_by_username(username) != nil
+        self.username = "#{username}.#{User.last.id.to_s[0..3]}"
+      else        
+        self.username = "#{self.email[/^[^@]+/]}"
+      end
+    end
 end

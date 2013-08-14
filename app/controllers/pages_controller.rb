@@ -8,4 +8,10 @@ class PagesController < ApplicationController
   		@featured_posts = Post.featured_posts
   end
 
+  def search
+        @pg_search_documents = PgSearch.multisearch(params[:query])
+        @query = params[:query]
+        @posts = Post.all 
+  end
+
 end

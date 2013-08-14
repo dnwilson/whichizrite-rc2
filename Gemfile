@@ -49,6 +49,9 @@ gem 'jquery-rails'
 group :development, :test do
 	gem 'rspec-rails'
 	gem 'guard-rspec'
+	gem 'guard-spork'
+	gem 'guard-livereload'
+	gem 'rb-notifu'
 	gem 'spork'
 	gem 'factory_girl_rails'
 	gem 'forgery'
@@ -60,6 +63,7 @@ group :test do
 	gem 'rb-fchange'
 	gem 'rb-notifu'
 	gem 'capybara'
+	gem 'selenium-webdriver'
 	gem 'win32console'
 	gem 'wdm', '~> 0.0.3'
 end
