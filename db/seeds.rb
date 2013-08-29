@@ -15,6 +15,11 @@ Category.create!(cat_name:"Videos")
 Category.create!(cat_name:"Events")
 Category.create!(cat_name:"Opinions")
 
+# Preference.create!(name: 'hide_profile', 	details: 'Make private')
+# Preference.create!(name: 'fb_pub_post', 	details: 'Publish post activity')
+# Preference.create!(name: 'fb_pub_vote',		details: 'Publish vote activity')
+# Preference.create!(name: 'fb_pub_comment',	details: 'Publish comment activity')
+
 user6= User.create!(name: 'Random Girl', 
 					about_me: 'Some random girl', 
 					username: 'randomgirl', 

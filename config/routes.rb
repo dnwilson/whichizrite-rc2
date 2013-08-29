@@ -1,5 +1,5 @@
 Whichizrite::Application.routes.draw do
-  mount Ckeditor::Engine => '/ckeditor'
+  # mount Ckeditor::Engine => '/ckeditor'
 
   devise_for :users, :path => '', :path_names => {:sign_in => "login", :sign_out => "logout",
                                                   :sign_up => "register"},
@@ -27,8 +27,7 @@ Whichizrite::Application.routes.draw do
       get :unfollow
       get :followers
       get :following
-      get :make_private
-      get :make_public
+      get :visibility
       get :unpend
     end
   end

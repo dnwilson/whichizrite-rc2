@@ -11,7 +11,11 @@
 	    </label>
     </div>
 
-    <%= f.collection_select :category_id, Category.all, :id, :cat_name  %>
+    <% if current_user.admin? %>
+        <%= f.collection_select :category_id, Category.all, :id, :cat_name  %>
+    <% else %>
+        <%= f.collection_select :category_id, Category.where("id != 1"), :id, :cat_name  %>
+    <% end %>
 
     <%= f.input :tag_list, placeholder: "Tags (separated by commas)" %>
 

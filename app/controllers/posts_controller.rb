@@ -46,13 +46,14 @@ class PostsController < ApplicationController
 		@post = current_user.posts.build(params[:post])
         @categories = Category.all
         if @post.anonymous_post? 
-            @post.user_id = User.find(2).id
+            @post.user_id = User.find_by_username('anonymous').id
             @post.origin_user_id = current_user.id
         else
             @post.origin_user_id = current_user.id
         end
 		respond_to do |format|
-        	if @post.save                
+        	if @post.save 
+                current_user.fb_publish(@post.p_title, post_path(@post))
                 format.html {redirect_to root_path, :notice => "Post created!"}
                 format.json {render json: @post, status: :created, location: @post}
                 format.js
@@ -93,7 +94,8 @@ class PostsController < ApplicationController
                     @post.save
                 end
                 # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
-                current_user.vote_exclusively_for(@post)            
+                current_user.vote_exclusively_for(@post)
+                current_user.fb_publish(@post.p_title, post_path(@post))            
                 # current_user.notify_vote(@post)
                 respond_to do |format|
                     format.html { redirect_to @post }
@@ -123,6 +125,8 @@ class PostsController < ApplicationController
                 end 
                 # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
                 current_user.vote_exclusively_against(@post)
+                current_user.fb_publish(@post.p_title, post_path(@post))
+                FbGraph.debug!
                 # current_user.notify_vote(@post)
                 respond_to do |format|
                     format.html { redirect_to @post}
@@ -163,8 +167,8 @@ class PostsController < ApplicationController
 
     private
         def correct_user
-            @post = current_user.id == Story.find_by(params[:id]).origin_user_id
-            redirect_to root_url if @story.nil?            
+            @post = current_user.id == Post.find(params[:id]).origin_user_id
+            redirect_to root_url if @post.nil?            
         end
 
 end

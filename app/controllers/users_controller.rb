@@ -76,18 +76,16 @@ class UsersController < ApplicationController
 	end
 
 
-	def make_private
-		@user = User.find(params[:id])
-		current_user.enable_privacy
-		redirect_to :back
-		flash[:notice] = "Your profile is now private"
-	end
-
-	def make_public
-		@user = User.find(params[:id])
-		current_user.disable_privacy
-		redirect_to :back
-		flash[:notice] = "Your profile is now public"
+	def visibility
+		# @user = User.find(params[:id])
+		current_user.modify_pref('hide_profile')
+		if current_user.is_set_to?('hide_profile')
+			redirect_to :back
+			flash[:notice] = "Your profile is now private"
+		else
+			redirect_to :back
+			flash[:notice] = "Your profile is now public"
+		end		
 	end
 
 	private

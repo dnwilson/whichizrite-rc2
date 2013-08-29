@@ -40,24 +40,27 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
 
   include PgSearch
+  include RailsSettings::Extend
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable
 
   before_create :set_username
+  after_create  :store_settings
 
   multisearchable :against => [:name, :username, :email]
 
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :name, :password, :password_confirmation, :remember_me, :login,
-                  :about_me, :dob, :avatar, :location, :country_name, :sex, :uid, :provider, :profilepic, :auth_token
+                  :about_me, :dob, :avatar, :location, :country_name, :sex, :uid, :provider, :profilepic, 
+                  :auth_token
   
   attr_accessor :login
 
-  has_many :posts, dependent: :destroy
-  has_many :comments
+  has_many    :posts, dependent: :destroy
+  has_many    :comments
 
   acts_as_voter
 
@@ -73,6 +76,8 @@ class User < ActiveRecord::Base
   validates_attachment :avatar, content_type: {content_type: ["image/jpeg", "image/png", 
                                                         "image/bmp", "image/jpg"]},
                                 size: {less_than: 5.megabytes}
+
+  has_settings_on :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -107,36 +112,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  def facebook
-    @fb_user ||= FbGraph::User.me(self.auth_token)
-  end
-
-  def fbconnect    
-    app = FbGraph::Application.new("FACEBOOK_CONFIG['app_id']")
-    me = FbGraph::User.me(self.auth_token)
-
-    ## Custom Action (you need to configure them in your app setting)
-
-    # Fetch activities
-    actions = me.og_actions app.og_action(:connect)
-
-    # Publish an activity
-    action = me.og_action!(
-      app.og_action(:connect),
-      :object => 'http://www.whichizrite.com',
-      :title => 'whichizrite',
-      :description => 'I just signed up for whichizrite.com', 
-      :url => 'http://www.whichizrite.com'
-    )
-  end
-
   def feed
     Post.from_users_followed_by(self)
   end
 
   def myfeed
     Post.posts_from_me(self)
-  end
+  end  
   
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -147,6 +129,75 @@ class User < ActiveRecord::Base
     end
   end
 
+  def facebook
+    @fb_user ||= FbGraph::User.me(self.auth_token)
+  end
+
+  def fbconnect(story, title, url)    
+    app = FbGraph::Application.new(FACEBOOK_CONFIG['app_id'])
+    me = FbGraph::User.me(self.auth_token)
+
+    ## Custom Action (you need to configure them in your app setting)
+
+    # Fetch activities
+    actions = me.og_actions app.og_action(story)
+
+    # Publish an activity
+    action = me.og_action!(
+      app.og_action(story),
+      :article => 'http://samples.ogp.me/434264856596891'
+    )
+  end
+
+  def fbsignup    
+    app = FbGraph::Application.new(FACEBOOK_CONFIG['app_id'])
+    me = FbGraph::User.me(self.auth_token)
+
+    ## Custom Action (you need to configure them in your app setting)
+
+    # Fetch activities
+    actions = me.og_actions app.og_action(:connect)
+
+    # Publish an activity
+    action = me.og_action!(
+      app.og_action(:connect),
+      :object => 'http://samples.ogp.me/434264856596891'
+    )
+  end
+
+  def fb_publish(post_title, post_url)
+    if self.has_preferences?
+      #Define facebook action type
+      if self.is_set_to('fb_pub_post')
+        story = 'create'
+      elsif self.is_set_to('fb_pub_vote')
+        story = 'vote'
+      else
+        story = 'comment'
+      end
+      #Publish comment
+      self.fbconnect(story, post_title, post_url)
+    end    
+  end
+
+  def is_set_to?(pref)
+    pref_id = Preference.find_by_name(pref).id
+    !!user_preferences.find_by_preference_id(pref_id)   
+  end
+
+  def has_preferences
+    !!user_preferences.find_by_user_id(self.id)
+  end
+
+  def modify_pref(pref)
+    pref_id = Preference.find_by_name(pref).id
+    if user_preferences.find_by_preference_id(pref_id) != nil
+      user_preferences.find_by_preference_id(pref_id).destroy  
+    else
+      user_preferences.create!(preference_id: pref_id)
+    end    
+  end
+
   private 
     def set_username
       username = self.email[/^[^@]+/]
@@ -154,6 +205,16 @@ class User < ActiveRecord::Base
         self.username = "#{username}.#{User.last.id.to_s[0..3]}"
       else        
         self.username = "#{self.email[/^[^@]+/]}"
+      end
+    end
+
+    def store_settings
+      if self.provider = 'facebook'
+        self.settings.hide_profile = '1' 
+        self.settings.fb_pub_post = '1' 
+        self.settings.fb_pub_vote = '1' 
+        self.settings.fb_pub_comment = '1' 
+        self.save
       end
     end
 end

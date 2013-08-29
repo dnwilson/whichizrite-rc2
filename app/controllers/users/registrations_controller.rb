@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	        sign_up(resource_name, resource)
 	        respond_with resource, :location => after_sign_up_path_for(resource)
 	        if resource.provider == "facebook"	        	
-	        	resource.facebook.fbconnect
+	        	resource.fbsignup
 	        end
 	      else
 	        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
@@ -47,7 +47,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   	protected
       def after_update_path_for(resource)
-        user_path(resource)
+      	settings_privacy_path(resource)
+      	# user_path(resource)
       end
 
 end
