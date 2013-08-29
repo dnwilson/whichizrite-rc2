@@ -166,35 +166,26 @@ class User < ActiveRecord::Base
   end
 
   def fb_publish(post_title, post_url)
-    if self.has_preferences?
-      #Define facebook action type
-      if self.is_set_to('fb_pub_post')
-        story = 'create'
-      elsif self.is_set_to('fb_pub_vote')
-        story = 'vote'
-      else
-        story = 'comment'
+
+    #Check if user is connected to facebook
+    if self.provider == 'facebook'
+      
+      #Check if the user as any special settings
+      if self.settings.all != nil
+        
+        #Define facebook action type
+        if self.settings.fb_pub_post = '1'
+          story = 'create'
+        elsif self.settings.fb_pub_vote = '1'
+          story = 'vote'
+        else
+          story = 'comment'
+        end
+        
       end
+
       #Publish comment
       self.fbconnect(story, post_title, post_url)
-    end    
-  end
-
-  def is_set_to?(pref)
-    pref_id = Preference.find_by_name(pref).id
-    !!user_preferences.find_by_preference_id(pref_id)   
-  end
-
-  def has_preferences
-    !!user_preferences.find_by_user_id(self.id)
-  end
-
-  def modify_pref(pref)
-    pref_id = Preference.find_by_name(pref).id
-    if user_preferences.find_by_preference_id(pref_id) != nil
-      user_preferences.find_by_preference_id(pref_id).destroy  
-    else
-      user_preferences.create!(preference_id: pref_id)
     end    
   end
 
@@ -209,7 +200,7 @@ class User < ActiveRecord::Base
     end
 
     def store_settings
-      if self.provider = 'facebook'
+      if self.provider == 'facebook'
         self.settings.hide_profile = '1' 
         self.settings.fb_pub_post = '1' 
         self.settings.fb_pub_vote = '1' 
