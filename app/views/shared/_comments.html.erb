@@ -1,4 +1,4 @@
-<ol class="comments-list">
+<ol class="comments-list row">
 	<% @post.comments.each do |comment| %>
 		<%= render partial: 'shared/comment', locals: {comment: comment} %>
 	<% end %>

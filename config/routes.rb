@@ -16,7 +16,7 @@ Whichizrite::Application.routes.draw do
     get "settings/privacy", :to => "users/registrations#privacy"
   end 
 
-  match 'feed', to: 'pages#feed'
+  get 'feed', to: 'pages#feed'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

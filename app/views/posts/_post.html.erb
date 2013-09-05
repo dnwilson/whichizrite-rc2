@@ -1,16 +1,15 @@
 <li id="<%= post.id %>" class="post-item row">
 	<% if post.p_image.exists? %>
-		<div class="post-pic span2">	
+		<div class="post-pic col-xs-2 col-md-2">	
 			<%= link_to image_tag(post.p_image.url(:thumb)), post_path(post) %>		
 		</div>
-		<div class="post-content span5">
+		<div class="post-content col-xs-9 col-md-9">
 			<div class="post-title-bar row">
-				<% if current_user.id == post.origin_user_id %>
-					<span class="post-title span5">
-						<h3><%= link_to post.p_title, post_path(post) %></h3>
-						<span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span>
+				<% if signed_in? && current_user.id == post.origin_user_id %>
+					<span class="post-title col-xs-11 col-md-11">
+						<h3><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h3>
 					</span>
-					<span class="post-delete span1">					
+					<span class="post-delete col-xs-1 col-md-1">					
 						<%= link_to post, method: :delete,
 											data: {confirm: "You sure?"},
 											title: post.p_title do %>
@@ -18,9 +17,8 @@
 						<% end %>
 					</span>
 				<% else %>
-					<span class="post-title span5">
-						<h3><%= link_to post.p_title, post_path(post) %></h3>
-						<span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span>
+					<span class="post-title col-xs-11 col-md-11">
+						<h3><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h3>
 					</span>
 				<% end %>
 			</div>
@@ -33,14 +31,13 @@
 			</span>
 		</div>
 	<% else %>
-		<div class="post-content span6">
+		<div class="post-content col-xs-11 col-md-11">
 			<div class="post-title-bar row">
 				<% if current_user == post.user %>
-					<span class="post-title span5">
-						<h3><%= link_to post.p_title, post_path(post) %></h3>
-						<span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span>
+					<span class="post-title col-xs-11 col-md-11">
+						<h3><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h3>
 					</span>
-					<span class="post-delete span1">
+					<span class="post-delete col-xs-1 col-md-1">
 						<% if current_user.id == post.origin_user_id %>
 							<%= link_to post, method: :delete,
 												data: {confirm: "You sure?"},
@@ -50,7 +47,7 @@
 						<% end %>
 					</span>
 				<% else %>
-					<span class="post-title span5">
+					<span class="post-title col-xs-11 col-md-11">
 						<h3><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h3>					
 					</span>
 				<% end %>
@@ -65,7 +62,7 @@
 		</div>
 	<% end %>
 	
-	<div class="post-vote span1">
+	<div class="post-vote col-xs-1 col-md-1">
 		<div class="myvote-<%= post.id %>">
 			<%= render :partial => "shared/vote", locals: {post: post, feed_item: post} %>
 		</div>

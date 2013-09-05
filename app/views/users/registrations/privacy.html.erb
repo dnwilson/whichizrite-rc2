@@ -1,6 +1,6 @@
 <% provide(:title, 'Privacy') %>
-<div class="row">
-  <div class="user-edit-nav span4">
+<div class="user-edit-page row">
+  <div class="user-edit-nav col-md-4">
     <ul class="nav nav-pills nav-stacked">
       <li class="<%= 'active' if current_page?(settings_path) %>">
         <%= link_to '<i class="icon-chevron-right"></i> Account'.html_safe, settings_path %>
@@ -14,52 +14,48 @@
     </ul>
   </div>
 
-	<div class="user-edit span8">
-		<div class="edit-header">
-			<h2>Privacy Options</h2>
-			<p>Adjust your accessibility and visibility to the world</p>
-		</div>
-		<div class="privacy-edit">
-			<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal", :multipart => true, :method => :put }) do |f| %>
-      			<%= f.error_notification %>
+	<div class="user-edit col-md-8">
+		<%= simple_form_for(current_user, :as => resource, :url => registration_path(current_user), :html => { :class => "form-horizontal", :multipart => true, :method => :put }) do |f| %>
+  			<%= f.error_notification %>
 
-      			<div class="privacy-boxes">
+  			<div class="edit-header">
+				<h2>Privacy Options</h2>
+				<p>Adjust your accessibility and visibility to the world</p>
+			</div>
 
-	      			<% if current_user.settings.hide_profile == '1' %>
-	      				<%= f.input :hide_profile, as: :boolean, :input_html => {checked: true}, inline_label: 'Hide profile', label: false %>
+  			<% if current_user.settings.hide_profile == '1' %>
+  				<%= f.input :hide_profile, as: :boolean, :input_html => {checked: true}, inline_label: 'Hide profile', label: false %>
+  			<% else %>
+  				<%= f.input :hide_profile, as: :boolean, inline_label: 'Hide profile', label: false %>
+  			<% end %>
+
+  			<% if current_user.provider == 'facebook' %>
+  				<h4><i class="icon-facebook-sign"></i>Facebook Settings</h4>
+
+  				<div class="fb-options">
+  					<% if current_user.settings.fb_pub_post == '1' %>
+	      				<%= f.input :fb_pub_post, as: :boolean, :input_html => {checked: true}, inline_label: 'Publish post activity', label: false %>
 	      			<% else %>
-	      				<%= f.input :hide_profile, as: :boolean, inline_label: 'Hide profile', label: false %>
+	      				<%= f.input :fb_pub_post, as: :boolean, inline_label: 'Publish post activity', label: false %>
 	      			<% end %>
 
-	      			<% if current_user.provider == 'facebook' %>
-	      				<h4><i class="icon-facebook-sign"></i>Facebook Settings</h4>
-
-	      				<div class="fb-options">
-	      					<% if current_user.settings.fb_pub_post == '1' %>
-			      				<%= f.input :fb_pub_post, as: :boolean, :input_html => {checked: true}, inline_label: 'Publish post activity', label: false %>
-			      			<% else %>
-			      				<%= f.input :fb_pub_post, as: :boolean, inline_label: 'Publish post activity', label: false %>
-			      			<% end %>
-
-			      			<% if current_user.settings.fb_pub_vote == '1' %>
-			      				<%= f.input :fb_pub_vote, as: :boolean, :input_html => {checked: true}, inline_label: 'Publish vote activity', label: false %>
-			      			<% else %>
-			      				<%= f.input :fb_pub_vote, as: :boolean, inline_label: 'Publish vote activity', label: false %>
-			      			<% end %>
-
-			      			<% if current_user.settings.fb_pub_comment == '1' %>
-			      				<%= f.input :fb_pub_comment, as: :boolean, :input_html => {checked: true}, inline_label: 'Publish comment activity', label: false %>
-			      			<% else %>
-			      				<%= f.input :fb_pub_comment, as: :boolean, inline_label: 'Publish comment activity', label: false %>
-			      			<% end %>
-	      				</div>
+	      			<% if current_user.settings.fb_pub_vote == '1' %>
+	      				<%= f.input :fb_pub_vote, as: :boolean, :input_html => {checked: true}, inline_label: 'Publish vote activity', label: false %>
+	      			<% else %>
+	      				<%= f.input :fb_pub_vote, as: :boolean, inline_label: 'Publish vote activity', label: false %>
 	      			<% end %>
-      			</div>
 
-      			<div class="center">
-		        	<%= f.submit "Update", class: "btn btn-large btn-primary" %>
-		      	</div>
-      		<% end %>
-		</div>
+	      			<% if current_user.settings.fb_pub_comment == '1' %>
+	      				<%= f.input :fb_pub_comment, as: :boolean, :input_html => {checked: true}, inline_label: 'Publish comment activity', label: false %>
+	      			<% else %>
+	      				<%= f.input :fb_pub_comment, as: :boolean, inline_label: 'Publish comment activity', label: false %>
+	      			<% end %>
+  				</div>
+  			<% end %>
+
+  			<div class="center">
+	        	<%= f.submit "Update", class: "btn btn-large btn-primary pull-left" %>
+	      	</div>
+  		<% end %>
 	</div>
 </div>

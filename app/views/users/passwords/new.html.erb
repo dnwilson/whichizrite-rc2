@@ -1,15 +1,16 @@
-<h2>Forgot your password?</h2>
+<% provide(:title, 'Recover password') %>
 
-<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= f.error_notification %>
+<div class="recover-page">
+	<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :class => "recover-form form-horizontal", :method => :post }) do |f| %>
+	  <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-  </div>
+	  <h2>Forgot your password?</h2>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
-  </div>
-<% end %>
+	  <%= f.text_field :email, :required => true, :autofocus => true, placeholder: "Enter your email address" %>
 
-<%= render "devise/shared/links" %>
+	  <%= f.submit "Send me reset password instructions", :class => "btn" %>
+
+	  <%= render "shared/links" %>
+
+	<% end %>
+</div>

@@ -171,4 +171,8 @@ class PostsController < ApplicationController
             redirect_to root_url if @post.nil?            
         end
 
+        # def post_params
+        #     params.require(:post).permit(:p_title, :p_image, :anonymous_post, :p_body, :p_type, :category_id, :tag_list)
+        # end
+
 end

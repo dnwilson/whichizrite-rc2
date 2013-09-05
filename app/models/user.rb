@@ -51,12 +51,10 @@ class User < ActiveRecord::Base
 
   multisearchable :against => [:name, :username, :email]
 
-
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :name, :password, :password_confirmation, :remember_me, :login,
                   :about_me, :dob, :avatar, :location, :country_name, :sex, :uid, :provider, :profilepic, 
                   :auth_token
-  
+
   attr_accessor :login
 
   has_many    :posts, dependent: :destroy

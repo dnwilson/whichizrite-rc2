@@ -4,6 +4,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     def settings_password
     end
 
+    def settings_privacy
+    end
+
     def create
 	    build_resource
 
@@ -47,8 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   	protected
       def after_update_path_for(resource)
-      	settings_privacy_path(resource)
+      	settings_path(resource)
       	# user_path(resource)
       end
-
 end

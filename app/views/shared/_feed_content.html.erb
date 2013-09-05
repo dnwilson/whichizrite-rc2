@@ -1,9 +1,9 @@
 <div class="post-title-bar row">
 	<% if current_user == feed_item.user %>
-		<span class="post-title span4">
+		<span class="post-title col-xs-11 col-md-11">
 			<h3><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h3>					
 		</span>
-		<span class="post-delete span1">				
+		<span class="post-delete col-xs-1 col-md-1">				
 			<%= link_to feed_item, method: :delete,
 								data: {confirm: "You sure?"},
 								title: feed_item.p_title do %>
@@ -11,7 +11,7 @@
 			<% end %>
 		</span>
 	<% else %>
-		<span class="post-title span5">
+		<span class="post-title col-xs-11 col-md-11">
 			<h3><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h3>					
 		</span>
 	<% end %>

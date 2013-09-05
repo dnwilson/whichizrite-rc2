@@ -1,14 +1,16 @@
-<div class="main row">
-	<!-- Main Feed -->
-	<div class="span8">
+<div class="row row-offcanvas row-offcanvas-right">
+	<div class="col-xs-12 col-md-8">
 		<%= render partial: "shared/channel_nav", locals: {category: "Latest"} %>
 		<div class="posts">
 			<%= render "shared/feed" %>
 		</div>
-	</div>
+	</div><!-- /feed-area -->
 
-	<!-- Side Bar -->
-	<div class="span4">
+	<div class="hidden-xs col-md-4 sidebar-offcanvas" id="sidebar" role="navigation">
+		<p class="visible-xs">
+			<button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">toggle nav</button>
+		</p>
 		<%= render "shared/sidebar" %>
-	</div>
-</div>
+	</div><!-- /sidebar -->
+</div><!-- /row -->
+<hr>

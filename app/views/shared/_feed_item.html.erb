@@ -1,19 +1,19 @@
 <li id="<%= feed_item.id %>" class="post-item row">
 	<% if feed_item.p_image.exists? %>
-		<div class="post-pic span2">		
+		<div class="post-pic col-xs-2 col-md-2">		
 			<%= link_to image_tag(feed_item.p_image.url(:thumb)), post_path(feed_item) %>		
 		</div>
-		<div class="post-content span5">
+		<div class="post-content col-xs-9 col-md-9">
 			<%= render partial: 'shared/feed_content', locals: {feed_item: feed_item} %>
 		</div>
 	<% else %>
-		<div class="post-content span6">
+		<div class="post-content col-xs-11 col-md-11">
 			<div class="post-title-bar row">
 				<% if current_user == feed_item.user %>
-					<span class="post-title span5">
+					<span class="post-title col-xs-11 col-md-11">
 						<h3><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h3>					
 					</span>
-					<span class="post-delete span1">				
+					<span class="post-delete col-xs-1 col-md-1">				
 						<%= link_to feed_item, method: :delete,
 											data: {confirm: "You sure?"},
 											title: feed_item.p_title do %>
@@ -21,7 +21,7 @@
 						<% end %>
 					</span>
 				<% else %>
-					<span class="post-title span5">
+					<span class="post-title col-xs-11 col-md-11">
 						<h3><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h3>					
 					</span>
 				<% end %>
@@ -37,7 +37,7 @@
 	<% end %>
 	
 	
-	<div class="post-vote span1">
+	<div class="post-vote col-xs-1 col-md-1">
 		<div class="myvote-<%= feed_item.id %>">
 			<%= render :partial => "shared/vote", locals: {feed_item: feed_item} %>
 		</div>

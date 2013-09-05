@@ -2,11 +2,6 @@ en:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
-    options:
-      user:
-        user_preference:
-          "hide_profile": 'Make Private'
-
     required:
       text: 'required'
       mark: '*'

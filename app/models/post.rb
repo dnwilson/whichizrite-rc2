@@ -43,7 +43,7 @@ class Post < ActiveRecord::Base
 
   acts_as_voteable
 
-  default_scope order: 'posts.created_at DESC'
+  default_scope -> {order('created_at DESC')}
 
   validates :user_id, presence: true
   validates :p_title, presence: true, length: {maximum: 30}

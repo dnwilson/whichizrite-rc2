@@ -1,6 +1,6 @@
 <% provide(:title, 'Profile Settings') %>
-<div class="row">
-  <div class="user-edit-nav span4">
+<div class="user-edit-page row">
+  <div class="user-edit-nav col-md-4">
     <ul class="nav nav-pills nav-stacked">
       <li class="<%= 'active' if current_page?(settings_path) %>">
         <%= link_to '<i class="icon-chevron-right"></i> Account'.html_safe, settings_path %>
@@ -14,22 +14,21 @@
     </ul>
   </div>
 
-  <div class="user-edit span8">
-    <div class="edit-header">
-      <h2>Profile</h2>
-      <p>Keep this information accurate and up to date</p>
-    </div>
-
-    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "form-horizontal", :multipart => true, :method => :put }) do |f| %>
+  <div class="user-edit col-md-8">
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :class => "user-edit-form form-horizontal", :multipart => true, :method => :put }) do |f| %>
       <%= f.error_notification %>
+      <div class="edit-header">
+        <h2>Profile</h2>
+        <p>Keep this information accurate and up to date</p>
+      </div>
 
-      <div class="img-polaroid center">
+      <div class="img-polaroid">
         <% if @user.avatar.nil? %>
           <img src="/fallback/default.png">
           <%= f.file_field :avatar, title:"Upload" %>
         <% else %>
           <div class="fileupload fileupload-new" data-provides="fileupload">
-            <div class="fileupload-preview thumbnail" style="width:100px; height:100px;"><img src="<%= @user.avatar.url("small") %>" /></div>
+            <div class="fileupload-preview thumbnail" style="max-width: 100px;"><img src="<%= @user.avatar.url("small") %>" /></div>
             <div class="fileupload-controls">
               <span class="btn btn-file">
                 <span class="fileupload-new">Select Image</span><span class="fileupload-exists">Change</span><input id="user_avatar" name="user[avatar]" title="Upload" type="file" />
@@ -40,20 +39,22 @@
         <% end %>
       </div><br />
 
-      <%= f.input :name %>
+      <%= f.input :name, input_html: {class: 'inline'} %>
       <%= f.input :username %>
       <%= f.input :email %>
       <%= f.input :dob, input_html: { id: 'datepicker'} %>
 
-      <%= f.label :sex %>
-      <span class="sex-btn">
+      <div class="control-group">
+        <%= f.label :sex %>
         <%= f.collection_radio_buttons(:sex, [['Male', 'male',], ['Female', 'female']], :first, :last).html_safe do |b| b.label {b.text + b.radio_button } end %>
-      </span>
+      </div>
       
       <%= f.input :location %>
-      <%= f.label :country_name %>
-      <%= f.country_select :country_name %>
-
+      <div class="control-group">
+        <%= f.label :country_name %>
+        <%= f.country_select :country_name %>
+      </div>
+      
       <%= f.input :about_me, as: :text %>
 
       <div class="center">
