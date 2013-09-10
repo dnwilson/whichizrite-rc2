@@ -1,17 +1,11 @@
 <div class="main row">
 	<!-- Main Post -->
-	<div class="span8">
-		<div class="pf-container">
-			<div class="pf-header">
-				<h3>Create a new story</h3>
-				<p>Feel free to express yourself. You can use the anonymous checkbox to keep your identity a secret.</p>
-		    </div>
-			<%= render "post_form" %>
-		</div>
+	<div class="new-post-page col-xs-12 col-md-8">
+		<%= render "postform" %>
 	</div>
 
 	<!-- Side Bar -->
-	<div class="span4">
+	<div class="hidden-xs col-md-4">
 		<%= render "shared/sidebar" %>
 	</div>
 </div>

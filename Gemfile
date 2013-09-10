@@ -20,7 +20,7 @@ gem 'rails-observers'
 # gem 'actionpack-page_caching'
 # gem 'actionpack-action_caching'
 
-gem 'activerecord-session_store'
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 gem 'paperclip'
 gem 'auto_html'

@@ -28,7 +28,8 @@ class Post < ActiveRecord::Base
 
   multisearchable :against => [:p_title, :p_body]
 
-  attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, :category_id, :tag_list
+  attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, 
+                  :p_body_html, :category_id, :tag_list
 
   has_attached_file :p_image, styles: {main: "250x250>", large: "600x600>", thumb: "125x125#"},
   							  url: "/assets/images/:id/:style/:basename.:extension",
@@ -40,6 +41,8 @@ class Post < ActiveRecord::Base
 
   has_many :taggings
   has_many :tags, through: :taggings
+
+  # after_create :categorize_post
 
   acts_as_voteable
 
@@ -110,4 +113,52 @@ class Post < ActiveRecord::Base
   def self.posts_from_me(user)
     where("origin_user_id = :user_id", user_id: user.id)    
   end
+
+  auto_html_for :p_body do
+    html_escape
+    image
+    youtube(:width => 438, :height => 246)
+    soundcloud(:maxwidth => '438')
+    link :target => "_blank", :rel => "nofollow"
+    simple_format
+  end
+
+  def has_media?
+
+    if condition
+      
+    else
+      
+    end
+  end
+
+  # def categorize_post
+  #   youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
+  #   worldstar_regex = /http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/
+  #   if self.p_body_html.gsub(youtube_regex)
+  #     #youtube post
+  #     self.p_body_html.gsub(youtube_regex) do
+  #       youtube_id = $3
+  #       src = "//www.youtube.com/embed/#{youtube_id}"
+  #       src += "?wmode=#{wmode}" if wmode
+  #       %{<iframe width="720" height="420" src="#{src}" frameborder="#{frameborder}" allowfullscreen></iframe>}        
+  #       self.p_media = src
+  #       self.save
+  #     end
+  #     self.p_type = "video"
+  #     self.save
+  #   elsif self.p_body_html.gsub(worldstar_regex)
+  #      #worldstar post
+  #     self.p_body_html.gsub(worldstar_regex) do 
+  #       video_id = $1
+  #       width  = options[:width]
+  #       height = options[:height]
+  #       self.p_media = %{<object width="#{width}" height="#{height}"><param name="movie" value="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}"><param name="allowFullScreen" value="true"></param><embed src="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}" type="application/x-shockwave-flash" allowFullscreen="true" width="#{width}" height="#{height}"></embed></object>}
+  #     end
+  #     self.p_type = "video"
+  #     self.save
+  #   else
+  #     #other post
+  #   end
+  # end
 end

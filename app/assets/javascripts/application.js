@@ -20,8 +20,6 @@ $(function(){
 		format: 'mm/dd/yyyy'
 	});
 });
-
-
 // $(function() {
 // 	if(!$.support.placeholder) { 
 // 		var active = document.activeElement;

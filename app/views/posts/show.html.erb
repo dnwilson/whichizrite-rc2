@@ -38,15 +38,17 @@
 					</span>					
 				<% else %>
 					<div class="no-img-post-body">	
-						<p><%= @post.p_body %></p>
+						<p><%= @post.p_body_html %></p>
 						<span class="no-img-post-tags">
 							<p>Tags: <%= raw @post.tags.map {|t| link_to t.name, tag_path(t.name) }.join(', ') %></p>
 						</span>
 					</div>
 				<% end %>				
 				
-				<div class="myvote-<%= @post.id %>">
-					<%= render :partial => "shared/vote", locals: {feed_item: @post}  %>
+				<div class="this-vote">
+					<div class="myvote-<%= @post.id %>">
+						<%= render :partial => "shared/vote", locals: {feed_item: @post}  %>
+					</div>
 				</div>
 			</div>
 

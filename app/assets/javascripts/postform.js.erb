@@ -1,0 +1,23 @@
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#preview-pic').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#post_p_image").change(function(){
+    readURL(this);
+    $('.preview').css('display', 'block');   
+});
+
+$("#clearfile").click(function(event){
+	event.preventDefault();
+	$("#post_p_image").replaceWith("<input id='post_p_image' name='post[p_image]' type='file' data-provide='fileupload' />");
+	$('.preview').css('display', 'none'); 
+});

@@ -7,7 +7,7 @@
 			<div class="post-title-bar row">
 				<% if signed_in? && current_user.id == post.origin_user_id %>
 					<span class="post-title col-xs-11 col-md-11">
-						<h3><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h3>
+						<h2><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h2>
 					</span>
 					<span class="post-delete col-xs-1 col-md-1">					
 						<%= link_to post, method: :delete,
@@ -18,7 +18,7 @@
 					</span>
 				<% else %>
 					<span class="post-title col-xs-11 col-md-11">
-						<h3><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h3>
+						<h2><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h2>
 					</span>
 				<% end %>
 			</div>
@@ -35,7 +35,7 @@
 			<div class="post-title-bar row">
 				<% if current_user == post.user %>
 					<span class="post-title col-xs-11 col-md-11">
-						<h3><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h3>
+						<h2><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h2>
 					</span>
 					<span class="post-delete col-xs-1 col-md-1">
 						<% if current_user.id == post.origin_user_id %>
@@ -48,7 +48,7 @@
 					</span>
 				<% else %>
 					<span class="post-title col-xs-11 col-md-11">
-						<h3><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h3>					
+						<h2><%= link_to post.p_title, post_path(post) %><span class="post-cat"><%= link_to Category.find(post.category_id).cat_name %></span></h2>					
 					</span>
 				<% end %>
 			</div>

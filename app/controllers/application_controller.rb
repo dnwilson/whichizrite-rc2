@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  # before_filter session.model.id = session.session_id
 
   # if user is logged in, current_user, else return guest_user
   def current_or_guest_user

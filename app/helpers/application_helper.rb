@@ -33,9 +33,9 @@ module ApplicationHelper
 	end
 
 	def the_excerpt(post) 
-		length = 140
+		length = 120
 		read_more_text = '[continue...]'
-		raw(truncate(strip_tags(post.p_body), :length => length,
+		raw(truncate(strip_tags(post.p_body_html), :length => length,
 		:omission => "... #{link_to read_more_text, post_path(post)}"))
 	end
 end

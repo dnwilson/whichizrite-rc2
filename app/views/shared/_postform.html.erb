@@ -1,4 +1,8 @@
 <%= simple_form_for(@post, :validate => true, :html => { :class => "post-form inline-form", :multipart => true } ) do |f| %>
+    <div class="post-head">
+        <h3>Create a new story</h3>
+        <p>Feel free to express yourself. You can use the anonymous checkbox to keep your identity a secret.</p>
+    </div>
     <%= render 'shared/error_messages', object: f.object %>
 
     <%= f.text_field :p_title, placeholder: "Title" %>
