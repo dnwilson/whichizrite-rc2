@@ -13,11 +13,27 @@ function readURL(input) {
 
 $("#post_p_image").change(function(){
     readURL(this);
-    $('.preview').css('display', 'block');   
+    $('#preview-pic').css('display', 'block');
+    $('#preview-pic').css('hidden', 'false');
+    $('.preview').css('display', 'inline-block');   
 });
 
 $("#clearfile").click(function(event){
-	event.preventDefault();
-	$("#post_p_image").replaceWith("<input id='post_p_image' name='post[p_image]' type='file' data-provide='fileupload' />");
+	// event.preventDefault();
+	$("#post_p_image").val('');
+	// replaceWith("<input id='post_p_image' name='post[p_image]' type='file' data-provide='fileupload' />");
+	$("#post_p_media").val('');
 	$('.preview').css('display', 'none'); 
+});
+
+$("#post_p_media").change(function(){
+	text = $('#post_p_media').val();
+    $('.media').html(text);
+    $('.media')
+      .simpleFormat()
+      .image()
+      .youtube({width:240, height:120})
+      .link();
+    $('.preview').css('display', 'inline-block'); 
+    $('.media').css('display', 'block');
 });

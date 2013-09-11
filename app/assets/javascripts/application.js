@@ -18,7 +18,7 @@
 $(function(){
 	$('#datepicker').datepicker({
 		format: 'mm/dd/yyyy'
-	});
+	});	
 });
 // $(function() {
 // 	if(!$.support.placeholder) { 

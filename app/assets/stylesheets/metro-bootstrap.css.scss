@@ -379,6 +379,16 @@ body{
 			display: none;
 			padding: 10px;
 			margin-bottom: 12.5px;
+			.preview-pic{
+				display: none;
+			}
+			.media{		
+				float: left;		
+				margin-top: 0px;
+				p{
+					margin-bottom: 0px;
+				}
+			}
 			img{
 				max-width: 100px;
 				height:auto;

@@ -29,7 +29,7 @@ class Post < ActiveRecord::Base
   multisearchable :against => [:p_title, :p_body]
 
   attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, 
-                  :p_body_html, :category_id, :tag_list
+                  :p_body_html, :category_id, :tag_list, :p_media, :p_media_html
 
   has_attached_file :p_image, styles: {main: "250x250>", large: "600x600>", thumb: "125x125#"},
   							  url: "/assets/images/:id/:style/:basename.:extension",
@@ -115,6 +115,15 @@ class Post < ActiveRecord::Base
   end
 
   auto_html_for :p_body do
+    html_escape
+    image
+    youtube(:width => 438, :height => 246)
+    soundcloud(:maxwidth => '438')
+    link :target => "_blank", :rel => "nofollow"
+    simple_format
+  end
+
+  auto_html_for :p_media do
     html_escape
     image
     youtube(:width => 438, :height => 246)

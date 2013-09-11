@@ -11,9 +11,10 @@
 
     <div class="attachment">
         <div class="att-btns">
-            <button data-toggle="modal" href="#addPic" class="btn"><span class="icon-picture"></span></button><button data-toggle="modal" href="addVideo" class="btn"><span class="icon-facetime-video"></span></button><button data-toggle="modal" href="addLink" class="btn"><span class="icon-link"></span></button>
+            <button data-toggle="modal" href="#addPic" class="btn"><span class="icon-picture"></span></button><button data-toggle="modal" href="#addVideo" class="btn"><span class="icon-facetime-video"></span></button><button data-toggle="modal" href="addLink" class="btn"><span class="icon-link"></span></button>
         </div>
         <%= render 'addPic'%>
+        <%= render 'addVideo'%>        
         <div class="post-checkbox">
             <label class="checkbox">
                 <input id="post_anonymous" label="Post anonymously?" name="post[anonymous_post]" type="checkbox" value"1"> post anonymously?
@@ -21,8 +22,9 @@
         </div>
     </div>
     <div class="preview">
-        <img id="preview-pic" src="#" alt="your image" />
-        <button type="button" class="close" id="clearfile" data-dismiss="fileupload">&times;</button>
+        <img id="preview-pic" src="#" alt="your image" hidden="true" />
+        <div class="media"></div>
+        <button type="button" class="close" id="clearfile" data-dismiss="fileupload">&times;</button>        
     </div>
     <% if current_user.admin? %>
         <%= f.collection_select :category_id, Category.all, :id, :cat_name  %>

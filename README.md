@@ -10,6 +10,8 @@ Dane Wilson
 
 ##Todo
 -[] Finish Bootstrap 3 UI
+	-[] Add Image from link Preview
+	-[] Add Youtube Link Preview
 -[] Notifications
 -[] Mailing System
 -[] Ad Management

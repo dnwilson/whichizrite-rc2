@@ -34,6 +34,12 @@ class PostsController < ApplicationController
         end
     end
 
+    def preview
+        @post = current_user.posts.build(params[:post])
+        @categories = Category.all
+        render :text => @post.p_media_html 
+    end
+
     def destroy
         @post = Post.find(params[:id])
         @post.destroy
