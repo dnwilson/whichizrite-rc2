@@ -9,6 +9,7 @@ Dane Wilson
 [x] When you select a picture to upload if you remove the picture and try to add a new one. The new picture will not show up in the preview window.
 [x] Client Side Validation only works when validation is listed in the model. So it currently doesn't work with devise.
 [] Post media is not validated client side
+[] Firefox textboxes don't display correctly. Check bootstrap scaffolding file and comment out 'background-image:none' for input fields.
 
 ##Todo
 -[] Finish Bootstrap 3 UI
@@ -16,6 +17,7 @@ Dane Wilson
 	-[x] Add Youtube Link Preview
 	-[x] Disable image upload button if post has link & vice-versa
 	-[x] Client-side validation
+	-[x] Full Javascript implementation
 	-[] Finalize Bootstrap Tweaks
 -[] Notifications
 -[] Mailing System
