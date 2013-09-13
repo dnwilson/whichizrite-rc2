@@ -1,26 +1,3 @@
-# == Schema Information
-#
-# Table name: posts
-#
-#  id                   :integer          not null, primary key
-#  p_type               :string(255)
-#  p_title              :string(255)
-#  p_body               :text
-#  user_id              :integer
-#  anonymous_post       :boolean          default(FALSE)
-#  category_id          :integer
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  p_image_file_name    :string(255)
-#  p_image_content_type :string(255)
-#  p_image_file_size    :integer
-#  p_image_updated_at   :datetime
-#  upcount              :integer          default(0)
-#  downcount            :integer          default(0)
-#  p_body_html          :string(255)
-#  origin_user_id       :integer
-#
-
 class Post < ActiveRecord::Base
 
   include AutoHtml
@@ -28,8 +5,8 @@ class Post < ActiveRecord::Base
 
   multisearchable :against => [:p_title, :p_body]
 
-  attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, 
-                  :p_body_html, :category_id, :tag_list, :p_media, :p_media_html
+  # attr_accessible :p_title, :p_image, :anonymous_post, :p_body, :p_type, 
+  #                 :p_body_html, :category_id, :tag_list, :p_media, :p_media_html
 
   has_attached_file :p_image, styles: {main: "250x250>", large: "600x600>", thumb: "125x125#"},
   							  url: "/assets/images/:id/:style/:basename.:extension",
@@ -48,11 +25,13 @@ class Post < ActiveRecord::Base
 
   default_scope -> {order('created_at DESC')}
 
-  validates :user_id, presence: true
+  VALID_WEBSITE_REGEX = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
+  validates_presence_of :user_id, message: "You need to enter a title for this story"
   validates :p_title, presence: true, length: {maximum: 30}
-  validates :p_body, presence: true, :if => :has_attached_image?
+  validates :p_body, presence: true
   validates :category_id, presence: true
   validates :tag_list, presence: true
+  validates :p_media_html, format: {with: VALID_WEBSITE_REGEX}
 
   def has_attached_image?
     self.p_image != nil

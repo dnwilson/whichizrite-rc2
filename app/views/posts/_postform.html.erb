@@ -1,40 +1,40 @@
-<%= minimal_form_for(@post, :html => { :class => "post-form", :multipart => true } ) do |f| %>
-
+<div class="page-container">
     <div class="pf-header">
         <h3>Create a new story</h3>
         <p>Feel free to express yourself. You can use the anonymous checkbox to keep your identity a secret.</p>
     </div>
+    <%= simple_form_for(@post, :validate => true, :html => { :class => "post-form", :multipart => true } ) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
 
-    <%= render 'shared/error_messages', object: f.object %>
+        <%= f.input :p_title, placeholder: "Title", auto_focus: true, label: false %>
 
-    <%= f.input :p_title, placeholder: "Title" %>
-
-    <div class="attachment">
-        <div class="att-btns">
-            <button data-toggle="modal" href="#addPic" class="btn"><span class="icon-picture"></span></button><button data-toggle="modal" href="#addVideo" class="btn"><span class="icon-facetime-video"></span></button><button data-toggle="modal" href="addLink" class="btn"><span class="icon-link"></span></button>
+        <div class="attachment">
+            <div class="att-btns">
+                <button data-toggle="modal" href="#addPic" class="btn"><span class="icon-picture"></span></button><button data-toggle="modal" href="#addVideo" class="btn"><span class="icon-facetime-video"></span></button><button data-toggle="modal" href="addLink" class="btn"><span class="icon-link"></span></button>
+            </div>
+            <%= render 'addPic'%>
+            <%= render 'addVideo'%>        
+            <div class="post-checkbox">
+                <label class="checkbox">
+                    <input id="post_anonymous" label="Post anonymously?" name="post[anonymous_post]" type="checkbox" value"1"> post anonymously?
+                </label>
+            </div>
         </div>
-        <%= render 'addPic'%>
-        <%= render 'addVideo'%>        
-        <div class="post-checkbox">
-            <label class="checkbox">
-                <input id="post_anonymous" label="Post anonymously?" name="post[anonymous_post]" type="checkbox" value"1"> post anonymously?
-            </label>
+        <div class="preview">
+            <img id="preview-pic" src="#" alt="your image" hidden="true" />
+            <div class="media"></div>
+            <button type="button" class="close" id="clearfile" data-dismiss="fileupload">&times;</button>        
         </div>
-    </div>
-    <div class="preview">
-        <img id="preview-pic" src="#" alt="your image" hidden="true" />
-        <div class="media"></div>
-        <button type="button" class="close" id="clearfile" data-dismiss="fileupload">&times;</button>        
-    </div>
-    <% if current_user.admin? %>
-        <%= f.collection_select :category_id, Category.all, :id, :cat_name  %>
-    <% else %>
-        <%= f.collection_select :category_id, Category.where("id != 1"), :id, :cat_name  %>
+        <% if current_user.admin? %>
+            <%= f.collection_select :category_id, Category.all, :id, :cat_name, label: false  %>
+        <% else %>
+            <%= f.collection_select :category_id, Category.where("id != 1"), :id, :cat_name, label: false  %>
+        <% end %>
+
+        <%= f.input :tag_list, placeholder: "Tags (separated by commas)", label: false %>
+
+        <%= f.input :p_body, placeholder: "What do you want to say...", label: false %>
+
+        <%= f.submit "Post", class: "btn btn-primary" %>
     <% end %>
-
-    <%= f.input :tag_list, placeholder: "Tags (separated by commas)" %>
-
-    <%= f.input :p_body, placeholder: "What do you want to say..." %>
-
-    <%= f.submit "Post", class: "btn btn-primary" %>
-<% end %>
+</div>

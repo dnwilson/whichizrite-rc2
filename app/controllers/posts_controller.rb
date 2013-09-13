@@ -20,26 +20,20 @@ class PostsController < ApplicationController
             @query = params[:query]
             @posts = Post.all 
         else
-            @posts = Post.cat_list(params[:category])
+            @posts = Post.cat_list(category_params)
         end       
     end
 
     def new
         if current_or_guest_user.name == "Guest"
-            flash[:notice] = "You do not have permission to carry out this function."
+            flash[:notice] = "You need to login before you can create a post."
             redirect_to root_path
         else
-            @post = current_user.posts.build(params[:post])
+            @post = current_user.posts.build(post_params)
             @categories = Category.all
         end
     end
-
-    def preview
-        @post = current_user.posts.build(params[:post])
-        @categories = Category.all
-        render :text => @post.p_media_html 
-    end
-
+    
     def destroy
         @post = Post.find(params[:id])
         @post.destroy
@@ -49,7 +43,7 @@ class PostsController < ApplicationController
     end
 
 	def create
-		@post = current_user.posts.build(params[:post])
+		@post = current_user.posts.build(post_params)
         @categories = Category.all
         if @post.anonymous_post? 
             @post.user_id = User.find_by_username('anonymous').id
@@ -65,9 +59,9 @@ class PostsController < ApplicationController
                 format.js
         	else
                 # @feed_items = []
-                format.html {render 'pages/home'}
+                format.html {render 'posts/new'}
                 format.json {render json: @post.errors, status: :unprocessable_entity}
-                format.js {render 'pages/home'}
+                format.js {render 'posts/new'}
         	end
         end
 	end
@@ -177,8 +171,18 @@ class PostsController < ApplicationController
             redirect_to root_url if @post.nil?            
         end
 
-        # def post_params
-        #     params.require(:post).permit(:p_title, :p_image, :anonymous_post, :p_body, :p_type, :category_id, :tag_list)
-        # end
+        def post_params
+            params.fetch(:post, {}).permit(:p_title, :p_image, :anonymous_post, :p_body, 
+                                         :p_body_html, :p_media, :p_type, :category_id,
+                                         :tag_list, :upcount, :downcount, :origin_user_id)
+        end
+
+        def tag_params
+            params.require(:tag).permit(:name)
+        end
+
+        def category_params
+            params.require(:category).permit(:cat_name, :id)
+        end
 
 end

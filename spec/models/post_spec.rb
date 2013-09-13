@@ -1,26 +1,3 @@
-# == Schema Information
-#
-# Table name: posts
-#
-#  id                   :integer          not null, primary key
-#  p_type               :string(255)
-#  p_title              :string(255)
-#  p_body               :text
-#  user_id              :integer
-#  anonymous_post       :boolean          default(FALSE)
-#  category_id          :integer
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  p_image_file_name    :string(255)
-#  p_image_content_type :string(255)
-#  p_image_file_size    :integer
-#  p_image_updated_at   :datetime
-#  upcount              :integer          default(0)
-#  downcount            :integer          default(0)
-#  p_body_html          :string(255)
-#  origin_user_id       :integer
-#
-
 require 'spec_helper'
 
 include Devise::TestHelpers
@@ -58,7 +35,7 @@ describe Post do
 		it "should not allow access to user_id" do
 			expect do 
 				Post.new(user_id: user.id)
-			end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+			end.to raise_error
 		end
 	end
 

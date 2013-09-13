@@ -3,7 +3,10 @@ class CreateComments < ActiveRecord::Migration
     create_table :comments do |t|
       t.integer :user_id
       t.integer :post_id
-      t.string :comment
+      t.text :comment
+      t.text :comment_html
+      t.integer  :upcount,        :default => 0
+      t.integer  :downcount,      :default => 0
 
       t.timestamps
     end

@@ -56,7 +56,8 @@ describe User do
 	it{should respond_to(:dob)}
 	it{should respond_to(:sex)}
 	it{should respond_to(:location)}
-	it{should respond_to(:about_me)}
+	it{should respond_to(:aboutme)}
+	it{should respond_to(:aboutme_html)}
 	it{should respond_to(:provider)}
 	it{should respond_to(:uid)}
 	it{should respond_to(:private_followable)}

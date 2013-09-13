@@ -16,6 +16,7 @@ $gray: darken($mainGray, 15%);
 $darkerGray: darken($mainGray, 35%);
 $mediumGray: #aaa;
 $wiwRed:#ca0000;
+$error: #f00;
 
 $brand-primary: #46a546;
 
@@ -69,6 +70,50 @@ body{
 	font-family: oswald-light;
 	src: local("oswald-light"),url("/assets/oswald/Oswald-Light.ttf") format("truetype");
 }
+
+
+#error_explanation {
+  color: $error;
+  font-size:12px;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+ }
+
+ .help-inline{
+	display:block;
+	font-size: 14px;
+	color: lighten($error, 25%);
+	padding-bottom: 5px;
+	margin-bottom: 12.5px;
+	padding-left: 5px;
+}
+
+.error{
+	background-color: lighten($error, 45%);
+	padding-bottom: 0px;
+	border-bottom-left-radius: 5px;	
+	-webkit-border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;	
+	-webkit-border-bottom-right-radius: 5px;	
+	//-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+	//   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+	//   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
+	input{
+		border: 1px solid lighten($error, 25%);
+		margin-bottom: 0px;
+	}
+	label{
+		margin-bottom:0px;
+	}
+} 
+
 
 /*
  * Main Post Feed
@@ -363,81 +408,92 @@ body{
  * --------------------------------------------------
  */
 .new-post-page{
-	form{
-		margin-top: 10px;
-		font-size: 0px;
-		label.collection_radio_buttons{
-			font-size: 14px;
-			margin: 0 30px 10px 10px;
+	.page-container{	
+		background-color: white;
+		padding: 0 20px;
+		.pf-header{
+			h3{
+				margin: 0px;
+				padding: 20px 0 10px 0;
+			}
 		}
-		label.checkbox{
-			font-size: 14px;
-		}
-		.preview{
-			border: 1px solid $mediumGray;
-			width: 100%;
-			display: none;
-			padding: 10px;
-			margin-bottom: 12.5px;
-			.preview-pic{
+		form{
+			margin-top: 10px;
+			font-size: 0px;
+			label.collection_radio_buttons{
+				font-size: 14px;
+				margin: 0 30px 10px 10px;
+			}
+			label.checkbox{
+				font-size: 14px;
+			}
+			.preview{
+				border: 1px solid $mediumGray;
+				width: 100%;
 				display: none;
-			}
-			.media{		
-				float: left;		
-				margin-top: 0px;
-				p{
-					margin-bottom: 0px;
+				padding: 10px;
+				margin-bottom: 12.5px;
+				.preview-pic{
+					display: none;
 				}
-			}
-			img{
-				max-width: 100px;
-				height:auto;
-			}
-		}
-		.attachment{
-			border: 1px solid $mediumGray;
-			margin-bottom: 12.5px;
-			display: inline-block;
-			width: 100%;			
-			.att-btns{
-				float: left;
-				button{				
-					border-radius: 0px;
-					height:40px;
-					color: $wirGreen;
-					&:hover{
-						background-color: $lightestGray;
-						color: black;
+				.media{		
+					float: left;		
+					margin-top: 0px;
+					p{
+						margin-bottom: 0px;
 					}
 				}
+				img{
+					max-width: 100px;
+					height:auto;
+					float: left;
+				}
 			}
-			.post-checkbox{
-				float: right;
-				padding-right: 5px;
-			}
+			.attachment{
+				border: 1px solid $mediumGray;
+				margin-bottom: 12.5px;
+				display: inline-block;
+				width: 100%;			
+				.att-btns{
+					float: left;
+					button{				
+						border-radius: 0px;
+						height:40px;
+						color: $wirGreen;
+						&:hover{
+							background-color: $lightestGray;
+							color: black;
+						}
+					}
+				}
+				.post-checkbox{
+					float: right;
+					padding-right: 5px;
+				}
 
-		}
-		input[type="text"], input[type="email"]{
-			height: 40px;
-			font-size: 14px;
-			padding: 5px;
-			width: 100%;
-			margin-bottom: 12.5px;
-		}		 	
-		textarea{
-			height: 80px;
-			font-size: 14px;
-			padding: 5px;
-			width: 100%;
-			margin-bottom: 12.5px;
-		}
-		select{
-			height: 40px;
-			font-size: 14px;
-			padding: 5px;
-			width: 100%;
-			margin-bottom: 12.5px;
-			font-size: 14px;
+			}
+			input[type="text"], input[type="email"]{
+				height: 40px;
+				font-size: 14px;
+				padding: 5px;
+				width: 100%;
+				margin-bottom: 12.5px;
+			}		 	
+			textarea{
+				height: 80px;
+				font-size: 14px;
+				padding: 5px;
+				width: 100%;
+				margin-bottom: 12.5px;
+			}
+			select{
+				height: 40px;
+				font-size: 14px;
+				padding: 5px;
+				width: 100%;
+				margin-bottom: 12.5px;
+				font-size: 14px;
+			}
 		}
 	}
 }
@@ -522,7 +578,7 @@ body{
  	max-width: 400px;
  	.signup-form{
  		padding: 15px;
- 		input[type="text"], input[type="password"]{
+ 		input[type="text"], input[type="password"], input[type="email"]{
  			width: 100%;
  			height: 45px;
  			padding: 5px;
@@ -696,7 +752,7 @@ body.modal-open, .modal-open .navbar-fixed-top,
 .modal-open .navbar-fixed-bottom {
 	margin-right: 0px;
 }
- #addPic{
+#addPic{
 	position: fixed;
 	max-width: 420px;
 	overflow: auto;
@@ -718,6 +774,27 @@ body.modal-open, .modal-open .navbar-fixed-top,
 	}
 }
 
+#addVideo{
+	position: fixed;
+	max-width: 420px;
+	overflow: auto;
+	margin: auto;
+	top: 25%;
+	.modal-header{
+		background-color: $wirGreen;
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	.modal-info{
+		padding:10px;
+	}
+	.addVideoForm{
+		background-color:white;
+		min-height: 200px;
+		font-size: 14px;
+		padding: 10px;
+	}
+}
 /*
  * Off Canvas
  * --------------------------------------------------

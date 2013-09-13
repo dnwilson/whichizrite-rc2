@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130910221253) do
+ActiveRecord::Schema.define(version: 20130829173211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,12 +53,12 @@ ActiveRecord::Schema.define(version: 20130910221253) do
   create_table "comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "post_id"
-    t.string   "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "comment_html"
+    t.text     "comment"
+    t.text     "comment_html"
     t.integer  "upcount",      default: 0
     t.integer  "downcount",    default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "comments", ["post_id", "user_id", "id"], name: "index_comments_on_post_id_and_user_id_and_id", using: :btree
@@ -89,7 +89,13 @@ ActiveRecord::Schema.define(version: 20130910221253) do
     t.string   "p_type"
     t.string   "p_title"
     t.text     "p_body"
+    t.text     "p_body_html"
+    t.text     "p_media"
+    t.text     "p_media_html"
+    t.integer  "upcount",              default: 0
+    t.integer  "downcount",            default: 0
     t.integer  "user_id"
+    t.integer  "origin_user_id"
     t.boolean  "anonymous_post",       default: false
     t.integer  "category_id"
     t.datetime "created_at"
@@ -98,12 +104,6 @@ ActiveRecord::Schema.define(version: 20130910221253) do
     t.string   "p_image_content_type"
     t.integer  "p_image_file_size"
     t.datetime "p_image_updated_at"
-    t.integer  "upcount",              default: 0
-    t.integer  "downcount",            default: 0
-    t.string   "p_body_html"
-    t.integer  "origin_user_id"
-    t.string   "p_media"
-    t.string   "p_media_html"
   end
 
   add_index "posts", ["id", "category_id"], name: "index_posts_on_id_and_category_id", using: :btree
@@ -154,7 +154,15 @@ ActiveRecord::Schema.define(version: 20130910221253) do
     t.string   "name"
     t.string   "sex"
     t.string   "dob"
-    t.string   "about_me"
+    t.text     "aboutme"
+    t.text     "aboutme_html"
+    t.string   "auth_token"
+    t.string   "uid"
+    t.string   "provider"
+    t.string   "profilepic"
+    t.string   "location"
+    t.string   "country_name"
+    t.boolean  "private_followable",     default: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -169,13 +177,6 @@ ActiveRecord::Schema.define(version: 20130910221253) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "country_name"
-    t.string   "location"
-    t.string   "provider"
-    t.string   "uid"
-    t.boolean  "private_followable",     default: false
-    t.string   "profilepic"
-    t.string   "auth_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

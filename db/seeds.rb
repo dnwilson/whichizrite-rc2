@@ -21,7 +21,7 @@ Category.create!(cat_name:"Opinions")
 # Preference.create!(name: 'fb_pub_comment',	details: 'Publish comment activity')
 
 user6= User.create!(name: 'Random Girl', 
-					about_me: 'Some random girl', 
+					aboutme: 'Some random girl', 
 					username: 'randomgirl', 
 					avatar: File.open(File.join(Rails.root, 'sampleimages/', 'randomgirl.jpg')), 
 					sex: 'female',
@@ -63,7 +63,7 @@ user7 = User.create!(name: 'anonymous',
 					password: '1@mDamage', 
 					password_confirmation: '1@mDamage',
 					location: 'Unknown',
-					about_me: 'Unknown'
+					aboutme: 'Unknown'
 					)
 
 user1 = User.create!(name: 'Information', 
@@ -73,7 +73,7 @@ user1 = User.create!(name: 'Information',
 					password_confirmation: '1@mDamage',
 					sex: 'male',
 					location: 'Kingston, Jamaica',
-					about_me: 'This is whichizrite. Be heard'
+					aboutme: 'This is whichizrite. Be heard'
 					)
 
 user1.posts.create(
@@ -100,7 +100,7 @@ user2 = User.create!(name: 'Razor Damage',
 					password_confirmation: 'foobar12',
 					sex: 'male',
 					location: 'Kingston, Jamaica',
-					about_me: 'My name is Razor Damage',
+					aboutme: 'My name is Razor Damage',
 					avatar: File.open(File.join(Rails.root, 'sampleimages', 'razor.jpg'))
 					)
 
@@ -127,7 +127,7 @@ user3 = User.create!(name: 'Browning',
 					password_confirmation: 'foobar12',
 					sex: 'female',
 					location: 'Miami, FL',
-					about_me: 'My name is browning',
+					aboutme: 'My name is browning',
 					avatar: File.open(File.join(Rails.root, 'sampleimages', 'browning.jpg'))
 					)
 
@@ -154,7 +154,7 @@ user5 = User.create!(name: 'Fal Gal',
 					password_confirmation: 'foobar12',
 					sex: 'female',
 					location: 'London, England',
-					about_me: 'My name is browning',
+					aboutme: 'My name is browning',
 					avatar: File.open(File.join(Rails.root, 'sampleimages', 'fatgal.jpg'))
 					)
 

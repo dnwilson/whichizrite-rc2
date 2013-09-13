@@ -14,13 +14,13 @@ class CommentsController < ApplicationController
 	# end
 
 	def new
-        @comment = current_user.comments.create(params[:comment])
+        @comment = current_user.comments.create(comment_params)
         @post = @comment.post
         @comment = :json
     end
 
 	def create
-        @comment = current_user.comments.create(params[:comment])
+        @comment = current_user.comments.create(comment_params)
         @post = @comment.post
      #    if @comment.user != current_user
 	    #     # PrivatePub.publish_to("/#{@story.user_id}/alerts", "alert('#{current_user.username} commented on your post.');")
@@ -114,5 +114,9 @@ class CommentsController < ApplicationController
 			@comment = current_user.comments.find_by_id(params[:id])
  	      	redirect_to root_path if @comment.nil?
 		end
+
+        def comment_params
+            params.require(:post).permit(:comment, :comment_html, :post_id, :user_id)            
+        end
 
 end

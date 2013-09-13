@@ -33,7 +33,6 @@ describe "AuthenticationPages" do
 
 			it{should have_selector('li.active', text: "Latest")}
 			it{should have_selector('.posts')}
-			it{should have_selector('.sidebar')}
 		end
 
 		describe "with valid username information" do
@@ -47,7 +46,6 @@ describe "AuthenticationPages" do
 
 			it{should have_selector('li.active', text: "Latest")}
 			it{should have_selector('.posts')}
-			it{should have_selector('.sidebar')}
 		end
 	end
 end

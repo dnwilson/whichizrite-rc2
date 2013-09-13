@@ -9,7 +9,17 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :name
       t.string :sex
       t.string :dob 
-      t.string :about_me
+      t.text   :aboutme
+      t.text   :aboutme_html
+
+      #Omniauth
+      t.string  :auth_token
+      t.string  :uid
+      t.string  :provider
+      t.string  :profilepic
+      t.string  :location
+      t.string  :country_name
+      t.boolean :private_followable, :default => false
 
       ## Recoverable
       t.string   :reset_password_token

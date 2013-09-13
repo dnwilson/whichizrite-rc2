@@ -13,6 +13,8 @@ function readURL(input) {
 
 $("#post_p_image").change(function(){
     readURL(this);
+    $("#post_p_media").val('');
+    $(".media").html('<div class="media" style="display:none;"></div>');
     $('#preview-pic').css('display', 'block');
     $('#preview-pic').css('hidden', 'false');
     $('.preview').css('display', 'inline-block');   
@@ -21,12 +23,15 @@ $("#post_p_image").change(function(){
 $("#clearfile").click(function(event){
 	// event.preventDefault();
 	$("#post_p_image").val('');
-	// replaceWith("<input id='post_p_image' name='post[p_image]' type='file' data-provide='fileupload' />");
-	$("#post_p_media").val('');
+	$("#post_p_media").val('');	
+	$(".media").html('<div class="media" style="display:none;"></div>');
+	$('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
 	$('.preview').css('display', 'none'); 
 });
 
 $("#post_p_media").change(function(){
+	$('#post_p_image').val('');
+	$('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
 	text = $('#post_p_media').val();
     $('.media').html(text);
     $('.media')

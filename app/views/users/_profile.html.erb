@@ -8,7 +8,7 @@
 			<p><%= @user.name %></p>
 			<i class="icon-home" style="padding-right: 3px"></i><%= @user.location %><span class="bullet"><i class="icon-circle"></i></span><% if @user.sex == "Male" %><i class="icon-male" style="padding-right: 3px"></i>Male<% elsif @user.sex == "Female" %><i class="icon-female" style="padding-right: 3px"></i>Female<% end %><br>
 				
-			<%= @user.about_me %>
+			<%= @user.aboutme %>
 		</div>
 		<div class="subscribers row">
 			<div class="followers col-xs-6 col-md-6"><a href="<%= followers_user_path(@user) %>">Followers (<%= @user.followers_count %>)</a><br>

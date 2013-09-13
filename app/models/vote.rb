@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: votes
-#
-#  id            :integer          not null, primary key
-#  vote          :boolean          default(FALSE), not null
-#  voteable_id   :integer          not null
-#  voteable_type :string(255)      not null
-#  voter_id      :integer
-#  voter_type    :string(255)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#
-
 class Vote < ActiveRecord::Base
 
   scope :for_voter, lambda { |*args| where(["voter_id = ? AND voter_type = ?", args.first.id, args.first.class.base_class.name]) }
@@ -22,7 +8,7 @@ class Vote < ActiveRecord::Base
   belongs_to :voteable, :polymorphic => true
   belongs_to :voter, :polymorphic => true
 
-  attr_accessible :vote, :voter, :voteable
+  # attr_accessible :vote, :voter, :voteable
 
 
   # Comment out the line below to allow multiple votes per user.

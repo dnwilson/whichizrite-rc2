@@ -1,15 +1,5 @@
-# == Schema Information
-#
-# Table name: categories
-#
-#  id         :integer          not null, primary key
-#  cat_name   :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 class Category < ActiveRecord::Base
-  attr_accessible :cat_name, :id
+  # attr_accessible :cat_name, :id
 
   has_many :posts
 

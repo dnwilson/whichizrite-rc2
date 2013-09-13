@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     def create
-	    build_resource
+	    build_resource(sign_up_params)
 
 	    if resource.save
 	      if resource.active_for_authentication?
@@ -38,7 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	    end
 	    update_method = any_passwords ? :update_with_password : :update_without_password
 	 
-	    if resource.send(update_method, params[resource_name])
+	    if resource.send(update_method, account_update_params)
 	      set_flash_message :notice, :updated if is_navigational_format?
 	      sign_in resource_name, resource, :bypass => true
 	      respond_with resource, :location => after_update_path_for(resource)
@@ -53,4 +53,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       	settings_path(resource)
       	# user_path(resource)
       end
+
+      def account_update_params
+		devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :password, :password_confirmation, 
+									:remember_me, :login, :aboutme, :dob, :avatar, :location, :country_name, :sex, :uid, :provider, 
+									:profilepic, :auth_token, :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote) }
+	  end
 end
