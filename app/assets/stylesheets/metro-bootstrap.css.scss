@@ -42,6 +42,7 @@ $navbar-inverse-link-hover-color: $lightestGray;
  */
 body{
 	padding-top: 80px;
+	font-family: sans-serif;
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -50,6 +51,10 @@ body{
 
 .center{
 	text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6{
+	font-family: oswald;
 }
 
 @font-face{
@@ -411,10 +416,14 @@ body{
 	.page-container{	
 		background-color: white;
 		padding: 0 20px;
+		-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+		   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+		   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
 		.pf-header{
 			h3{
 				margin: 0px;
 				padding: 20px 0 10px 0;
+				color: $wirGreen;
 			}
 		}
 		form{
@@ -460,8 +469,9 @@ body{
 						border-radius: 0px;
 						height:40px;
 						color: $wirGreen;
+						background-color: white;
 						&:hover{
-							background-color: $lightestGray;
+							background-color: white;
 							color: black;
 						}
 					}
@@ -493,6 +503,16 @@ body{
 				width: 100%;
 				margin-bottom: 12.5px;
 				font-size: 14px;
+			}
+			.submitPost{
+				width: 100%;
+				text-align: right;
+				.btn{
+					width: 25%;
+					border-radius: 0px;
+					height:40px;
+					margin-bottom: 20px;
+				}
 			}
 		}
 	}
@@ -752,42 +772,104 @@ body.modal-open, .modal-open .navbar-fixed-top,
 .modal-open .navbar-fixed-bottom {
 	margin-right: 0px;
 }
-#addPic{
+
+.modal-header{
+	background-color: $wirGreen;
+	text-align: center;
+	width:100%;		
+	img{
+		float:left;
+		padding-right:10px;
+	}
+	h2{
+		color: white;
+		margin: 0px;
+		text-align:left;
+	}
+	#videoClose{
+		font-size: 36px;
+	}
+	#imgClose{
+		font-size: 36px;
+	}
+}
+
+
+.modal-info{
+	padding:10px;
+	.btn{
+		width: 100%;
+		border-radius: 0px;
+		padding: 10px;
+	}
+	.addFromFile{
+		width:49%;
+		padding:10px;
+		font-size: 14px;
+		border: 1px solid $mainGray;
+		display: inline-block;
+		text-align: center;
+		margin-bottom: 10px;
+		&:hover{
+			text-decoration: none;
+		}
+	}
+	.addFromUrl{
+		width:49%;
+		padding:10px;
+		font-size: 14px;
+		display: inline-block;
+		float:right;
+		text-align: center;
+		border: 1px solid $mainGray;
+		&:hover{
+			text-decoration: none;
+		}
+	}
+	.test{
+		padding-bottom:10px;
+		img{
+			max-width: 380px;
+			max-height: 300px;
+		}
+	}
+	#test-pic{
+		display: none;
+		max-width: 380px;
+		margin: 10px 0;
+	}
+	#addImgBtn{
+		margin-top: 10px;
+	}
+}
+
+#addImage{
 	position: fixed;
 	max-width: 420px;
-	overflow: auto;
+	overflow: hidden;
 	margin: auto;
-	top: 25%;
-	.modal-header{
-		background-color: $wirGreen;
-		text-align: center;
-		margin-bottom: 20px;
-	}
+	top: 10%;
 	.modal-info{
 		padding:10px;
 	}
-	.addPicForm{
+	.addImageForm{
 		background-color:white;
 		min-height: 200px;
 		font-size: 14px;
 		padding: 10px;
+		input[type="file"]{
+			height: 40px;
+			width: 100%;
+		}
 	}
 }
 
 #addVideo{
 	position: fixed;
 	max-width: 420px;
-	overflow: auto;
+	overflow: hidden;
 	margin: auto;
-	top: 25%;
-	.modal-header{
-		background-color: $wirGreen;
-		text-align: center;
-		margin-bottom: 20px;
-	}
-	.modal-info{
-		padding:10px;
-	}
+	top: 10%;
 	.addVideoForm{
 		background-color:white;
 		min-height: 200px;
@@ -795,6 +877,17 @@ body.modal-open, .modal-open .navbar-fixed-top,
 		padding: 10px;
 	}
 }
+
+/*
+ * Footer
+ * --------------------------------------------------
+ */
+
+ .footer{
+ 	margin-top: 20px;
+ }
+
+
 /*
  * Off Canvas
  * --------------------------------------------------
@@ -861,10 +954,10 @@ body.modal-open, .modal-open .navbar-fixed-top,
 @media (min-width: 992px){
 	.posts-list{
 		h2{
-			font-size: 36px;
+			font-size: 30px;
 		}
 		.post-delete{
-			line-height: 36px;
+			line-height: 30px;
 			a:hover{
 				text-decoration: none;
 			}

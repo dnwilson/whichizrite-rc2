@@ -38,4 +38,14 @@
     });
   }
 
+  $.fn.worldstar = function(options){
+    return this.each(function(){
+      var options = $.extend({width:380, height:244}, options);
+      var text = $(this).html();
+      var regex = /http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/
+      var html = text.replace(regex, '<object width="'+ options.width + '" height="'+ options.height + '"><param name="movie" value="http://www.worldstarhiphop.com/videos/e/16711680/$1"><param name="allowFullScreen" value="true"></param><embed src="http://www.worldstarhiphop.com/videos/e/16711680/$1" type="application/x-shockwave-flash" allowFullscreen="true" width="'+ options.width + '" height="'+ options.height +'"></embed></object>')
+      $(this).html(html);
+    });
+  }
+
 })(jQuery);

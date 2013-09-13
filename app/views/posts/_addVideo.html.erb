@@ -1,14 +1,14 @@
-<div id="addVideo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addVideoLabel" aria-hidden="true">
-    <div class="addVideoForm">
-    	<div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4>Paste the link for the video you wish to share</h4>
-	    </div>	    
+<div id="addVideo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addVideoLabel" aria-hidden="true">	
+	<div class="modal-header">
+        <button id="videoClose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <%= image_tag("wir_symbol.png", alt: "logo") %><h2>Add a video</h2>
+    </div>
+    <div class="addVideoForm">	    
 	    <div class="modal-info">
+	    	<p>Please paste the Youtube or World Star Hip Hop link you wish to share.</p>
 	    	<input id="post_p_media" name="post[p_media]" type="text" data-provide="videolink" data-validate="true">
+	    	<div class="test"></div>
+	    	<button id="addVideoBtn" class="btn disabled" data-dismiss="modal" aria-hidden="true">Add To Post</button>
 	    </div>
-	    <div class="modal-footer">
-			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save</button>
-		</div>
     </div>  
 </div>

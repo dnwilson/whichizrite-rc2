@@ -1,0 +1,16 @@
+<div id="addImage" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addImageLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button id="imgClose" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <%= image_tag("wir_symbol.png", alt: "logo") %><h2>Attach an Image</h2>
+    </div>	
+    <div class="addImageForm">    		    
+	    <div class="modal-info">
+	    	<a href="#" class="addFromFile">Upload</a><a href="#" class="addFromUrl">Paste an image link</a>	    	
+	    	<input id="post_p_image" name="post[p_image]" type="file" data-provide="fileupload" style="display:none;">
+	    	<input id="post_p_media" name="post[p_media]" type="text" data-provide="fileurl" style="display:none;">
+	    	<img id="test-pic" src="#" alt="your image" hidden="true" />
+	    	<div class="test"></div>    	
+			<button id="addImgBtn" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Save</button>
+	    </div>
+    </div>  
+</div>

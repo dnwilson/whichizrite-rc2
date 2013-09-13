@@ -5,11 +5,35 @@ function readURL(input) {
 
         reader.onload = function (e) {
             $('#preview-pic').attr('src', e.target.result);
+            $('#test-pic').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+function validateURL(input) {
+    var img_regex = /http:\/\/.+\.(jpg|jpeg|bmp|gif|png)(\?\S+)?/gi;
+    var youtube_regex = /http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/;
+    var worldstar_regex = /http:\/\/(www.)?youtube\.com\/watch\?v=([A-Za-z0-9._%-]*)(\&\S+)?/;
+    var text = input
+    if ( youtube_regex.test(text) || worldstar_regex.test(text) || img_regex.test(text) ) {
+        $('.test').html(text);
+        $('#addVideoBtn').replaceWith('<button id="addVideoBtn" class="btn btn-primary" data-dismiss="modal" aria-hidden="true"">Add To Post</button>');
+        $('.test')
+          .simpleFormat()
+          .image()
+          .youtube({width:240, height:120})
+          .worldstar({width:240, height:120})
+          .link();        } 
+
+    else{
+        $('.test').html('<p style="color:#ff8080;">The link entered is invalid.</p>');
+        $("#post_p_media").css('border', '1px solid #ff8080');
+        $("#post_p_media").val('');
+    };
+}
+
 
 $("#post_p_image").change(function(){
     readURL(this);
@@ -17,7 +41,23 @@ $("#post_p_image").change(function(){
     $(".media").html('<div class="media" style="display:none;"></div>');
     $('#preview-pic').css('display', 'block');
     $('#preview-pic').css('hidden', 'false');
-    $('.preview').css('display', 'inline-block');   
+    $('.preview').css('display', 'inline-block');
+    $('#test-pic').css('display', 'block');   
+});
+
+$(".addFromFile").click(function(){
+    $('#post_p_image').css('display', 'block');
+    $('#post_p_media').css('display', 'none');
+    $("#post_p_media").val('');    
+    $(".test").replaceWith('<div class="test" style="display:none"></div>');
+});
+
+$(".addFromUrl").click(function(){
+    $('#post_p_media').css('display', 'block');
+    $("#post_p_image").css('display', 'none');
+    $("#post_p_image").val('');
+    $('.test').css('display', 'block');
+    $('#test-pic').replaceWith('<img id="test-pic" src="#" alt="your image" hidden="true" />');
 });
 
 $("#clearfile").click(function(event){
@@ -26,7 +66,31 @@ $("#clearfile").click(function(event){
 	$("#post_p_media").val('');	
 	$(".media").html('<div class="media" style="display:none;"></div>');
 	$('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
-	$('.preview').css('display', 'none'); 
+	$('.preview').css('display', 'none');
+    $('#test-pic').css('display', 'none');
+    $('#test').replaceWith('<div class="test"><p></p></div>');  
+});
+
+$("#videoClose").click(function(event){
+    // event.preventDefault();
+    $("#post_p_image").val('');
+    $("#post_p_media").val(''); 
+    $(".media").html('<div class="media" style="display:none;"></div>');
+    $('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
+    $('.preview').css('display', 'none'); 
+    $(".test").html('<div class="test" style="display:none;"></div>');
+    $("#post_p_media").css('border', '1px solid #aaaaaa');
+});
+
+$("#imgClose").click(function(event){
+    // event.preventDefault();
+    $("#post_p_image").val('');
+    $("#post_p_media").val(''); 
+    $(".media").html('<div class="media" style="display:none;"></div>');
+    $('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
+    $('.preview').css('display', 'none');
+    $(".test").html('<div class="test" style="display:none;"></div>');
+    $('#test-pic').replaceWith('<img id="test-pic" src="#" alt="your image" hidden="true" />');
 });
 
 $("#post_p_media").change(function(){
@@ -38,7 +102,10 @@ $("#post_p_media").change(function(){
       .simpleFormat()
       .image()
       .youtube({width:240, height:120})
+      .worldstar({width:240, height:120})
       .link();
     $('.preview').css('display', 'inline-block'); 
     $('.media').css('display', 'block');
+    validateURL($("#post_p_media").val())   
 });
+

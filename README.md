@@ -12,7 +12,7 @@ Dane Wilson
 
 ##Todo
 -[] Finish Bootstrap 3 UI
-	-[] Add Image from link Preview
+	-[x] Add Image from link Preview
 	-[x] Add Youtube Link Preview
 	-[x] Disable image upload button if post has link & vice-versa
 	-[x] Client-side validation

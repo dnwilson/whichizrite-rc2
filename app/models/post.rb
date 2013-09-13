@@ -31,7 +31,7 @@ class Post < ActiveRecord::Base
   validates :p_body, presence: true
   validates :category_id, presence: true
   validates :tag_list, presence: true
-  validates :p_media_html, format: {with: VALID_WEBSITE_REGEX}
+  validates :p_media, format: {with: VALID_WEBSITE_REGEX}
 
   def has_attached_image?
     self.p_image != nil
@@ -107,6 +107,7 @@ class Post < ActiveRecord::Base
     image
     youtube(:width => 438, :height => 246)
     soundcloud(:maxwidth => '438')
+    worldstar
     link :target => "_blank", :rel => "nofollow"
     simple_format
   end
@@ -119,6 +120,17 @@ class Post < ActiveRecord::Base
       
     end
   end
+
+  AutoHtml.add_filter(:worldstar).with(:width => 448, :height => 374) do |text,options|
+    text.gsub(/http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/) do
+      video_id = $1
+      width  = options[:width]
+      height = options[:height]
+      %{<object width="#{:width}" height="#{:height}"><param name="movie" value="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}"><param name="allowFullScreen" value="true"></param><embed src="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}" type="application/x-shockwave-flash" allowFullscreen="true" width="#{:width}" height="#{:height}"></embed></object>}
+    end
+  end
+
+
 
   # def categorize_post
   #   youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
