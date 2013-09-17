@@ -1,4 +1,5 @@
 module ApplicationHelper
+	include AutoHtml
 
 	def full_title(page_title)
 		base_title = "whichizrite"
@@ -33,9 +34,9 @@ module ApplicationHelper
 	end
 
 	def the_excerpt(post) 
-		length = 120
-		read_more_text = '[continue...]'
-		raw(truncate(strip_tags(post.p_body_html), :length => length,
-		:omission => "... #{link_to read_more_text, post_path(post)}"))
+		length = 160
+		read_more_text = "Cont'd'"
+		shortened = raw post.p_body.truncate(length, :separator => " ", :omission => "... #{link_to read_more_text, post_path(post), class:"continue"}")
+		auto_html(shortened){simple_format; link(:target => 'blank')}
 	end
 end

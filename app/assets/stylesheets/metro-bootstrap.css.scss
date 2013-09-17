@@ -130,7 +130,10 @@ h1, h2, h3, h4, h5, h6{
 		padding-left: 0px;
 		margin-top: 20px;
 		li{
-			margin-bottom: 12.5px;			
+			margin-bottom: 12.5px;
+			padding: 0px;
+			margin-left: 5px;
+			margin-right: 5px;			
 			h2{
 				margin-top: 0px;
 				margin-bottom: 5px;
@@ -144,8 +147,10 @@ h1, h2, h3, h4, h5, h6{
 					font-size: 12px;
 					margin-left: 20px;
 					background-color: $wirGreen;
-					padding: 3px 5px;
-					vertical-align: middle;
+					display: inline-block;
+					padding: 5px;
+					margin-top: 3px;
+					vertical-align: top;
 					text-transform: uppercase;
 					a{
 						color: white;
@@ -161,35 +166,58 @@ h1, h2, h3, h4, h5, h6{
 				text-align: right;
 				display: none;
 			}
+			.post-title{
+				display: block;
+			}
+			.post-fb {
+				display: inline-block;
+				a{
+					//vertical-align: middle;
+					font-size: 16px;
+					color: $mainGray;
+					.glyphicon-comment{
+						font-size: 20px;
+					}
+					&:hover{
+						text-decoration: none;
+						//color: $mainGray;
+					}
+				}
+			}
 			.post-pic{
 				padding:10px;
 				background-color: white;
-				border-right: 2px solid #f2f2f2;
-				min-height:140px;
-				line-height: 120px;
-				-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-				   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-				   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
+				border-right: 1px solid $lightestGray;
+				min-height:150px;
+				line-height: 130px;
 				img{
 					max-width: 100%;
 				}
 			}
-
+			.post-info{
+				display: block;
+			}
 			.post-content{
 				padding: 10px 20px;
 				background-color: white;
-				height: 140px;				
-				-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-				   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-				   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
+				height: 150px;				
+				//-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+				//   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+				//   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
 				p{
-					margin-top: 5px;
+					margin-top: 10px;
+					margin-bottom: 5px;
 				}
-				.post-fb a{
-					//color: $darkerGray;
+				.continue{
+					font-family: oswald;
+					padding: 2px;
+					background-color: $mainGray;
+					font-size: 10px;
+					color:white;
+					text-transform: uppercase;
 					&:hover{
+						opacity: 0.7;
 						text-decoration: none;
-						//color: $mainGray;
 					}
 				}
 			}
@@ -197,20 +225,16 @@ h1, h2, h3, h4, h5, h6{
 			.post-vote{
 				text-align: center;
 				background-color: white;
-				//border-left: 2px solid transparent;
+				border-left: 1px solid $lightestGray;
 				padding:0px;				
-				-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-				   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-				   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
 				a{
-
 					color: $mainGray;
 				}				
 				.like a{
 					display: block;
-					height: 47px;
-					line-height: 47px;
-					border-bottom: 2px solid #f2f2f2;
+					height: 50px;
+					line-height: 50px;									
+					border-bottom: 1px solid #f2f2f2;
 					&:hover{
 						text-decoration: none;
 						color: $wirGreen;
@@ -218,15 +242,15 @@ h1, h2, h3, h4, h5, h6{
 				}
 
 				.stats{
-					height: 46px;
-					line-height: 46px;
+					height: 50px;
+					line-height: 50px;
 				}
 
 				.dislike a{
 					display: block;
-					height: 47px;
-					line-height: 47px;
-					border-top: 2px solid #f2f2f2;
+					height: 50px;
+					line-height: 50px;
+					border-top: 1px solid #f2f2f2;					
 					&:hover{
 						text-decoration: none;
 						color: $wiwRed;
@@ -954,10 +978,10 @@ body.modal-open, .modal-open .navbar-fixed-top,
 @media (min-width: 992px){
 	.posts-list{
 		h2{
-			font-size: 30px;
+			font-size: 28px;
 		}
 		.post-delete{
-			line-height: 30px;
+			line-height: 28px;
 			a:hover{
 				text-decoration: none;
 			}

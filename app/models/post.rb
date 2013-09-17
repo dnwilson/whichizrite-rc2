@@ -1,5 +1,4 @@
 class Post < ActiveRecord::Base
-
   include AutoHtml
   include PgSearch
 
@@ -19,7 +18,7 @@ class Post < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
 
-  # after_create :categorize_post
+  after_create :categorize
 
   acts_as_voteable
 
@@ -31,7 +30,7 @@ class Post < ActiveRecord::Base
   validates :p_body, presence: true
   validates :category_id, presence: true
   validates :tag_list, presence: true
-  validates :p_media, format: {with: VALID_WEBSITE_REGEX}
+  # validates :p_media, format: {with: VALID_WEBSITE_REGEX}
 
   def has_attached_image?
     self.p_image != nil
@@ -130,7 +129,34 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def categorize
+    youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
+    youtube_id = $3
+    worldstar_regex = /http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/
+    worldstar_id = $1
+    if self.p_media != nil
+      if self.p_media.match(youtube_regex)
+        youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
+        youtube_id = $3
+        self.p_type = 'youtube'
+        link = 'http://img.youtube.com/vi/' + youtube_id + '/0.jpg'
+        self.p_image = URI.parse(link)
+        self.save
+      elsif self.p_media.match(worldstar_regex)
+        self.p_type = 'worldstar'
+        self.save
+      else
+        self.p_type = 'image'
+        text = self.p_image_url.to_s
+        self.p_image = URI.parse(text)
+        self.save
+      end      
+    end
+  end
 
+  def img_from_url(url)
+    self.p_image = URI.parse(url)    
+  end
 
   # def categorize_post
   #   youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/

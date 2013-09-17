@@ -45,24 +45,44 @@ $("#post_p_image").change(function(){
     $('#test-pic').css('display', 'block');   
 });
 
+$("#post_p_image_url").change(function(){
+    $("#post_p_media").val('');
+    $('#preview-pic').css('display', 'none');
+    $('.preview').css('display', 'inline-block');
+    $('#test-pic').css('display', 'none'); 
+    text = $('#post_p_image_url').val();
+    $('.media').html(text);
+    $('.media')
+      .simpleFormat()
+      .image()
+      .youtube({width:240, height:120})
+      .worldstar({width:240, height:120})
+      .link();        
+    validateURL($("#post_p_image_url").val());
+});
+
 $(".addFromFile").click(function(){
     $('#post_p_image').css('display', 'block');
     $('#post_p_media').css('display', 'none');
-    $("#post_p_media").val('');    
+    $("#post_p_media").val('');
+    $("#post_p_image_url").val('');    
     $(".test").replaceWith('<div class="test" style="display:none"></div>');
 });
 
 $(".addFromUrl").click(function(){
-    $('#post_p_media').css('display', 'block');
+    $('#post_p_image_url').css('display', 'block');
     $("#post_p_image").css('display', 'none');
     $("#post_p_image").val('');
+    $("#post_p_media").val('');
     $('.test').css('display', 'block');
     $('#test-pic').replaceWith('<img id="test-pic" src="#" alt="your image" hidden="true" />');
+
 });
 
 $("#clearfile").click(function(event){
 	// event.preventDefault();
 	$("#post_p_image").val('');
+    $("#post_p_image_url").val('');
 	$("#post_p_media").val('');	
 	$(".media").html('<div class="media" style="display:none;"></div>');
 	$('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
@@ -74,6 +94,7 @@ $("#clearfile").click(function(event){
 $("#videoClose").click(function(event){
     // event.preventDefault();
     $("#post_p_image").val('');
+    $("#post_p_image_url").val('');
     $("#post_p_media").val(''); 
     $(".media").html('<div class="media" style="display:none;"></div>');
     $('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
@@ -85,6 +106,7 @@ $("#videoClose").click(function(event){
 $("#imgClose").click(function(event){
     // event.preventDefault();
     $("#post_p_image").val('');
+    $("#post_p_image_url").val('');
     $("#post_p_media").val(''); 
     $(".media").html('<div class="media" style="display:none;"></div>');
     $('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
@@ -95,8 +117,10 @@ $("#imgClose").click(function(event){
 
 $("#post_p_media").change(function(){
 	$('#post_p_image').val('');
-	$('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
-	text = $('#post_p_media').val();
+    $("#post_p_image_url").val('');
+	$('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" />');
+	$('#preview-pic').css('display', 'none');
+    text = $('#post_p_media').val();
     $('.media').html(text);
     $('.media')
       .simpleFormat()
@@ -108,4 +132,3 @@ $("#post_p_media").change(function(){
     $('.media').css('display', 'block');
     validateURL($("#post_p_media").val())   
 });
-

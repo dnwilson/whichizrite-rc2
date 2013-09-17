@@ -172,7 +172,7 @@ class PostsController < ApplicationController
         end
 
         def post_params
-            params.fetch(:post, {}).permit(:p_title, :p_image, :anonymous_post, :p_body, 
+            params.fetch(:post, {}).permit(:p_title, :p_image, :p_image_url, :anonymous_post, :p_body, 
                                          :p_body_html, :p_media, :p_type, :category_id,
                                          :tag_list, :upcount, :downcount, :origin_user_id)
         end

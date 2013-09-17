@@ -9,31 +9,20 @@
 	<% else %>
 		<div class="post-content col-xs-11 col-md-11">
 			<div class="post-title-bar row">
-				<% if current_user == feed_item.user %>
-					<span class="post-title col-xs-11 col-md-11">
-						<h2><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h2>					
-					</span>
-					<span class="post-delete col-xs-1 col-md-1">				
-						<%= link_to feed_item, method: :delete,
-											data: {confirm: "You sure?"},
-											title: feed_item.p_title do %>
-							<i class="icon-trash"></i>
-						<% end %>
-					</span>
-				<% else %>
-					<span class="post-title col-xs-11 col-md-11">
-						<h2><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h2>					
-					</span>
-				<% end %>
+				<span class="post-title col-xs-12 col-md-12">
+					<h2><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span>
+					</h2>					
+				</span>				
 			</div>
 			<span class="post-info">by: <span class="post-user"><%= link_to feed_item.user.name, feed_item.user %> on <%= feed_item.created_at.strftime("%b #{feed_item.created_at.day.ordinalize} %Y, %I:%M %p") %></span></span>
 			<p><%= the_excerpt(feed_item) %></p>
 			<span class="post-fb">
 				<%= link_to post_path(feed_item)  do %>
-					<i class="icon-comment"></i><% if feed_item.comments.count > 0 %><span style="margin-left:5px;"><%= feed_item.comments.count %></span><% end %><span style="margin-left:5px;"><%= "comment".pluralize(feed_item.comments.count) %></span>
+					<i class="glyphicon glyphicon-comment"></i><% if feed_item.comments.count > 0 %><span style="margin-left:5px;"><%= feed_item.comments.count %></span><% end %>
 				<% end %>
-			</span>
+			</span>			
 		</div>
+
 	<% end %>
 	<div class="post-vote col-xs-1 col-md-1">
 		<div class="myvote-<%= feed_item.id %>">
