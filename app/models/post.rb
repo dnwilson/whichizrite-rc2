@@ -143,6 +143,8 @@ class Post < ActiveRecord::Base
         self.p_image = URI.parse(link)
         self.save
       elsif self.p_media.match(worldstar_regex)
+        link = Nokogiri::HTML(open(self.p_media)).css("meta[property='og:image']").first.attributes["content"]
+        self.p_image = URI.parse(link)
         self.p_type = 'worldstar'
         self.save
       else

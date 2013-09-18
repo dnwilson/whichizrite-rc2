@@ -14,6 +14,7 @@ gem 'simple_form', '>= 3.0.0.rc'
 gem 'client_side_validations', 				github: "bcardarella/client_side_validations", :branch => "4-0-beta"
 gem 'client_side_validations-simple_form', 	git: 'git://github.com/saveritemedical/client_side_validations-simple_form.git'
 gem 'country_select'
+gem 'nokogiri'
 # gem 'simple_form_fancy_uploads'
 
 #add these gems to help with the transition

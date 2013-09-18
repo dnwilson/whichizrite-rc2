@@ -18,9 +18,14 @@ Dane Wilson
 	- [x] Disable image upload button if post has link & vice-versa
 	- [x] Client-side validation
 	- [x] Full Javascript implementation
+	- [ ] Implement Nokogiri
 	- [ ] Finalize Bootstrap Tweaks
+		-[ ] Add Image Attachment for WorldStar Videos
+		-[ ] Fix Profile Page
+- [ ] Add Meta/OpenGraph Support
 - [ ] Notifications
 - [ ] Mailing System
 - [ ] Ad Management
+- [ ] Auto Create Post from Link Using Nokogiri
 - [ ] Android App
 - [ ] iOS App
