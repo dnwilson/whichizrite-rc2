@@ -14,6 +14,7 @@ $lightestGray: #f2f2f2;
 $mainGray: darken($lightestGray, 15%);
 $gray: darken($mainGray, 15%);
 $darkerGray: darken($mainGray, 35%);
+$darkestGray: #666666;
 $mediumGray: #aaa;
 $wiwRed:#ca0000;
 $error: #f00;
@@ -21,6 +22,7 @@ $error: #f00;
 $brand-primary: #46a546;
 
 $body-bg: #f2f2f2;
+
 
 //Navbar
 $navbar-inverse-bg: $wirGreen;
@@ -31,6 +33,8 @@ $navbar-inverse-link-hover-color: $lightestGray;
 
 //Font
 
+$container-lg-desktop: 940px;
+$container-md-desktop: 640px;
 
 
 @import "twitter/bootstrap";
@@ -49,12 +53,20 @@ body{
 	margin-top: 10px;
 }
 
+.btn-primary{
+	border: none;
+}
+
 .center{
 	text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6{
 	font-family: oswald;
+}
+
+p{
+	color: $darkestGray;
 }
 
 @font-face{
@@ -124,6 +136,9 @@ h1, h2, h3, h4, h5, h6{
  * Main Post Feed
  * --------------------------------------------------
  */
+.feedpage{
+	background: url('/assets/wash-white-30.png');
+}
 .posts{
 	ol.posts-list{
 		list-style: none;
@@ -144,14 +159,14 @@ h1, h2, h3, h4, h5, h6{
 					}
 				}
 				.post-cat{
-					font-size: 12px;
-					margin-left: 20px;
+					font-size: 10px;
+					margin-left: 7px;
 					background-color: $wirGreen;
 					display: inline-block;
-					padding: 5px;
-					margin-top: 3px;
+					padding: 2px;
 					vertical-align: top;
 					text-transform: uppercase;
+					color: white;
 					a{
 						color: white;
 						font-family: oswald-light;
@@ -170,13 +185,13 @@ h1, h2, h3, h4, h5, h6{
 				display: block;
 			}
 			.post-fb {
-				display: inline-block;
+				margin-left: 10px;
 				a{
 					//vertical-align: middle;
-					font-size: 16px;
+					font-size: 12px;
 					color: $mainGray;
 					.glyphicon-comment{
-						font-size: 20px;
+						font-size: 14px;
 					}
 					&:hover{
 						text-decoration: none;
@@ -188,14 +203,18 @@ h1, h2, h3, h4, h5, h6{
 				padding:10px;
 				background-color: white;
 				border-right: 1px solid $lightestGray;
-				min-height:150px;
+				//min-height:150px;
+				min-width: 75px;
 				line-height: 130px;
 				img{
 					max-width: 100%;
+					//min-height: 130px;
 				}
 			}
 			.post-info{
 				display: block;
+				font-size: 12px;
+				color: $darkerGray;
 			}
 			.post-content{
 				padding: 10px 20px;
@@ -216,7 +235,7 @@ h1, h2, h3, h4, h5, h6{
 					color:white;
 					text-transform: uppercase;
 					&:hover{
-						opacity: 0.7;
+						background-color: $darkestGray;
 						text-decoration: none;
 					}
 				}
@@ -271,21 +290,80 @@ h1, h2, h3, h4, h5, h6{
  * --------------------------------------------------
  */
 .profile-info{
-	border: 1px solid black;
+	float: left;
+	background-color: white;
+	margin: 0 5px 10px 5px;
+	width: 98.5%;
 	.profile-pic{
-		padding: 10px;
-		border-right: 1px solid black;
+		//padding: 10px;
+		line-height: 146px;
 		img{
-			max-width: 100%;
+			width: 100%;
 		}
 		#follow_form{
 			text-align: center;
 		}
 	}
 	.profile-dets{
-		text-align: center;
+		//min-height: 146px;
+		border-left: 1px solid $lightestGray;
 		.about-user{
 			vertical-align: middle;
+			margin: 5px 0 10px;
+			.name{
+				color: $darkerGray;
+				font-size: 28px;
+				font-family: oswald;
+				display: inline-block;
+				width: 100%;
+				.unfollow{
+					float: right;
+					color: white;
+					background-color: $mainGray;
+					padding: 5px;
+					margin-top: 5px;
+					&:hover{
+						background-color: $lightestGray;
+					}
+				}
+				.follow{
+					float: right;
+					color: white;
+					margin-top: 5px;
+					border:none;
+					&:hover{
+						background-color: $mainGray;
+					}
+				}
+			}
+		}
+		.misc{
+			display: inline-block;
+			color: $darkerGray;
+		}
+	}
+	.subscribers{
+		border-top: 1px solid $lightestGray;
+		.fol-lbl{
+			padding: 5px 15px;
+			font-family: oswald;
+			font-size: 16px;
+			text-transform: uppercase;
+			//border-bottom: 1px solid $mainGray;
+			display:block;
+			a:hover{
+				text-decoration: none;
+			}
+		}
+		.user_avatars{			
+			//margin-top: 10px;
+		}
+		.followers{
+			border-right: 1px solid $lightestGray;
+			height: 80px;
+		}
+		.following{
+			height: 80px;
 		}
 	}
 }
@@ -324,9 +402,9 @@ h1, h2, h3, h4, h5, h6{
 			padding:0px;
 			display: block;	
 			background-color: white;					
-			-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-			   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-			   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
+			//-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+			//   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+			//   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
 			a{
 				color: $mainGray;
 			}				
@@ -389,21 +467,28 @@ h1, h2, h3, h4, h5, h6{
 		}
 	}	
 }
-
+.tags{
+	display: block;
+	margin-top: 10px;
+}
 .post-media{
 	text-align: center;
 	padding-top: 10px;
 	.post-embed{
 		display: block;
 		margin: 0 15px;
+		font-size: 0px;
 		background-color: $gray;							
-		-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-		   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
-		   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
+		//-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+		//   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
+		//   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
    		img{
    			width: auto;
 			height: auto;
 			max-width: 100%;
+   		}
+   		p{
+   			margin: 0px;
    		}
 	}
 	.no-img-post-body{
@@ -689,6 +774,27 @@ h1, h2, h3, h4, h5, h6{
  * --------------------------------------------------
  */
  .user-edit-page{
+ 	.nav-stacked{
+ 		li{
+ 			margin-top: 5px;
+ 		}
+ 		li.active a{
+			background-color: $wirGreen;
+			&:hover{
+				opacity: 0.7;
+			}
+		}
+ 		li a{
+			background-color: $mainGray;
+			color: $lightestGray;
+			&:hover{
+				opacity: 0.7;
+			}
+		}
+ 	}
+ 	.user-edit{
+ 		background-color: white;
+ 	}
  	.control-group{
  		font-size: 0px;
  		.control-label{
@@ -736,6 +842,8 @@ h1, h2, h3, h4, h5, h6{
  	}
  	.img-polaroid{
  		text-align: center;
+ 		padding: 0px 0 5px;
+ 		border-bottom: 1px solid $lightestGray;
  	}
 }
 
@@ -744,6 +852,16 @@ h1, h2, h3, h4, h5, h6{
  * --------------------------------------------------
  */
  .user-edit-page{
+ 	.edit-header{
+ 		margin-bottom: 20px;
+ 		border-bottom: 1px solid $lightestGray;
+ 	}
+ 	form{
+ 		padding-bottom: 20px;
+ 	}
+ 	.left{
+ 		margin-top: 20px;
+ 	}
  	.control-group{
  		font-size: 0px;
  		.control-label{
@@ -950,24 +1068,21 @@ body.modal-open, .modal-open .navbar-fixed-top,
 }
 
 @media (min-width: 480px){
-	.about-user{
-		vertical-align: middle;
-		min-height: 80px;
-		padding-top: 30px;
-	}
-
 	li.post-item{
 		padding: 0 5px;
 	}
-	.subscribers{
-		padding-top: 10px;
+	.about-user{
+		min-height: 50px;
 	}
 	.posts-list{
 		h2{
-			font-size: 24px;
+			font-size: 20px;
+			.post-cat{
+				margin-top: 5px;
+			}
 		}
 		.post-delete{
-			line-height: 24px;
+			line-height: 20px;
 			a:hover{
 				text-decoration: none;
 			}
@@ -976,21 +1091,24 @@ body.modal-open, .modal-open .navbar-fixed-top,
 }
 
 @media (min-width: 992px){
+	.about-user{
+		min-height: 50px;
+	}
 	.posts-list{
 		h2{
-			font-size: 28px;
+			font-size: 22px;
+			.post-cat{
+				margin-top: 7px;
+			}
 		}
 		.post-delete{
-			line-height: 28px;
+			line-height: 22px;
 			a:hover{
 				text-decoration: none;
 			}
 		}
 	}
-	.about-user{
-		vertical-align: middle;
-		min-height: 150px;
-		padding-top: 50px;
-	}
 }
 
+@media (min-width: 768px){
+}

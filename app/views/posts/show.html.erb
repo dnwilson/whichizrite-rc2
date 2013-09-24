@@ -32,10 +32,14 @@
 			<span class="post-info">by: <span class="post-user"><%= link_to @post.user.name, @post.user %> on <%= @post.created_at.strftime("%b #{@post.created_at.day.ordinalize} %Y, %I:%M %p") %></span></span>
 
 			<div class="post-media row">
-				<% if @post.p_image? %>
+				<% if @post.p_type == "image" %>
 					<span class="post-embed">
 						<%= image_tag @post.p_image.url('large') %>
-					</span>					
+					</span>
+				<% elsif @post.p_type == "video" %>	
+					<span class="post-embed">
+						<%= @post.p_media_html %>
+					</span>			
 				<% else %>
 					<div class="no-img-post-body">	
 						<p><%= @post.p_body_html %></p>

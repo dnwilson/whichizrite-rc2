@@ -12,10 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require rails.validations
 //= require rails.validations.simple_form
 //= require twitter/bootstrap
-//= require_tree .
+//= require jquery-auto_html
+//= require postform
+// require turbolinks
+// require_tree .
 
 $(function(){
 	$('#datepicker').datepicker({

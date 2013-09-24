@@ -106,7 +106,7 @@ class Post < ActiveRecord::Base
     image
     youtube(:width => 438, :height => 246)
     soundcloud(:maxwidth => '438')
-    worldstar
+    worldstar(:width => 448, :height => 374)
     link :target => "_blank", :rel => "nofollow"
     simple_format
   end
@@ -134,25 +134,31 @@ class Post < ActiveRecord::Base
     youtube_id = $3
     worldstar_regex = /http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/
     worldstar_id = $1
-    if self.p_media != nil
+    if self.p_media != ""
       if self.p_media.match(youtube_regex)
         youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
         youtube_id = $3
-        self.p_type = 'youtube'
+        self.p_type = 'video'
         link = 'http://img.youtube.com/vi/' + youtube_id + '/0.jpg'
         self.p_image = URI.parse(link)
         self.save
       elsif self.p_media.match(worldstar_regex)
         link = Nokogiri::HTML(open(self.p_media)).css("meta[property='og:image']").first.attributes["content"]
         self.p_image = URI.parse(link)
-        self.p_type = 'worldstar'
+        self.p_type = 'video'
         self.save
       else
         self.p_type = 'image'
         text = self.p_image_url.to_s
         self.p_image = URI.parse(text)
         self.save
-      end      
+      end 
+    elsif self.p_image_file_name != nil
+      self.p_type = 'image'
+      self.save
+    else
+      self.p_type = 'text'
+      self.save
     end
   end
 

@@ -1,17 +1,20 @@
 <div class="profile-info row">
-	<div class="profile-pic col-xs-3 col-md-3">
-		<%= link_to avatar_for(@user, 'med'), @user %>
-		<%= render "follow_form" %>
+	<div class="profile-pic col-xs-3 col-sm-3">
+		<%= link_to avatar_for(@user, 'med'), @user %>		
 	</div>
-	<div class="profile-dets col-xs-9 col-md-9">
+	<div class="profile-dets col-xs-9 col-sm-9">
 		<div class="about-user">
-			<p><%= @user.name %></p>
-			<i class="icon-home" style="padding-right: 3px"></i><%= @user.location %><span class="bullet"><i class="icon-circle"></i></span><% if @user.sex == "Male" %><i class="icon-male" style="padding-right: 3px"></i>Male<% elsif @user.sex == "Female" %><i class="icon-female" style="padding-right: 3px"></i>Female<% end %><br>
-				
-			<%= @user.aboutme %>
+			<div class="name">
+				<span class="pull-left"><%= @user.name %></span>
+				<%= render "follow_form" %>
+			</div>
+			<div class="misc">
+				<i class="icon-home" style="padding-right: 3px"></i><%= @user.location %><span class="bullet"><i class="icon-circle"></i></span><% if @user.sex == "Male" %><i class="icon-male" style="padding-right: 3px"></i>Male<% elsif @user.sex == "Female" %><i class="icon-female" style="padding-right: 3px"></i>Female<% end %>
+			</div>			
 		</div>
 		<div class="subscribers row">
-			<div class="followers col-xs-6 col-md-6"><a href="<%= followers_user_path(@user) %>">Followers (<%= @user.followers_count %>)</a><br>
+			<div class="followers col-xs-6 col-sm-6">
+				<span class="fol-lbl row"><a href="<%= followers_user_path(@user) %>">Followers (<%= @user.followers_count %>)</a></span>
 				<% if @user.followers.any? %>
 					<div class="user_avatars">
 						<% @user.followers.first(7).each do |user_id| %>
@@ -21,7 +24,8 @@
 					</div>
 				<% end %>
 			</div>
-			<div class="following col-xs-6 col-md-6"><a href="<%= following_user_path(@user) %>">Following (<%= @user.following_users_count %>)</a><br>
+			<div class="following col-xs-6 col-sm-6">
+				<span class="fol-lbl row"><a href="<%= following_user_path(@user) %>">Following (<%= @user.following_users_count %>)</a></span>
 				<% if @user.following_users.any? %>
 					<div class="user_avatars">
 						<% @user.following_users.first(7).each do |user_id| %>
@@ -30,8 +34,7 @@
 						<% end %>
 					</div>
 				<% end %>
-			</div>
+			</div>			
 		</div>
-
 	</div>
 </div>

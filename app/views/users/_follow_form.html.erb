@@ -2,12 +2,12 @@
 	<% unless current_user?(@user) %>
 		<div id="follow_form">
 			<% if current_user.following?(@user) %>
-				<%= link_to "Unfollow", unfollow_user_path(@user), :class => "btn btn-large" %>
+				<%= link_to "Unfollow", unfollow_user_path(@user), :class => "unfollow btn btn-large" %>
 			<% else %>
-				<%= link_to "Follow", follow_user_path(@user), :class => "btn btn-large btn-primary" %>
+				<%= link_to "Follow", follow_user_path(@user), :class => "follow btn btn-large btn-primary" %>
 			<% end %>
 		</div>
 	<% end %>
 <% else %>
-	<%= link_to "Follow", follow_user_path(@user), :class => "btn btn-large btn-primary" %>
+	<%= link_to "Follow", follow_user_path(@user), :class => "follow btn btn-large btn-primary" %>
 <% end %>

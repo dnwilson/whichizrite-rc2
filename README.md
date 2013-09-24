@@ -12,20 +12,21 @@ Dane Wilson
 [ ] Firefox textboxes don't display correctly. Check bootstrap scaffolding file and comment out 'background-image:none' for input fields.
 
 ##Todo
--[ ] Finish Bootstrap 3 UI
+-[x] Finish Bootstrap 3 UI
 	- [x] Add Image from link Preview
 	- [x] Add Youtube Link Preview
 	- [x] Disable image upload button if post has link & vice-versa
 	- [x] Client-side validation
 	- [x] Full Javascript implementation
-	- [ ] Implement Nokogiri
-	- [ ] Finalize Bootstrap Tweaks
-		-[ ] Add Image Attachment for WorldStar Videos
-		-[ ] Fix Profile Page
+	- [x ] Implement Nokogiri
+	- [x] Finalize Bootstrap Tweaks
+		-[x] Add Image Attachment for WorldStar Videos
+		-[x] Fix Profile Page
 - [ ] Add Meta/OpenGraph Support
 - [ ] Notifications
 - [ ] Mailing System
 - [ ] Ad Management
+- [ ] Release Beta
 - [ ] Auto Create Post from Link Using Nokogiri
 - [ ] Android App
 - [ ] iOS App

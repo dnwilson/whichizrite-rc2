@@ -3,10 +3,11 @@
 		<h2><%= link_to feed_item.p_title, post_path(feed_item) %><span class="post-cat"><%= link_to Category.find(feed_item.category_id).cat_name %></span></h2>
 	</span>
 </div>
-<span class="post-info">by: <span class="post-user"><%= link_to feed_item.user.name, feed_item.user %> on <%= feed_item.created_at.strftime("%b #{feed_item.created_at.day.ordinalize} %Y, %I:%M %p") %></span></span>
-<%= the_excerpt(feed_item) %>
-<span class="post-fb">
-	<%= link_to post_path(feed_item)  do %>
-		<i class="glyphicon glyphicon-comment"></i><% if feed_item.comments.count > 0 %><span style="margin-left:5px;"><%= feed_item.comments.count %></span><% end %>
-	<% end %>
+<span class="post-info">by: <span class="post-user"><%= link_to feed_item.user.name, feed_item.user %> on <%= feed_item.created_at.strftime("%b #{feed_item.created_at.day.ordinalize} %Y, %I:%M %p") %></span>
+	<span class="post-fb">
+		<%= link_to post_path(feed_item)  do %>
+			<i class="glyphicon glyphicon-comment"></i><% if feed_item.comments.count > 0 %><span style="margin-left:5px;"><%= feed_item.comments.count %></span><% end %>
+		<% end %>
+	</span>
 </span>
+<%= the_excerpt(feed_item) %>

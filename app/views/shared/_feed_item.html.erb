@@ -1,9 +1,9 @@
 <li id="<%= feed_item.id %>" class="post-item row">
 	<% if feed_item.p_image.exists? %>
-		<div class="post-pic col-xs-2 col-md-2">		
+		<div class="post-pic col-xs-3 col-md-3">		
 			<%= link_to image_tag(feed_item.p_image.url(:thumb)), post_path(feed_item) %>		
 		</div>
-		<div class="post-content col-xs-9 col-md-9">
+		<div class="post-content col-xs-8 col-md-8">
 			<%= render partial: 'shared/feed_content', locals: {feed_item: feed_item} %>
 		</div>
 	<% else %>
@@ -14,13 +14,14 @@
 					</h2>					
 				</span>				
 			</div>
-			<span class="post-info">by: <span class="post-user"><%= link_to feed_item.user.name, feed_item.user %> on <%= feed_item.created_at.strftime("%b #{feed_item.created_at.day.ordinalize} %Y, %I:%M %p") %></span></span>
-			<p><%= the_excerpt(feed_item) %></p>
-			<span class="post-fb">
-				<%= link_to post_path(feed_item)  do %>
-					<i class="glyphicon glyphicon-comment"></i><% if feed_item.comments.count > 0 %><span style="margin-left:5px;"><%= feed_item.comments.count %></span><% end %>
-				<% end %>
-			</span>			
+			<span class="post-info">by: <span class="post-user"><%= link_to feed_item.user.name, feed_item.user %> on <%= feed_item.created_at.strftime("%b #{feed_item.created_at.day.ordinalize} %Y, %I:%M %p") %></span>
+				<span class="post-fb">
+					<%= link_to post_path(feed_item)  do %>
+						<i class="glyphicon glyphicon-comment"></i><% if feed_item.comments.count > 0 %><span style="margin-left:5px;"><%= feed_item.comments.count %></span><% end %>
+					<% end %>
+				</span>
+			</span>
+			<p><%= the_excerpt(feed_item) %></p>					
 		</div>
 
 	<% end %>

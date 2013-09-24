@@ -34,7 +34,7 @@ module ApplicationHelper
 	end
 
 	def the_excerpt(post) 
-		length = 160
+		length = 250
 		read_more_text = "Cont'd'"
 		shortened = raw post.p_body.truncate(length, :separator => " ", :omission => "... #{link_to read_more_text, post_path(post), class:"continue"}")
 		auto_html(shortened){simple_format; link(:target => 'blank')}
