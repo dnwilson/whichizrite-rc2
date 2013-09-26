@@ -1,18 +1,16 @@
 <li id="<%= comment.id %>">
 	<span class="comment-item row">
-		<span class="comment-user col-xs-2 col-md-1">
+		<span class="comment-user col-xs-2 col-sm-2">
 	    	<%= link_to avatar_for(comment.user, 'small'), comment.user %>
 	    </span> 
-		<span class="comment-content col-xs-9 col-md-10">
+		<span class="comment-content col-xs-9 col-sm-9">
 			<span class="comment-info">
 				<%= link_to comment.user.name, user_path(comment.user) %><span class="bullet"><i class="icon-circle"></i></span><span class="comment-timestamp"><%= time_ago_in_words(comment.created_at) %> ago
 				</span>					
-			</span>
-			
+			</span>			
 			<span class="comment">
-				<%= comment.comment %>						
+				<%= comment.comment %>					
 			</span>
-
 			<span class="comment-fb">
 				<span class="comment-vote">
 					<div class="comment-vote-<%= comment.id %>">
@@ -22,7 +20,7 @@
 			</span><!-- End Feedback -->
 		</span><!-- /.comment-content -->
 		<% if user_signed_in? && (current_user == (@post.user) || current_user == comment.user) %>			
-			<span id="fat-menu" class="dropdown col-xs-1 col-md-1">
+			<span id="fat-menu" class="dropdown col-xs-1 col-sm-1">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-edit"></i></a>
 				<ul class="dropdown-menu comment-alter pull-right" role="menu" aria-labelledby="commentalterMenu"> 
 					<li role="presentation"><%= link_to comment, method: :delete do %>

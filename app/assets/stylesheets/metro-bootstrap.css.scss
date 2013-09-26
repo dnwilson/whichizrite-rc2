@@ -394,6 +394,11 @@ p{
 }
 
 .post-item{
+	.post-body{
+		padding:10px;
+		background-color: white;
+		margin-top:10px;
+	}
 	.this-vote{
 		margin: 0 15px;
 		.vote-items{
@@ -427,8 +432,8 @@ p{
 				line-height: 50px;
 				width: 32%;
 				float: left;
-				border-right: 1px solid $mainGray;
-				border-left: 1px solid $mainGray;
+				border-right: 1px solid $lightestGray;
+				border-left: 1px solid $lightestGray;
 			}
 
 			.dislike{ 
@@ -452,13 +457,10 @@ p{
 	height: 62px;
 	line-height: 62px;
 	text-align: right;
-	.dropdown-menu{		
-		min-width: 60px;		
+	.glyphicon{		
+		//min-width: 60px;		
 	}
-	li{
-		list-style: none;
-	}	
-	a.dropdown-toggle{
+	a{
 		font-size: 16px;
 		line-height: 40px;
 		text-decoration: none;
@@ -477,8 +479,8 @@ p{
 	.post-embed{
 		display: block;
 		margin: 0 15px;
-		font-size: 0px;
-		background-color: $gray;							
+		font-size:0px;
+		background-color: $mainGray;							
 		//-webkit-box-shadow: 0 2px 3px rgba(0,0,0,.25);
 		//   -moz-box-shadow: 0 2px 3px rgba(0,0,0,.25);
 		//   		box-shadow: 0 2px 3px rgba(0,0,0,.25);
@@ -490,22 +492,42 @@ p{
    		p{
    			margin: 0px;
    		}
+   		embed{
+   			width: 100%;
+   		}
+   		iframe{
+   			width: 100%;
+   		}
 	}
 	.no-img-post-body{
 		display: block;
 		margin: 0 15px;
 		text-align: left;
+		padding: 10px;
+		background-color: white;
+		border-bottom: 1px solid $lightestGray;
+		.no-img-post-tag p{
+			margin-bottom: 0px;
+		}
 	}
 	.vote-items{
 		line-height: 50px;
 		vertical-align: middle;
 	}
 }
-
 .comment-entry{
 	display: block;
+	margin: 0;
+	background-color: white;
+	color: $darkerGray;
 	img.avatar{
-		max-width: 50px;
+		max-width: 100%;
+	}
+	.comment-user{
+		padding: 10px;
+	}
+	.comment-form{
+		padding: 10px;
 	}
 	form{
 		padding-top: 10px;
@@ -560,6 +582,24 @@ p{
 					p{
 						margin-bottom: 0px;
 					}
+				}
+				img{
+					max-width: 100px;
+					height:auto;
+					float: left;
+				}
+			}
+			.temp-preview{
+				display: inline-block;
+				border: 1px solid $mediumGray;
+				width: 100%;
+				padding: 10px;
+				margin-bottom: 12.5px;
+				p{
+					float: left;
+				}
+				button.close{
+					float: right;
 				}
 				img{
 					max-width: 100px;
@@ -635,7 +675,16 @@ p{
 .comments-list{
 	list-style: none;
 	padding-left: 0px;
+	margin-top: 20px;
+	margin-bottom: 0px;
+	li{
+		margin-bottom: 10px;
+	}
 	.comment-item{
+		display: block;
+		margin: 0 15px;
+		padding: 0px;
+		background-color: white;
 		.bullet{
 			color: gray;
 			font-size: 3px;
@@ -646,9 +695,13 @@ p{
 			font-size: 12px;
 		}
 		.comment-user{
+			padding: 10px;
 			img.avatar{
-				max-width: 50px;
+				max-width: 100%;
 			}
+		}
+		.comment-content{
+			padding:10px;
 		}
 		.comment{
 			display: block;
@@ -657,6 +710,7 @@ p{
 		}
 		.dropdown{
 			text-align: right;
+			padding: 10px;
 		}
 		ul.dropdown-menu{
 			min-width: 60px;
@@ -978,6 +1032,7 @@ body.modal-open, .modal-open .navbar-fixed-top,
 	#test-pic{
 		display: none;
 		max-width: 380px;
+		max-height: 300px;
 		margin: 10px 0;
 	}
 	#addImgBtn{
@@ -1074,6 +1129,14 @@ body.modal-open, .modal-open .navbar-fixed-top,
 	.about-user{
 		min-height: 50px;
 	}
+	.post-embed{
+		iframe, embed{
+			height: 270px;
+		}
+	}
+	.stats{
+		font-size: 12px;
+	}
 	.posts-list{
 		h2{
 			font-size: 20px;
@@ -1090,9 +1153,50 @@ body.modal-open, .modal-open .navbar-fixed-top,
 	}
 }
 
+@media (max-width: 480px){
+	li.post-item{
+		padding: 0 5px;
+	}
+	.about-user{
+		min-height: 50px;
+	}
+	.post-embed{
+		iframe, embed{
+			height: 270px;
+		}
+	}
+	.posts-list{
+		h2{
+			font-size: 20px;
+			.post-cat{
+				margin-top: 5px;
+			}
+		}
+		.post-delete{
+			line-height: 20px;
+			a:hover{
+				text-decoration: none;
+			}
+		}
+	}
+	.stats{
+		font-size: 10px;
+	}
+}
+
+
 @media (min-width: 992px){
 	.about-user{
 		min-height: 50px;
+	}
+	.post-embed{
+		iframe, embed{
+			height: 336px;
+			//width: 597px;
+		}
+	}
+	.stats{
+		font-size: 14px;
 	}
 	.posts-list{
 		h2{

@@ -3,6 +3,7 @@ module ApplicationHelper
 
 	def full_title(page_title)
 		base_title = "whichizrite"
+		@page_site_name = "whichizrite"
 		if page_title.empty?
 			base_title
 		else

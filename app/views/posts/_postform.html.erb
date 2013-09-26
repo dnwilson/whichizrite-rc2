@@ -25,6 +25,11 @@
             <div class="media"></div>
             <button type="button" class="close" id="clearfile" data-dismiss="fileupload">&times;</button>        
         </div>
+
+        <% if @post.p_type == 'image' || @post.p_type == 'video' %>
+            Blahhhh
+        <% end %>
+
         <% if current_user.admin? %>
             <%= f.collection_select :category_id, Category.all, :id, :cat_name, label: false  %>
         <% else %>
@@ -35,7 +40,7 @@
 
         <%= f.input :p_body, placeholder: "What do you want to say...", label: false %>
         <div class="submitPost">
-            <%= f.submit "Post", class: "btn btn-primary" %>
+            <%= f.submit "Post", class: "btn btn-primary", disable_with: "Saving..."  %>
         </div>
         
     <% end %>

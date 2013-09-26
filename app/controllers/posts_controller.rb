@@ -3,9 +3,17 @@ class PostsController < ApplicationController
     before_filter :correct_user, only: :destroy
     skip_before_filter :verify_authenticity_token, :only => [:vote_up, :vote_down, :unvote]    
 	def show
-		@post = Post.find(params[:id])
+		@post = Post.friendly.find(params[:id])
         @comment = Comment.new
         @categories = Category.all
+        @page_title = @post.p_title
+        @page_url = "http://localhost:3000"+ post_path(@post)
+        @page_type = @post.p_type
+        if @post.p_type == 'image'
+            @page_image = @post.p_image
+        else
+            @page_image = 'http://localhost:3000/assets/whichizrite.jpg'
+        end
 		respond_to do |format|
             format.html # show.html.erb
         end  
@@ -19,7 +27,7 @@ class PostsController < ApplicationController
             @query = params[:query]
             @posts = Post.all 
         else
-            @posts = Post.cat_list(category_params)
+            @posts = Post.cat_list(params[:category])
         end       
     end
 
@@ -34,7 +42,7 @@ class PostsController < ApplicationController
     end
     
     def destroy
-        @post = Post.find(params[:id])
+        @post = Post.friendly.find(params[:id])
         @post.destroy
 
         flash[:notice] = "Post successfully deleted."
@@ -50,6 +58,7 @@ class PostsController < ApplicationController
         else
             @post.origin_user_id = current_user.id
         end
+
 		respond_to do |format|
         	if @post.save 
                 current_user.fb_publish(@post.p_title, post_path(@post))
@@ -65,20 +74,35 @@ class PostsController < ApplicationController
         end
 	end
 
-    def edit
-        if current_or_guest_user.name == "Guest"
-            flash[:notice] = "You do not have permission to carry out this function."
-            redirect_to root_path
-        else
-            @post = Post.find(params[:id])
-            @categories = Category.all
-            @post.pictures.build if @post.pictures.empty?
-            # 5.times {@post.assets.build}
-        end        
-    end
+    # def edit
+    #     if current_or_guest_user.name == "Guest"
+    #         flash[:notice] = "You do not have permission to carry out this function."
+    #         redirect_to root_path
+    #     else
+    #         @post = Post.friendly.find(params[:id])
+    #         @categories = Category.all
+    #     end        
+    # end
+
+    # def update
+    #     @post = Post.friendly.find(params[:id])
+    #     respond_to do |format|
+    #         if @post.update_attributes(post_params) 
+    #             current_user.fb_publish(@post.p_title, post_path(@post))
+    #             format.html {redirect_to root_path, :notice => "Post updated!"}
+    #             format.json {render json: @post, status: :created, location: @post}
+    #             format.js
+    #         else
+    #             # @feed_items = []
+    #             format.html {render 'posts/new'}
+    #             format.json {render json: @post.errors, status: :unprocessable_entity}
+    #             format.js {render 'posts/new'}
+    #         end
+    #     end        
+    # end
 
     def vote_up
-        @post = Post.find(params[:id])
+        @post = Post.friendly.find(params[:id])
         if current_or_guest_user == "Guest"
             flash[:notice] = "You do not have permission to carry out this function."
             redirect_to root_path
@@ -108,7 +132,7 @@ class PostsController < ApplicationController
     end
 
     def vote_down
-        @post = Post.find(params[:id])
+        @post = Post.friendly.find(params[:id])
         if current_or_guest_user == "Guest"
             flash[:notice] = "You do not have permission to carry out this function."
             redirect_to root_path
@@ -139,7 +163,7 @@ class PostsController < ApplicationController
     end
 
     def unvote
-        @post = Post.find(params[:id])
+        @post = Post.friendly.find(params[:id])
         if current_or_guest_user == "Guest"
             flash[:notice] = "You do not have permission to carry out this function."
             redirect_to root_path
@@ -166,7 +190,7 @@ class PostsController < ApplicationController
 
     private
         def correct_user
-            @post = current_user.id == Post.find(params[:id]).origin_user_id
+            @post = current_user.id == Post.friendly.find(params[:id]).origin_user_id
             redirect_to root_url if @post.nil?            
         end
 
@@ -181,7 +205,7 @@ class PostsController < ApplicationController
         end
 
         def category_params
-            params.require(:category).permit(:cat_name, :id)
+            params.fetch(:category, {}).permit(:cat_name)
         end
 
 end

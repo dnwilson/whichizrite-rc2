@@ -17,6 +17,9 @@ gem 'country_select'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'nokogiri'
+
+gem 'friendly_id', '>= 5.0.0.beta4'
+gem 'metamagic'
 # gem 'simple_form_fancy_uploads'
 
 #add these gems to help with the transition

@@ -1,35 +1,8 @@
 <div class="main row">
-	<!-- Main Post -->
-	<div class="span8">
-		<div class="post-item">
-			<%= simple_form_for(@post, :html => { :class => "post-form", :multipart => true } ) do |f| %>
-				<%= render 'shared/error_messages', object: f.object %>
-
-			    <%= f.input :p_title, placeholder: "Title" %>
-
-			    <%= f.file_field :p_image %>
-
-			    <%= f.collection_select :cat_id, Category.all, :id, :cat_name  %>
-
-			    <%= f.input :tag_list, "Tags (separated by commas)" %>
-
-			    <%= f.input :p_body, placeholder: "What do you want to say..." %>
-
-			    <%= f.submit "Post", class: "btn btn-primary" %>
-			<% end %>
-		</div>
+	<div class="new-post-page col-xs-12 col-sm-8">
+		<%= render "editpostform" %>
 	</div>
-
-	<!-- Side Bar -->
-	<div class="span4">
-		<% if signed_in? %>
-			<%= current_user.name %>
-			<%= current_user.email %><br>
-			<a href="#postModal" role="button" class="btn btn-primary" data-toggle="modal">Create a new post</a>
-			<%= render "shared/post" %>
-		<% else %>
-			<a href="#loginModal" role="button" class="btn" data-toggle="modal">Login | Sign up</a>
-			<%= render "shared/login" %>
-		<% end %>
+	<div class="hidden-xs col-sm-4">
+		<%= render "shared/sidebar" %>
 	</div>
 </div>

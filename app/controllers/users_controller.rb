@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 	before_filter :admin_user, only: :destroy
 
 	def show
-		@user = User.find(params[:id])
+		@user = User.friendly.find(params[:id])
 		if current_user == @user
 			@feed_items = @user.myfeed.paginate(page: params[:page])
 		else
@@ -21,27 +21,27 @@ class UsersController < ApplicationController
 	# end
 
 	def destroy
-		User.find(params[:id]).destroy
+		User.friendly.find(params[:id]).destroy
 		flash[:success] = "User deleted"
 		redirect_to :back
 	end
 
 	def following
 	    @title = "Following"
-	    @user = User.find(params[:id])
+	    @user = User.friendly.find(params[:id])
 	    @users = @user.following_users.paginate(page: params[:page], per_page: 10)
 	    render 'show_follow'
 	end
 
 	def followers
 	    @title = "Followers"
-	    @user = User.find(params[:id])
+	    @user = User.friendly.find(params[:id])
 	    @users = @user.followers.paginate(page: params[:page], per_page: 10)
 	    render 'show_followers'
 	end
 
 	def follow
-		@user = User.find(params[:id])
+		@user = User.friendly.find(params[:id])
 		if current_or_guest_user.name == "Guest"
             flash[:notice] = "You need to be signed in to follow a user"
             redirect_to login_path
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
 	end
 
 	def unfollow
-		@user = User.find(params[:id])		
+		@user = User.friendly.find(params[:id])		
 		if current_or_guest_user.name == "Guest"
             flash[:notice] = "You need to be signed in to unfollow a user"
             redirect_to login_path
@@ -68,7 +68,7 @@ class UsersController < ApplicationController
 	end
 
 	def unpend
-		@user = User.find(params[:id])
+		@user = User.friendly.find(params[:id])
 		current_user.unpend(@user)
 		redirect_to :back
 		flash[:success] = "You are no longer following #{@user.username}."
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
 
 
 	def visibility
-		# @user = User.find(params[:id])
+		# @user = User.friendly.find(params[:id])
 		current_user.modify_pref('hide_profile')
 		if current_user.is_set_to?('hide_profile')
 			redirect_to :back
@@ -91,7 +91,7 @@ class UsersController < ApplicationController
 	private
 
 		def correct_user
-			@user = User.find(params[:id])
+			@user = User.friendly.find(params[:id])
 			redirect_to(root_path) unless current_user?(@user)
 		end
 

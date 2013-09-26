@@ -1,54 +1,42 @@
 <div class="main row">
 	<!-- Main Post -->
-	<div class="col-xs-12 col-md-8">
+	<div class="col-xs-12 col-sm-8">
 		<div class="post-item">
 			<div class="post-header row">
-				<span class="main-title col-xs-11 col-md-11">
-					<h2><%= @post.p_title %><span class="post-cat"><%= link_to Category.find(@post.category_id).cat_name %></span></h2>	
+				<span class="main-title col-xs-11 col-sm-11">
+					<h2><%= @post.p_title %><span class="post-cat"><%= link_to Category.find(@post.category_id).cat_name %></span></h2>
 				</span>
 				<% if user_signed_in? && current_user == @post.user %>
-					<span class="delete-post col-xs-1 col-md-1">
-						<li id="fat-menu" class="dropdown">
-			              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-			                <i class="icon-ellipsis-vertical"></i>
-			              </a>
-			              <ul class="dropdown-menu pull-right">
-			              	<li><%= link_to "edit", edit_post_path(@post) %></li>
-			                <li>
-			                	<% if current_user.id == @post.origin_user_id %>
-									<%= link_to @post, method: :delete,
-														data: {confirm: "You user?"},
-														title: @post.p_title do %>
-										delete
-									<% end %>
-								<% end %>
-			                </li>
-			              </ul>
-			            </li>
+					<span class="delete-post col-xs-1 col-sm-1">
+						<% if current_user.id == @post.origin_user_id %>
+							<%= link_to @post, method: :delete,
+												data: {confirm: "You user?"},
+												title: @post.p_title do %>
+								<i class="glyphicon glyphicon-remove"></i>
+							<% end %>
+						<% end %>
 					</span>	
 				<% end %>			
 			</div><!-- /.main-title -->
 
 			<span class="post-info">by: <span class="post-user"><%= link_to @post.user.name, @post.user %> on <%= @post.created_at.strftime("%b #{@post.created_at.day.ordinalize} %Y, %I:%M %p") %></span></span>
-
 			<div class="post-media row">
-				<% if @post.p_type == "image" %>
-					<span class="post-embed">
-						<%= image_tag @post.p_image.url('large') %>
-					</span>
-				<% elsif @post.p_type == "video" %>	
-					<span class="post-embed">
-						<%= @post.p_media_html %>
-					</span>			
-				<% else %>
+				<% if @post.p_type == "text" %>
 					<div class="no-img-post-body">	
 						<p><%= @post.p_body_html %></p>
 						<span class="no-img-post-tags">
 							<p>Tags: <%= raw @post.tags.map {|t| link_to t.name, tag_path(t.name) }.join(', ') %></p>
 						</span>
 					</div>
+				<% elsif @post.p_type == "video" %>	
+					<span class="post-embed">
+						<%= @post.p_media_html %>
+					</span>			
+				<% else %>					
+					<span class="post-embed">
+						<%= image_tag @post.p_image.url('large') %>
+					</span>
 				<% end %>				
-				
 				<div class="this-vote">
 					<div class="myvote-<%= @post.id %>">
 						<%= render :partial => "shared/vote", locals: {feed_item: @post}  %>
@@ -57,25 +45,27 @@
 			</div>
 
 			<!-- Post Title Bar -->
-			<div class="post-body">				
-				<!-- Post User Feedback Bar -->
-				<% if @post.p_image? %>
-					<span class="tags">
-						<p>Tags: <%= raw @post.tags.map {|t| link_to t.name, tag_path(t.name) }.join(', ') %></p>
-					</span>
-					<p><%= @post.p_body %></p>
-				<% end %>			
-			</div>
+			<% if @post.p_type == "video" || @post.p_type == "image" %>
+				<div class="post-body">				
+					<!-- Post User Feedback Bar -->
+					<% if @post.p_image? %>					
+						<p><%= @post.p_body %></p>
+						<span class="tags">
+							<p>Tags: <%= raw @post.tags.map {|t| link_to t.name, tag_path(t.name) }.join(', ') %></p>
+						</span>
+					<% end %>			
+				</div>
+			<% end %>
 
 			<div class="google-comment-ad"></div>
 		
 			<%= render 'shared/comments' %>
 			<% if user_signed_in? %>
 				<span class="comment-entry row">
-					<span class="comment-user col-xs-2 col-md-1">
+					<span class="comment-user col-xs-2 col-sm-2">
 						<%= link_to avatar_for(current_user, 'small'), current_user %>
 					</span>
-					<span class="comment-form col-xs-10 col-md-11">
+					<span class="comment-form col-xs-10 col-sm-10">
 						<%= link_to current_user.name, current_user %>
 						<%= render 'shared/comment_form' %>
 					</span>
@@ -85,7 +75,7 @@
 	</div>
 
 	<!-- Side Bar -->
-	<div class="hidden-xs col-md-4">
+	<div class="hidden-xs col-sm-4">
 		<% if signed_in? %>
 			<%= current_user.name %>
 			<%= current_user.email %><br>

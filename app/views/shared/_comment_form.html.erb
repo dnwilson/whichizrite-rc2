@@ -5,7 +5,6 @@
     <%= f.text_area :comment, placeholder: "write a comment..." %>
   </div>
   <div class="submit">
-    <%= f.submit "Comment", class: "btn btn-large btn-primary pull-right"  %>
+    <%= f.submit "Comment", class: "btn btn-large btn-primary pull-right", disable_with: "Saving..."   %>
   </div>
 <% end %>
-

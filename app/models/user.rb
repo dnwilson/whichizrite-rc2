@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   include PgSearch
   include RailsSettings::Extend
+  extend FriendlyId
+  friendly_id :username, use: [:slugged]
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, 
@@ -49,7 +51,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: {minimum: 8}
   validates :password_confirmation, presence: true
 
-  validates :username, presence: true, length: {within: 8..20}
+  validates :username, presence: true
 
   has_settings_on :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote
 

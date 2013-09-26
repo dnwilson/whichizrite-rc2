@@ -88,6 +88,20 @@ $("#clearfile").click(function(event){
 	$('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
 	$('.preview').css('display', 'none');
     $('#test-pic').css('display', 'none');
+    $('.temp-preview').css('display', 'none');
+    $('#test').replaceWith('<div class="test"><p></p></div>');  
+});
+
+$("#cleartemp").click(function(event){
+    // event.preventDefault();
+    $("#post_p_image").val('');
+    $("#post_p_image_url").val('');
+    $("#post_p_media").val(''); 
+    $(".media").html('<div class="media" style="display:none;"></div>');
+    $('#preview-pic').replaceWith('<img id="preview-pic" src="#" alt="your image" hidden="true" />');
+    $('.preview').css('display', 'none');
+    $('#test-pic').css('display', 'none');
+    $('.temp-preview').css('display', 'none');
     $('#test').replaceWith('<div class="test"><p></p></div>');  
 });
 

@@ -1,6 +1,8 @@
 class Post < ActiveRecord::Base
   include AutoHtml
   include PgSearch
+  extend FriendlyId
+  friendly_id :p_title, use: [:slugged]
 
   multisearchable :against => [:p_title, :p_body]
 
@@ -33,7 +35,8 @@ class Post < ActiveRecord::Base
   # validates :p_media, format: {with: VALID_WEBSITE_REGEX}
 
   def has_attached_image?
-    self.p_image != nil
+    if self.p_image != nil or self.p_image_url != nil
+    end
   end
 
   def generate_token
@@ -111,21 +114,12 @@ class Post < ActiveRecord::Base
     simple_format
   end
 
-  def has_media?
-
-    if condition
-      
-    else
-      
-    end
-  end
-
   AutoHtml.add_filter(:worldstar).with(:width => 448, :height => 374) do |text,options|
     text.gsub(/http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/) do
       video_id = $1
       width  = options[:width]
       height = options[:height]
-      %{<object width="#{:width}" height="#{:height}"><param name="movie" value="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}"><param name="allowFullScreen" value="true"></param><embed src="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}" type="application/x-shockwave-flash" allowFullscreen="true" width="#{:width}" height="#{:height}"></embed></object>}
+      %{<object width="448" height="374"><param name="movie" value="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}"><param name="allowFullScreen" value="true"></param><embed src="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}" type="application/x-shockwave-flash" allowFullscreen="true" width="448" height="374"></embed></object>}
     end
   end
 
@@ -134,65 +128,42 @@ class Post < ActiveRecord::Base
     youtube_id = $3
     worldstar_regex = /http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/
     worldstar_id = $1
-    if self.p_media != ""
-      if self.p_media.match(youtube_regex)
-        youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
-        youtube_id = $3
-        self.p_type = 'video'
-        link = 'http://img.youtube.com/vi/' + youtube_id + '/0.jpg'
-        self.p_image = URI.parse(link)
-        self.save
-      elsif self.p_media.match(worldstar_regex)
-        link = Nokogiri::HTML(open(self.p_media)).css("meta[property='og:image']").first.attributes["content"]
-        self.p_image = URI.parse(link)
-        self.p_type = 'video'
-        self.save
-      else
-        self.p_type = 'image'
-        text = self.p_image_url.to_s
-        self.p_image = URI.parse(text)
-        self.save
-      end 
-    elsif self.p_image_file_name != nil
-      self.p_type = 'image'
-      self.save
-    else
+    if self.p_media == "" && self.p_image_url == "" && self.p_image_file_name == nil
       self.p_type = 'text'
       self.save
+    else
+      if self.p_media != ""
+        if self.p_media.match(youtube_regex)
+          youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
+          youtube_id = $3
+          self.p_type = 'video'
+          link = 'http://img.youtube.com/vi/' + youtube_id + '/0.jpg'
+          self.p_image = URI.parse(link)
+          self.save
+        elsif self.p_media.match(worldstar_regex)
+          link = Nokogiri::HTML(open(self.p_media)).css("meta[property='og:image']").first.attributes["content"]
+          self.p_image = URI.parse(link)
+          self.p_type = 'video'
+          self.save
+        else
+          self.p_type = 'image'
+          text = self.p_media.to_s
+          self.p_image = URI.parse(text)
+          self.save      
+        end 
+      elsif self.p_image_url != ""
+          self.p_type = 'image'
+          text = self.p_image_url.to_s
+          self.p_image = URI.parse(text)
+          self.save
+      else
+          self.p_type = 'image'
+          self.save 
+      end
     end
   end
 
   def img_from_url(url)
     self.p_image = URI.parse(url)    
   end
-
-  # def categorize_post
-  #   youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
-  #   worldstar_regex = /http:\/\/www\.worldstarhiphop\.com\/videos\/video\.php\?v\=(wshh[A-Za-z0-9]+)/
-  #   if self.p_body_html.gsub(youtube_regex)
-  #     #youtube post
-  #     self.p_body_html.gsub(youtube_regex) do
-  #       youtube_id = $3
-  #       src = "//www.youtube.com/embed/#{youtube_id}"
-  #       src += "?wmode=#{wmode}" if wmode
-  #       %{<iframe width="720" height="420" src="#{src}" frameborder="#{frameborder}" allowfullscreen></iframe>}        
-  #       self.p_media = src
-  #       self.save
-  #     end
-  #     self.p_type = "video"
-  #     self.save
-  #   elsif self.p_body_html.gsub(worldstar_regex)
-  #      #worldstar post
-  #     self.p_body_html.gsub(worldstar_regex) do 
-  #       video_id = $1
-  #       width  = options[:width]
-  #       height = options[:height]
-  #       self.p_media = %{<object width="#{width}" height="#{height}"><param name="movie" value="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}"><param name="allowFullScreen" value="true"></param><embed src="http://www.worldstarhiphop.com/videos/e/16711680/#{video_id}" type="application/x-shockwave-flash" allowFullscreen="true" width="#{width}" height="#{height}"></embed></object>}
-  #     end
-  #     self.p_type = "video"
-  #     self.save
-  #   else
-  #     #other post
-  #   end
-  # end
 end
