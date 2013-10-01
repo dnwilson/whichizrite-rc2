@@ -1,6 +1,6 @@
 <div class="channels">
   <ul class="nav nav-pills channel-list">  	
-    <li class="<%= 'active' if current_page?(:controller => 'pages', :action => 'home') %>"><%= link_to "Latest", root_path %></li>
+    <li class="<%= 'active' if current_page?(:controller => 'pages', :action => 'home') %>"><%= link_to  root_path do %><i class='glyphicon glyphicon-fire'></i> Latest<% end %></li>
     <!--<% if signed_in? %>
   		<li class="<%= 'active' if current_page?(:controller => 'pages', :action => 'feed') %>"><%= link_to "My Feed", feed_path %></li>
   	<% end %> -->

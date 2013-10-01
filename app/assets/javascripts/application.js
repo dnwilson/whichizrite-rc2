@@ -18,7 +18,7 @@
 //= require twitter/bootstrap
 //= require jquery-auto_html
 //= require postform
-// require turbolinks
+//= require turbolinks
 // require_tree .
 
 $(function(){

@@ -130,8 +130,30 @@ p{
 		margin-bottom:0px;
 	}
 } 
-
-
+/*
+ * Secondary Nav
+ * --------------------------------------------------
+ */
+.channels{
+	.channel-list{
+		margin-left: 5px;
+		margin-right: 5px;
+		li > a{
+			border-radius: 0px;
+			line-height: 12px;
+			font-size: 12px;
+			&:hover{
+				background-color: white;
+			}
+		}
+		li.active a:hover{
+			color: $wirGreen;
+		}
+	}
+	.nav > li > a{
+		padding: 10px;
+	}
+}
 /*
  * Main Post Feed
  * --------------------------------------------------

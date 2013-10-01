@@ -25,9 +25,10 @@ Dane Wilson
 - [x] Add SEO Support
 		- [x] Implement Pretty Url
 		- [x] Add Meta Data
-- [ ] Fix Single Post Page Styling
-- [ ] Notifications
+- [x] Fix Single Post Page Styling
+- [ ] Analytics
 - [ ] Mailing System
+- [ ] Notifications
 - [ ] Ad Management
 - [ ] Release Beta
 - [ ] Auto Create Post from Link Using Nokogiri
