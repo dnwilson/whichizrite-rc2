@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :configure_permitted_parameters, if: :devise_controller?
 
   # before_filter session.model.id = session.session_id
 
@@ -27,6 +28,20 @@ class ApplicationController < ActionController::Base
   	session[:guest_user_id] = nil
   	guest_user
   end
+
+  protected
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:username, 
+                  :email, :name, :password, :password_confirmation, 
+                  :remember_me, :login, :aboutme, :dob, :avatar, :location, 
+                  :country_name, :sex, :uid, :provider, :profilepic, :auth_token, 
+                  :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote)}
+      devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:username, 
+                  :email, :name, :password, :password_confirmation, 
+                  :remember_me, :login, :aboutme, :dob, :avatar, :location, 
+                  :country_name, :sex, :uid, :provider, :profilepic, :auth_token, 
+                  :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote)}
+    end
 
   private
   	# called (once) when the user logs in, insert any code your application

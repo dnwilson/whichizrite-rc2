@@ -1,0 +1,14 @@
+<p>Hi <%= @user.name %></p>
+<p><% link_to @commenter.name, user_url(@commenter) %> commented on your post titled <%= @post.p_title %></p>
+<p><%= link_to avatar_for(@commenter, 'med'), @commenter %></p>
+<p><%= @commenter.name %></p>
+<p><%= @commenter.username %></p>
+<% unless @user == @commenter %>
+	<div id="follow_form">
+		<% if @user.following?(@commenter) %>
+			<%= link_to "Unfollow", unfollow_user_path(@commenter), :class => "unfollow btn btn-large" %>
+		<% else %>
+			<%= link_to "Follow", follow_user_path(@commenter), :class => "follow btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+<% end %>

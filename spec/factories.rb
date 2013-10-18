@@ -1,6 +1,7 @@
 FactoryGirl.define do
 	factory :user do
 		sequence(:email) {Forgery::Internet.email_address}
+		sequence(:name) {Forgery::Name.full_name}
 		sequence(:username) {Forgery::Internet.user_name}
 		password				"foobar123"
 		password_confirmation	"foobar123"
@@ -18,4 +19,10 @@ FactoryGirl.define do
 		tag_list {Forgery::LoremIpsum.words(3)}
 		user
 	end
+
+	# factory :comment do
+	# 	post
+	# 	sequence(:comment) {Forgery::LoremIpsum.words(15)}		
+	# 	user
+	# end
 end

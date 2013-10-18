@@ -26,10 +26,18 @@ Dane Wilson
 		- [x] Implement Pretty Url
 		- [x] Add Meta Data
 - [x] Fix Single Post Page Styling
-- [ ] Analytics
 - [ ] Mailing System
+	- [x] Welcome
+	- [x] Forgot Password
+	- [ ] Follow Alert
+	- [ ] Profile Update
+	- [ ] Commented on Post
+	- [ ] Voted on Post
+	- [ ] Voted on Comment
+- [ ] Optimize Turbolinks
 - [ ] Notifications
 - [ ] Ad Management
+- [ ] Analytics
 - [ ] Release Beta
 - [ ] Auto Create Post from Link Using Nokogiri
 - [ ] Android App

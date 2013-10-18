@@ -3,14 +3,15 @@
 
 # notification :notifu, :time => 5, :nosound => true, :xp => true
  
-guard 'livereload' do
-  watch(%r{app/views/.+\.(erb|haml|slim)$})
-  watch(%r{app/helpers/.+\.rb})
-  watch(%r{public/.+\.(css|js|html)})
-  watch(%r{config/locales/.+\.yml})
-  # Rails Assets Pipeline
-  watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
-end
+# guard 'livereload' do
+#   watch(%r{app/views/.+\.(erb|haml|slim)$})
+#   watch(%r{app/helpers/.+\.rb})
+#   watch(%r{public/.+\.(css|js|html)})
+#   watch(%r{config/locales/.+\.yml})
+#   # Rails Assets Pipeline
+#   watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
+# end
+require 'active_support/core_ext'
 
 guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAILS_ENV' => 'test' } do
   watch('config/application.rb')
@@ -19,11 +20,21 @@ guard 'spork', :cucumber_env => { 'RAILS_ENV' => 'test' }, :rspec_env => { 'RAIL
   watch(%r{^config/initializers/.+\.rb$})
   watch('Gemfile.lock')
   watch('spec/spec_helper.rb') { :rspec }
-  watch('test/test_helper.rb') { :test_unit }
-  watch(%r{features/support/}) { :cucumber }
 end
 
-guard :rspec, :cli => "--drb", :all_on_start => false do
+guard :rspec, :version=> 2, :cli => "--drb", :all_on_start => false, :all_after_pass => false do
+  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  do |m|
+    ["spec/routing/#{m[1]}_routing_spec.rb",
+     "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
+     "spec/acceptance/#{m[1]}_spec.rb",
+     (m[1][/_pages/] ? "spec/features/#{m[1]}_spec.rb" : 
+                       "spec/features/#{m[1].singularize}_pages_spec.rb")]
+  end
+  watch(%r{^app/views/(.+)/}) do |m|
+    (m[1][/_pages/] ? "spec/features/#{m[1]}_spec.rb" : 
+                       "spec/features/#{m[1].singularize}_pages_spec.rb")
+  end
+
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
@@ -41,7 +52,4 @@ guard :rspec, :cli => "--drb", :all_on_start => false do
 
   watch(%r{^app/views/(.+)/})                         { |m| "spec/requests/#{m[1]}_spec.rb" }
 
-  # Turnip features and steps
-  watch(%r{^spec/acceptance/(.+)\.feature$})
-  watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
 end

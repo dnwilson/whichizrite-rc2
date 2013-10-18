@@ -51,8 +51,6 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: {minimum: 8}
   validates :password_confirmation, presence: true
 
-  validates :username, presence: true
-
   has_settings_on :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote
 
   def self.find_first_by_auth_conditions(warden_conditions)

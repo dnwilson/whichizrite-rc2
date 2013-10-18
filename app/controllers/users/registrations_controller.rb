@@ -18,6 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	        if resource.provider == "facebook"	        	
 	        	resource.fbsignup
 	        end
+	        UserMailer.welcome(resource).deliver
 	      else
 	        set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
 	        expire_session_data_after_sign_in!
@@ -42,6 +43,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	      set_flash_message :notice, :updated if is_navigational_format?
 	      sign_in resource_name, resource, :bypass => true
 	      respond_with resource, :location => after_update_path_for(resource)
+	      UserMailer.profile_update(resource).deliver
 	    else
 	      clean_up_passwords(resource)
 	      respond_with_navigational(resource){ render :edit }
@@ -53,10 +55,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
       	settings_path(resource)
       	# user_path(resource)
       end
-
-      def account_update_params
-		devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :name, :password, :password_confirmation, 
-									:remember_me, :login, :aboutme, :dob, :avatar, :location, :country_name, :sex, :uid, :provider, 
-									:profilepic, :auth_token, :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote) }
-	  end
 end

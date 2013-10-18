@@ -31,13 +31,13 @@ describe Post do
 
 	it{should be_valid}
 
-	describe "accessible attributes" do
-		it "should not allow access to user_id" do
-			expect do 
-				Post.new(user_id: user.id)
-			end.to raise_error
-		end
-	end
+	# describe "accessible attributes" do
+	# 	it "should not allow access to user_id" do
+	# 		expect do 
+	# 			Post.new(user_id: user.id)
+	# 		end.to raise_error
+	# 	end
+	# end
 
 	describe "when user_id is not present" do
 		before{@post.user_id = nil}
@@ -49,8 +49,4 @@ describe Post do
 		it{should_not be_valid}
 	end
 
-	describe "with blank body and no image" do
-		before{@post.p_body = nil || @post.p_image = nil}
-		it{should_not be_valid}
-	end
 end

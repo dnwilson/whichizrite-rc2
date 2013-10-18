@@ -133,28 +133,28 @@ class Post < ActiveRecord::Base
       self.save
     else
       if self.p_media != ""
-        if self.p_media.match(youtube_regex)
+        if youtube_regex.match(self.p_media)
           youtube_regex = /https?:\/\/(www.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/watch\?feature=player_embedded&v=)([A-Za-z0-9_-]*)(\&\S+)?(\S)*/
           youtube_id = $3
           self.p_type = 'video'
           link = 'http://img.youtube.com/vi/' + youtube_id + '/0.jpg'
-          self.p_image = URI.parse(link)
+          self.p_image = URI.parse(link).to_s
           self.save
-        elsif self.p_media.match(worldstar_regex)
+        elsif worldstar_regex.match(self.p_media)
           link = Nokogiri::HTML(open(self.p_media)).css("meta[property='og:image']").first.attributes["content"]
-          self.p_image = URI.parse(link)
+          self.p_image = URI.parse(link).to_s
           self.p_type = 'video'
           self.save
         else
           self.p_type = 'image'
           text = self.p_media.to_s
-          self.p_image = URI.parse(text)
+          self.p_image = URI.parse(text).to_s
           self.save      
         end 
       elsif self.p_image_url != ""
           self.p_type = 'image'
           text = self.p_image_url.to_s
-          self.p_image = URI.parse(text)
+          self.p_image = URI.parse(text).to_s
           self.save
       else
           self.p_type = 'image'
@@ -164,6 +164,6 @@ class Post < ActiveRecord::Base
   end
 
   def img_from_url(url)
-    self.p_image = URI.parse(url)    
+    self.p_image = URI.parse(url).to_s    
   end
 end

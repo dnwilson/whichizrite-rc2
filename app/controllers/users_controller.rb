@@ -48,6 +48,7 @@ class UsersController < ApplicationController
         else
             current_user.follow(@user)
 			# RecommenderMailer.new_follower(@user).deliver if @user.notify_new_follower
+			UserMailer.follow_alert(current_user, @user).deliver
 			redirect_to :back
 			flash[:notice] = "You are now following #{@user.username}."
 			# current_user.notify_follow(@user)
@@ -98,5 +99,6 @@ class UsersController < ApplicationController
 		def admin_user
 			redirect_to(root_path) unless current_user.admin?
 		end
+
 
 end
