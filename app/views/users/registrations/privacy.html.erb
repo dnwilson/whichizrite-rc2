@@ -15,7 +15,7 @@
   </div>
 
 	<div class="user-edit col-sm-8">
-		<%= simple_form_for(current_user, :as => resource, :url => registration_path(current_user), :html => { :class => "form-horizontal", :multipart => true, :method => :put }) do |f| %>
+		<%= simple_form_for(current_user, :as => resource, :url => settings_privacy_path, :html => { :class => "form-horizontal", :multipart => true, :method => :put }) do |f| %>
   			<%= f.error_notification %>
 
   			<div class="edit-header">
@@ -52,6 +52,37 @@
 	      			<% end %>
   				</div>
   			<% end %>
+
+        <div class="email-options">
+          <h4><i class="icon-envelop"></i>Email Notifications</h4>
+          <div class="well well-sm">
+            <p>Send me an email when...</p>  
+            <% if current_user.settings.email_follow_alert == '1' %>
+              <%= f.input :email_follow_alert, as: :boolean, :input_html => {checked: true}, inline_label: 'Someone follows me', label: false %>
+            <% else %>
+              <%= f.input :email_follow_alert, as: :boolean, inline_label: 'Someone follows me', label: false %>
+            <% end %>
+
+            <% if current_user.settings.email_post_comment == '1' %>
+              <%= f.input :email_post_comment, as: :boolean, :input_html => {checked: true}, inline_label: 'Someone comments on my post', label: false %>
+            <% else %>
+              <%= f.input :email_post_comment, as: :boolean, inline_label: 'Someone comments on my post', label: false %>
+            <% end %>
+
+            <% if current_user.settings.email_post_vote == '1' %>
+              <%= f.input :email_post_vote, as: :boolean, :input_html => {checked: true}, inline_label: 'Someone votes on my post', label: false %>
+            <% else %>
+              <%= f.input :email_post_vote, as: :boolean, inline_label: 'Someone votes on my post', label: false %>
+            <% end %>
+
+            <% if current_user.settings.email_comment_vote == '1' %>
+              <%= f.input :email_comment_vote, as: :boolean, :input_html => {checked: true}, inline_label: 'Someone votes on my comment', label: false %>
+            <% else %>
+              <%= f.input :email_comment_vote, as: :boolean, inline_label: 'Someone votes on my comment', label: false %>
+            <% end %>
+          </div>
+          
+        </div>
 
   			<div class="left">
 	        	<%= f.submit "Update", class: "btn btn-large btn-primary" %>

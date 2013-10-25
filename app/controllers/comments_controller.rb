@@ -26,6 +26,7 @@ class CommentsController < ApplicationController
 	    #     # PrivatePub.publish_to("/#{@story.user_id}/alerts", "alert('#{current_user.username} commented on your post.');")
 	    #     # current_user.notify_comment(@story)
 	    # end
+        UserMailer.post_comment(current_user, @post).deliver 
         respond_to do |format|
             format.html {redirect_to @comment.post}
             format.js
@@ -50,7 +51,8 @@ class CommentsController < ApplicationController
                 @comment.save
             end
             # PrivatePub.publish_to("/#{@comment.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
-            current_user.vote_exclusively_for(@comment)            
+            current_user.vote_exclusively_for(@comment) 
+            UserMailer.comment_vote(current_user, @comment).deliver            
             # current_user.notify_vote(@comment)
             respond_to do |format|
                 format.html { redirect_to @comment.post }
@@ -75,6 +77,7 @@ class CommentsController < ApplicationController
             end 
             # PrivatePub.publish_to("/#{@comment.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
             current_user.vote_exclusively_against(@comment)
+            UserMailer.comment_vote(current_user, @comment).deliver
             # current_user.notify_vote(@comment)
             respond_to do |format|
                 format.html { redirect_to @comment.post}

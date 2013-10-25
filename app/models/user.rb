@@ -48,10 +48,12 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true, uniqueness: {case_sensitive:false}
   validates :email, format: {with: VALID_EMAIL_REGEX}                             
-  validates :password, presence: true, length: {minimum: 8}
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, length: {minimum: 8, maximum: 25}, on: :create
+  validates :password, length: {minimum: 8, maximum: 25}, on: :update, allow_blank: true
 
-  has_settings_on :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote
+  has_settings_on :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote,
+                  :email_post_comment, :email_comment_vote, :email_follow_alert,
+                  :email_profile_update, :email_post_vote
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -179,6 +181,13 @@ class User < ActiveRecord::Base
         self.settings.fb_pub_post = '1' 
         self.settings.fb_pub_vote = '1' 
         self.settings.fb_pub_comment = '1' 
+        self.save
+      else
+        self.email_post_comment = '1' 
+        self.email_comment_vote = '1' 
+        self.email_follow_alert = '1'
+        self.email_profile_update = '1' 
+        self.email_post_vote = '1'
         self.save
       end
     end

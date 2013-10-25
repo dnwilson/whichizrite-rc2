@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+ class UsersController < ApplicationController
 	before_filter :authenticate_user!, only: [:index, :edit, :update, :destroy, :make_private, :make_public]
 	before_filter :correct_user, only: [:edit, :update]
 	before_filter :admin_user, only: :destroy

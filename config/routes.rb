@@ -13,6 +13,8 @@ Whichizrite::Application.routes.draw do
     get "delete",   :to => "users/registrations#destroy"
     get "settings", :to => "users/registrations#edit"
     get "settings/password", :to => "users/registrations#password"
+    patch "settings/password" => "users/registrations#settings_password"
+    put "settings/password" => "users/registrations#settings_password"
     get "settings/privacy", :to => "users/registrations#privacy"
   end 
 
@@ -31,6 +33,12 @@ Whichizrite::Application.routes.draw do
       get :unpend
     end
   end
+
+  # resource :user, only: [:show] do
+  #   collection do
+  #     patch 'settings_password'
+  #   end
+  # end
   
   resources :pages
 

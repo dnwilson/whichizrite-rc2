@@ -118,8 +118,8 @@ class PostsController < ApplicationController
                 end
                 # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
                 current_user.vote_exclusively_for(@post)
-                current_user.fb_publish(@post.p_title, post_path(@post))            
-                # current_user.notify_vote(@post)
+                current_user.fb_publish(@post.p_title, post_path(@post))
+                UserMailer.post_vote(current_user, @post).deliver                
                 respond_to do |format|
                     format.html { redirect_to @post }
                     format.js
@@ -149,7 +149,7 @@ class PostsController < ApplicationController
                 # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
                 current_user.vote_exclusively_against(@post)
                 current_user.fb_publish(@post.p_title, post_path(@post))
-                FbGraph.debug!
+                UserMailer.post_vote(current_user, @post).deliver 
                 # current_user.notify_vote(@post)
                 respond_to do |format|
                     format.html { redirect_to @post}

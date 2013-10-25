@@ -35,12 +35,16 @@ class ApplicationController < ActionController::Base
                   :email, :name, :password, :password_confirmation, 
                   :remember_me, :login, :aboutme, :dob, :avatar, :location, 
                   :country_name, :sex, :uid, :provider, :profilepic, :auth_token, 
-                  :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote)}
+                  :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote,
+                  :email_comment_vote, :email_follow_alert, 
+                  :email_profile_update, :email_post_vote)}
       devise_parameter_sanitizer.for(:account_update) {|u| u.permit(:username, 
-                  :email, :name, :password, :password_confirmation, 
-                  :remember_me, :login, :aboutme, :dob, :avatar, :location, 
-                  :country_name, :sex, :uid, :provider, :profilepic, :auth_token, 
-                  :hide_profile, :fb_pub_comment, :fb_pub_post, :fb_pub_vote)}
+                  :email, :name, :password, :password_confirmation, :remember_me, 
+                  :aboutme, :dob, :avatar, :location, :country_name, :sex, :uid, 
+                  :provider, :profilepic, :auth_token, :hide_profile, :fb_pub_comment, 
+                  :fb_pub_post, :fb_pub_vote, :email_comment_vote, 
+                  :email_follow_alert, :email_profile_update, :email_post_vote )}
+      devise_parameter_sanitizer.for(:edit_password) {|u| u.permit(:password, :password_confirmation, :current_password)}
     end
 
   private

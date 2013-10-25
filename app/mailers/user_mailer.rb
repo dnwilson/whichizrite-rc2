@@ -16,7 +16,9 @@ class UserMailer < ActionMailer::Base
 	def follow_alert(user, follower)
 		@user = user
 		@follower = follower
-		mail(to: "#{user.name} <#{user.email}>", subject: "#{@follower.username} is now following you!")
+		if @user.settings.email_follow_alert == '1'
+			mail(to: "#{user.name} <#{user.email}>", subject: "#{@follower.username} is now following you!")
+		end
 	end
 
 	def profile_update(user)
@@ -28,14 +30,18 @@ class UserMailer < ActionMailer::Base
 		@commenter = commenter
 		@post = post
 		@user = @post.user
-		mail(to: "#{@user.name} <#{@user.email}>", subject: "#{@commenter.username} commented on your post")
+		if @user.settings.email_post_comment == '1' && @user != @commenter
+			mail(to: "#{@user.name} <#{@user.email}>", subject: "#{@commenter.username} commented on your post")
+		end
 	end
 
 	def post_vote(voter, post)
 		@voter = voter
 		@post = post
 		@user = @post.user
-		mail(to: "#{@user.name} <#{@user.email}>", subject: "#{@voter.username} voted on your post")
+		if @user.settings.email_post_vote == '1' && @user != @voter
+			mail(to: "#{@user.name} <#{@user.email}>", subject: "#{@voter.username} voted on your post")
+		end
 	end
 
 	def comment_vote(voter, comment)
@@ -43,6 +49,8 @@ class UserMailer < ActionMailer::Base
 		@comment = comment
 		@post = @comment.post
 		@user = @comment.user
-		mail(to: "#{@user.name} <#{@user.email}>", subject: "#{@voter.username} voted on your comment")
+		if @user.settings.email_comment_vote == '1' && @user != @voter
+			mail(to: "#{@user.name} <#{@user.email}>", subject: "#{@voter.username} voted on your comment")
+		end
 	end
 end

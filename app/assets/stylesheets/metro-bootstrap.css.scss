@@ -130,6 +130,7 @@ p{
 		margin-bottom:0px;
 	}
 } 
+
 /*
  * Secondary Nav
  * --------------------------------------------------
@@ -980,6 +981,30 @@ p{
  	.img-polaroid{
  		text-align: center;
  	}
+}
+
+/*
+ * User Edit - Privacy
+ * --------------------------------------------------
+ */
+.email-options{
+	border-top: 1px solid $mainGray;
+	margin-top: 20px;
+	h4{
+		margin-top: 20px;
+	}
+	.well {
+		border-radius: 0px;
+		-webkit-box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.05);
+		box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.05);
+		label{
+			font-weight: normal;
+			color: $darkestGray;
+		}
+		p{
+			font-weight: bold;
+		}
+	}
 }
 
 /*
