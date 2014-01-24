@@ -26,11 +26,11 @@ class CommentsController < ApplicationController
 	    #     # PrivatePub.publish_to("/#{@story.user_id}/alerts", "alert('#{current_user.username} commented on your post.');")
 	    #     # current_user.notify_comment(@story)
 	    # end
-        UserMailer.post_comment(current_user, @post).deliver 
         respond_to do |format|
             format.html {redirect_to @comment.post}
             format.js
         end
+        UserMailer.post_comment(current_user, @post).deliver 
     end
 
 	def destroy
@@ -51,13 +51,13 @@ class CommentsController < ApplicationController
                 @comment.save
             end
             # PrivatePub.publish_to("/#{@comment.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
-            current_user.vote_exclusively_for(@comment) 
-            UserMailer.comment_vote(current_user, @comment).deliver            
+            current_user.vote_exclusively_for(@comment)             
             # current_user.notify_vote(@comment)
             respond_to do |format|
                 format.html { redirect_to @comment.post }
                 format.js
-            end
+            end            
+            UserMailer.comment_vote(current_user, @comment).deliver
         else
             flash[:notice] = "You need to follow user in order to carry out this function"
             redirect_to user_path(@comment.user)
@@ -77,12 +77,12 @@ class CommentsController < ApplicationController
             end 
             # PrivatePub.publish_to("/#{@comment.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
             current_user.vote_exclusively_against(@comment)
-            UserMailer.comment_vote(current_user, @comment).deliver
             # current_user.notify_vote(@comment)
             respond_to do |format|
                 format.html { redirect_to @comment.post}
                 format.js
             end
+            UserMailer.comment_vote(current_user, @comment).deliver
         else
             flash[:notice] = "You need to follow user in order to carry out this function"
             redirect_to user_path(@comment.user)

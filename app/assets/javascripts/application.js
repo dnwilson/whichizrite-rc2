@@ -12,13 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.turbolinks
-//= require rails.validations
-//= require rails.validations.simple_form
+// require jquery.turbolinks
+// require rails.validations
+// require rails.validations.simple_form
 //= require twitter/bootstrap
 //= require jquery-auto_html
 //= require postform
-//= require turbolinks
+// require turbolinks
 // require_tree .
 
 $(function(){

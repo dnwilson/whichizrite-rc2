@@ -22,6 +22,7 @@ Dane Wilson
 	- [x] Finalize Bootstrap Tweaks
 		- [x] Add Image Attachment for WorldStar Videos
 		- [x] Fix Profile Page
+		- [ ] Fix error handling on Settings Page
 - [x] Add SEO Support
 		- [x] Implement Pretty Url
 		- [x] Add Meta Data
@@ -29,11 +30,11 @@ Dane Wilson
 - [ ] Mailing System
 	- [x] Welcome
 	- [x] Forgot Password
-	- [ ] Follow Alert
-	- [ ] Profile Update
-	- [ ] Commented on Post
-	- [ ] Voted on Post
-	- [ ] Voted on Comment
+	- [x] Follow Alert
+	- [x] Profile Update
+	- [x] Commented on Post
+	- [x] Voted on Post
+	- [x] Voted on Comment
 - [ ] Optimize Turbolinks
 - [ ] Notifications
 - [ ] Ad Management

@@ -117,13 +117,13 @@ class PostsController < ApplicationController
                     @post.save
                 end
                 # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
-                current_user.vote_exclusively_for(@post)
-                current_user.fb_publish(@post.p_title, post_path(@post))
-                UserMailer.post_vote(current_user, @post).deliver                
+                current_user.vote_exclusively_for(@post)              
                 respond_to do |format|
                     format.html { redirect_to @post }
                     format.js
                 end
+                current_user.fb_publish(@post.p_title, post_path(@post))
+                UserMailer.post_vote(current_user, @post).deliver  
             else
                 flash[:notice] = "You need to follow user in order to carry out this function"
                 redirect_to user_path(@post.user)
@@ -148,13 +148,13 @@ class PostsController < ApplicationController
                 end 
                 # PrivatePub.publish_to("/#{@post.user_id}/notifications", "alert('#{current_user.username} voted on your post.');")
                 current_user.vote_exclusively_against(@post)
-                current_user.fb_publish(@post.p_title, post_path(@post))
-                UserMailer.post_vote(current_user, @post).deliver 
                 # current_user.notify_vote(@post)
                 respond_to do |format|
                     format.html { redirect_to @post}
                     format.js
                 end
+                current_user.fb_publish(@post.p_title, post_path(@post))
+                UserMailer.post_vote(current_user, @post).deliver 
             else
                 flash[:notice] = "You need to follow user in order to carry out this function"
                 redirect_to user_path(@post.user)

@@ -51,4 +51,74 @@ describe "UserPages" do
 			specify {expect(user.reload.aboutme).to eq new_aboutme}
 		end
 	end
+
+	describe "password edit" do
+		let(:user) { FactoryGirl.create(:user) }
+		before do
+			visit login_path
+			login_as(user, :scope => :user)
+			visit settings_password_path(user)
+		end
+		describe "with valid password" do
+			let(:current_password) { user.password }
+			let(:new_password) { "foobar15" }
+			before do
+				fill_in "Current Password", 	with: current_password
+				fill_in "New Password", 		with: new_password
+				fill_in "Confirmation", 		with: new_password
+				click_button "Update"
+			end
+			it{should have_title('whichizrite | Password')}
+			it{should have_selector('div.alert.alert-success')}
+		end
+
+		describe "with invalid password" do
+			let(:current_password) { "foob444" }
+			let(:new_password) { "foobar15" }
+			before do
+				fill_in "Current Password", 	with: current_password
+				fill_in "New Password", 		with: new_password
+				fill_in "Confirmation", 		with: new_password
+				click_button "Update"
+			end
+			it{should have_title('whichizrite | Password')}
+			it{should have_selector('div#error_explanation')}
+		end
+	end
+
+	describe "profile page" do
+		
+	end
+
+	describe "signup page" do
+		before{visit register_path}
+		let(:submit) { "Sign up" }
+
+		describe "with invalid info" do
+			it "should not create a user" do
+				expect {click_button submit}.not_to change(User, :count)
+			end
+		end
+
+		describe "with valid info" do
+			before do
+				fill_in "Full Name",			with: "Dane Wilson"
+				fill_in "Your Email",			with: "dane@whichizrite.com"
+				fill_in "Password",				with: "foobar12"
+				fill_in "Re-enter Password",	with: "foobar12"
+				fill_in "Date of Birth",		with: "08/16/1985"
+				find(:css, "#user_sex_male[value='Male']").set(true)
+			end
+
+			it "should create a user" do
+				expect{click_button submit}.to change(User, :count).by(1)
+			end			
+
+			describe "after saving" do
+				before{click_button submit}								
+				it{should have_title(user.name)}
+				it{should have_selector('div.alert.alert-success', text: 'Welcome to the community. Please remember to update your profile information.')}
+			end
+		end
+	end
 end

@@ -16,6 +16,8 @@ Whichizrite::Application.routes.draw do
     patch "settings/password" => "users/registrations#settings_password"
     put "settings/password" => "users/registrations#settings_password"
     get "settings/privacy", :to => "users/registrations#privacy"
+    patch "settings/privacy" => "users/registrations#settings_privacy"
+    put "settings/privacy" => "users/registrations#settings_privacy"
   end 
 
   get 'feed', to: 'pages#feed'

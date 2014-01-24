@@ -2,6 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	prepend_before_filter :authenticate_scope!, :only => [:edit, :update, :destroy, :password]
 
     def settings_password
+    	@disable_chan = true
     	@user = current_user
     	Rails.logger.info "entered if settings_password"
     	if @user.update_with_password(devise_parameter_sanitizer.sanitize(:edit_password))    		
@@ -9,23 +10,40 @@ class Users::RegistrationsController < Devise::RegistrationsController
     		sign_in @user, :bypass => true
     		flash[:success] = "Password updated"
     		Rails.logger.info(devise_parameter_sanitizer.sanitize(:edit_password).inspect)
-    		redirect_to settings_password_path(@user)
+    		redirect_to settings_password_path
     	else
     		Rails.logger.info(@user.errors.inspect)
-    		flash[:alert] = "Password not updated"
+    		# flash[:warning] = "Password not updated"
     		render 'password'
     	end
     end
 
     def settings_privacy
+    	@disable_chan = true
+    	@user = current_user
+    	Rails.logger.info "entered if settings_privacy"
+    	if @user.update_without_password(devise_parameter_sanitizer.sanitize(:account_update))    		
+    		#Sign in the user by passing validation in case his password has changed
+    		sign_in @user, :bypass => true
+    		flash[:success] = "Settings updated"
+    		Rails.logger.info(devise_parameter_sanitizer.sanitize(:account_update).inspect)
+    		redirect_to settings_privacy_path
+    		UserMailer.profile_update(resource).deliver
+    	else
+    		Rails.logger.info(@user.errors.inspect)
+    		# flash[:warning] = "Password not updated"
+    		render 'password'
+    	end
     end
 
     def create
+    	@disable_chan = true
 	    build_resource(sign_up_params)
 
 	    if resource.save
 	      if resource.active_for_authentication?
-	        set_flash_message :notice, :signed_up if is_navigational_format?
+	        # set_flash_message :notice, :signed_up if is_navigational_format?
+	        flash[:success] = "Welcome to the community. Please remember to update your profile information."
 	        sign_up(resource_name, resource)
 	        respond_with resource, :location => after_sign_up_path_for(resource)
 	        if resource.provider == "facebook"	        	
@@ -43,6 +61,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	    end
 	end
 	def update
+		@disable_chan = true
 		@user = User.find(current_user.id)
 
 		successfully_updated = if needs_password?(@user, params)
@@ -98,6 +117,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	protected
 		def after_update_path_for(resource)
 			settings_path(resource)
+			# user_path(resource)
+		end
+
+		def after_sign_up_path_for(resource)
+			user_path(resource)
 			# user_path(resource)
 		end
 

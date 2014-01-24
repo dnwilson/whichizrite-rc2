@@ -5,6 +5,7 @@
 
 	def show
 		@user = User.friendly.find(params[:id])
+		@disable_chan = true
 		if current_user == @user
 			@feed_items = @user.myfeed.paginate(page: params[:page])
 		else
@@ -13,6 +14,7 @@
 	end
 
 	def index
+		@disable_chan = true
 		@users = User.paginate(page: params[:page])
 	end
 
@@ -34,6 +36,7 @@
 	end
 
 	def followers
+		@disable_chan = true
 	    @title = "Followers"
 	    @user = User.friendly.find(params[:id])
 	    @users = @user.followers.paginate(page: params[:page], per_page: 10)
@@ -41,21 +44,23 @@
 	end
 
 	def follow
+		@disable_chan = true
 		@user = User.friendly.find(params[:id])
 		if current_or_guest_user.name == "Guest"
             flash[:notice] = "You need to be signed in to follow a user"
             redirect_to login_path
         else
-            current_user.follow(@user)
-			# RecommenderMailer.new_follower(@user).deliver if @user.notify_new_follower
-			UserMailer.follow_alert(current_user, @user).deliver
+            current_user.follow(@user)			
 			redirect_to :back
 			flash[:notice] = "You are now following #{@user.username}."
 			# current_user.notify_follow(@user)
+			# RecommenderMailer.new_follower(@user).deliver if @user.notify_new_follower
+			UserMailer.follow_alert(@user, current_user).deliver
         end		
 	end
 
 	def unfollow
+		@disable_chan = true
 		@user = User.friendly.find(params[:id])		
 		if current_or_guest_user.name == "Guest"
             flash[:notice] = "You need to be signed in to unfollow a user"
@@ -63,12 +68,13 @@
         else
             current_user.stop_following(@user)
 			redirect_to :back
-			flash[:success] = "You are no longer following #{@user.username}."
+			flash[:notice] = "You are no longer following #{@user.username}."
 			# current_user.notify_unfollow(@user)
         end	
 	end
 
 	def unpend
+		@disable_chan = true
 		@user = User.friendly.find(params[:id])
 		current_user.unpend(@user)
 		redirect_to :back
@@ -78,6 +84,7 @@
 
 
 	def visibility
+		@disable_chan = true
 		# @user = User.friendly.find(params[:id])
 		current_user.modify_pref('hide_profile')
 		if current_user.is_set_to?('hide_profile')

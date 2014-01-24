@@ -5,7 +5,7 @@
       <li class="<%= 'active' if current_page?(settings_path) %>">
         <%= link_to '<i class="icon-chevron-right"></i> Account'.html_safe, settings_path %>
       </li>
-      <li class="<%= 'active' if current_page?(settings_password_path) %>">
+      <li class="<%= 'active' if current_page?(settings_password_path(@user)) %>">
         <%= link_to '<i class="icon-chevron-right"></i> Password'.html_safe, settings_password_path %>
       </li>
       <li class="<%= 'active' if current_page?(settings_privacy_path) %>">

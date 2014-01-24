@@ -1,11 +1,15 @@
-<div class="channels">
-  <ul class="nav nav-pills channel-list">  	
-    <li class="<%= 'active' if current_page?(:controller => 'pages', :action => 'home') %>"><%= link_to  root_path do %><i class='glyphicon glyphicon-fire'></i> Latest<% end %></li>
-    <!--<% if signed_in? %>
-  		<li class="<%= 'active' if current_page?(:controller => 'pages', :action => 'feed') %>"><%= link_to "My Feed", feed_path %></li>
-  	<% end %> -->
-    <% Category.all.each do |category| %>
-        <li class="<%= 'active' if current_page?(:controller => 'posts', :action => 'index', :category => category.cat_name ) %>"><%= link_to category.cat_name, category_path(category.cat_name), :category => category.id %></li>
-    <% end %>
-  </ul>
+<div class="navbar" role="navigation">
+	<div class="container">
+		<div class="channels">
+			<ul class="nav nav-pills channel-list">  	
+				<li><%= link_to  root_path do %><i class='glyphicon glyphicon-fire'></i> Latest<% end %></li>
+				<!--<% if signed_in? %>
+						<li class="<%= 'active' if current_page?(:controller => 'pages', :action => 'feed') %>"><%= link_to "My Feed", feed_path %></li>
+					<% end %> -->
+				<% Category.all.each do |category| %>
+				    <li><%= link_to category.cat_name, category_path(category.cat_name), :category => category.id %></li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
 </div>

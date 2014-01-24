@@ -15,7 +15,7 @@
   </div>
 
 	<div class="user-edit col-sm-8">
-		<%= simple_form_for(current_user, :as => resource, :url => settings_privacy_path, :html => { :class => "form-horizontal", :multipart => true, :method => :put }) do |f| %>
+		<%= simple_form_for(current_user, :url => settings_privacy_path, :html => { :class => "form-horizontal", :multipart => true, :method => :patch }) do |f| %>
   			<%= f.error_notification %>
 
   			<div class="edit-header">

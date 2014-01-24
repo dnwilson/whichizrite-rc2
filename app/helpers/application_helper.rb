@@ -5,7 +5,7 @@ module ApplicationHelper
 		base_title = "whichizrite"
 		@page_site_name = "whichizrite"
 		if page_title.empty?
-			base_title
+			base_title + " | be heard!"
 		else
 			"#{base_title} | #{page_title}"
 		end		

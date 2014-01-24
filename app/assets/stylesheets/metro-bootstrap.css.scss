@@ -21,7 +21,7 @@ $error: #f00;
 
 $brand-primary: #46a546;
 
-$body-bg: #f2f2f2;
+//$body-bg: #f2f2f2;
 
 
 //Navbar
@@ -45,12 +45,25 @@ $container-md-desktop: 640px;
  * --------------------------------------------------
  */
 body{
-	padding-top: 80px;
+	padding-top: 40px;
 	font-family: sans-serif;
 }
 
 .navbar-inverse .navbar-nav > li > a {
-	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	line-height: 20px;
+}
+
+.navbar{
+	min-height: 40px;
+	border: 0px solid black;
+	margin-bottom: 0px;
+}
+
+.navbar-brand{
+	padding: 0px;
+	padding-left: 15px;
 }
 
 .btn-primary{

@@ -6,6 +6,9 @@ class PagesController < ApplicationController
   		@categories = Category.all
   		@feed_items = Post.paginate(page: params[:page])
   		@featured_posts = Post.featured_posts
+      @page_title = "whichizrite | be heard!"
+      @page_url = "http://localhost:3000"
+      @page_image = 'http://localhost:3000/assets/whichizrite.jpg'
   end
 
   def search
