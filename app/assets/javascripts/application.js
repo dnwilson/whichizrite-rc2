@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require jquery.turbolinks
+//= require jquery.turbolinks
 // require rails.validations
 // require rails.validations.simple_form
 //= require twitter/bootstrap

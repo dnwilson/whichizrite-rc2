@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
                   path: ":rails_root/public/assets/images/users/:id/album/:style/:basename.:extension"
 
   validates_attachment :avatar, content_type: {content_type: ["image/jpeg", "image/png", 
-                                                        "image/bmp", "image/jpg"]},
+                                                        "image/bmp", "image/jpg", "image/gif"]},
                                 size: {less_than: 5.megabytes}
 
   before_save{|user| user.email = email.downcase}

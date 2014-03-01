@@ -21,13 +21,6 @@ gem 'mail'
 
 gem 'friendly_id', '>= 5.0.0.beta4'
 gem 'metamagic'
-# gem 'simple_form_fancy_uploads'
-
-#add these gems to help with the transition
-# gem 'protected_attributes'
-# gem 'rails-observers'
-# gem 'actionpack-page_caching'
-# gem 'actionpack-action_caching'
 
 gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
