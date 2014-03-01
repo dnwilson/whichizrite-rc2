@@ -33,7 +33,7 @@ gem 'mini_magick', '3.5.0'
 gem 'pg'
 gem 'pg_search'
 gem 'acts_as_follower'
-gem 'acts_as_follower_plus', :git => 'git@github.com:fiyahdamage/acts_as_follower_plus.git'
+gem 'acts_as_follower_plus', github: 'dnwilson/acts_as_follower_plus'
 gem 'rails-settings-cached', '0.3.1'
 
 # Bundle edge Rails instead:
@@ -66,15 +66,6 @@ group :development, :test do
 	gem 'factory_girl_rails'
 	gem 'forgery'
 	gem 'faker'
-end
-
-#Test gem on windows
-group :test do
-	gem 'rb-fchange'
-	gem 'rb-notifu'
-	gem 'capybara'
-	# gem 'win32console'
-	gem 'wdm', '~> 0.0.3'
 end
 
 #For Heroku
