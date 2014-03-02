@@ -38,9 +38,7 @@ gem 'rails-settings-cached', '0.3.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
-
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -66,11 +64,6 @@ group :development, :test do
 	gem 'factory_girl_rails'
 	gem 'forgery'
 	gem 'faker'
-end
-
-#For Heroku
-group :production do
-	gem 'thin'
 end
 
 
