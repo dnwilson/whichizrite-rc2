@@ -14,6 +14,6 @@
 /log/*.log
 /tmp
 
-/config/facebook.yml
-/config/initializers/devise.rb
-/config/initializers/setup_mail.rb
+#/config/facebook.yml
+#/config/initializers/devise.rb
+#/config/initializers/setup_mail.rb
