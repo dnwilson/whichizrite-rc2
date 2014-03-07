@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable
 
-  before_create :set_username
-  after_create  :store_settings
+  # before_create :set_username
+  # after_create  :store_settings
 
   multisearchable :against => [:name, :username, :email]
 
